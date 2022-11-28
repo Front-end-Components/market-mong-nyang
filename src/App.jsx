@@ -1,7 +1,12 @@
-import './App.scss';
+import 'tailwindcss/tailwind.css';
+import Header from './components/Header';
 
 function App() {
-  return <div className='App'>안뇽</div>;
+  return (
+    <div className='App'>
+      <Header />
+    </div>
+  );
 }
 
 export default App;
