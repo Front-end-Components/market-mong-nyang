@@ -12,10 +12,8 @@ const MASTER_KEY = { masterKey: 'true' };
 const SIGNUP = `/auth/signup`;
 const LOGIN = `/auth/login`;
 const AUTH_ME = `/auth/me`;
-
 const BANKS = `/account/banks`;
 const ACCOUNT = `/account`;
-
 const PRODUCT = `/products`;
 const SEARCH = `/products/search`;
 const BUY = `/products/buy`;
@@ -25,32 +23,6 @@ const TRANSACTION_ALL = `/products/transactions/all`;
 const TRANSACTION_DETAIL = `/products/transactions/details`;
 
 let dispatch = useDispatch();
-
-// 회원가입 /auth/signup, POST
-// 로그인 /auth/login, POST
-// 인증확인 /auth/me, POST
-// 로그아웃 /auth/logout, POST
-// 사용자 정보 수정 /auth/user, PUT
-
-// 선택 가능한 은행 목록 조회 /account/banks, GET
-// 계좌 목록 및 잔액 조회 /account, GET
-// 계좌 연결 /account, POST
-// 계좌 해지 /account, DELETE
-
-// 모든 제품 조회 /products, GET
-// 전체 거래 내역 /products/transactions/all, GET
-// 거래 내역 완료/취소 및 해제 /products/transactions/:detailId, PUT
-// 제품 추가 /products, POST
-// 제품 수정 /products/:productId, PUT
-// 제품 삭제 /products/:productId, DELETE
-
-// 단일 제품 상세 조회 /products/:productId, GET
-// 제품 검색 /products/search, POST
-
-// 제품 거래 신청 /products/buy, POST
-// 제품 거래 확정 /products/ok, POST
-// 제품 전체 거래 내역 /products/transactions/details, GET
-// 단일 제품 상세 거래 내역 /products/transactions/detail, POST
 
 /**
  * request header 생성
@@ -78,6 +50,7 @@ function getHeader(option) {
  */
 export async function signup({ email, password, displayName, profileImgBase64 }) {
   try {
+    // 로딩 보여주기
     dispatch(showLoading());
     axios.post(API_URL, { email, password, displayName, profileImgBase64 }, getHeader()).then((res) => {
       ACCESS_TOKEN.Authorization += res.accessToken;
@@ -86,6 +59,7 @@ export async function signup({ email, password, displayName, profileImgBase64 })
   } catch {
     throw new Error('에러가 발생하였습니다.');
   } finally {
+    // 로딩 숨기기
     dispatch(hideLoading());
   }
 }
@@ -126,6 +100,7 @@ export async function selectBanks() {
 
 /**
  * 모든 제품 조회 (관리자)
+ * @return {Promise}
  */
 export async function getProducts() {
   try {
@@ -164,3 +139,29 @@ export async function reorderTodo({ productId, accountId, reservation }) {
     throw new Error('에러가 발생하였습니다.');
   }
 }
+
+// 회원가입 /auth/signup, POST
+// 로그인 /auth/login, POST
+// 인증확인 /auth/me, POST
+// 로그아웃 /auth/logout, POST
+// 사용자 정보 수정 /auth/user, PUT
+
+// 선택 가능한 은행 목록 조회 /account/banks, GET
+// 계좌 목록 및 잔액 조회 /account, GET
+// 계좌 연결 /account, POST
+// 계좌 해지 /account, DELETE
+
+// 모든 제품 조회 /products, GET
+// 전체 거래 내역 /products/transactions/all, GET
+// 거래 내역 완료/취소 및 해제 /products/transactions/:detailId, PUT
+// 제품 추가 /products, POST
+// 제품 수정 /products/:productId, PUT
+// 제품 삭제 /products/:productId, DELETE
+
+// 단일 제품 상세 조회 /products/:productId, GET
+// 제품 검색 /products/search, POST
+
+// 제품 거래 신청 /products/buy, POST
+// 제품 거래 확정 /products/ok, POST
+// 제품 전체 거래 내역 /products/transactions/details, GET
+// 단일 제품 상세 거래 내역 /products/transactions/detail, POST
