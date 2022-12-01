@@ -14,6 +14,6 @@ let loading = createSlice({
   },
 });
 
-export let { toggleLoading } = loading.actions;
+export let { showLoading, hideLoading } = loading.actions;
 
 export default loading;
