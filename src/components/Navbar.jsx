@@ -1,48 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.scss';
+import { RxHamburgerMenu } from 'react-icons/rx';
+import { BsCart2 } from 'react-icons/bs';
+import { VscHeart } from 'react-icons/vsc';
+import { BiSearch } from 'react-icons/bi';
 
 export default function Header() {
   return (
-    <header className='flex flex-col items-center border-b shadow-md w-screen'>
-      <div className='flex justify-end w-3/4'>
-        <ul className='flex gap-3'>
-          <li>
-            <Link to='/signup'>회원가입</Link>
-          </li>
-          <li>
-            <Link to='/login'>로그인</Link>
-          </li>
-          <li>
-            <Link to='/service'>고객센터</Link>
-          </li>
-        </ul>
+    <header>
+      <div className='service'>
+        <Link to='/signup'>회원가입</Link>
+        <Link to='/login'>로그인</Link>
       </div>
-      <div className='flex justify-between items-center w-3/4'>
-        <Link to='/'>
-          <div className='flex items-center'>
-            <img className='w-14' src='/images/logo.png' alt='logo' />
-            <h1 className='ml-3'>Market Mong Nyang</h1>
-          </div>
-        </Link>
+      <div className='search'>
         <div>
-          <input type='text' placeholder='검색어를 입력해 주세요' />
+          <Link to='/'>
+            <img className='logo' src='/images/logo.png' alt='logo' />
+            <h1>마켓멍냥</h1>
+          </Link>
         </div>
-        <div>
-          <ul className='flex gap-3'>
-            <li>
-              <Link to='/likes'>찜목록</Link>
-            </li>
-            <li>
-              <Link to='/cart'>장바구니</Link>
-            </li>
-          </ul>
+        <div className='input-wrap'>
+          <input className='search-input' type='text' placeholder='검색어를 입력해 주세요' />
+          <button className='search-btn' aria-label='submit'>
+            <BiSearch size='24' color='rgb(95, 0, 128)' />
+          </button>
+        </div>
+        <div className='links'>
+          <Link to='/likes'>
+            <VscHeart size='30' title='찜목록' />
+          </Link>
+          <Link to='/cart'>
+            <BsCart2 size='30' title='장바구니' />
+          </Link>
         </div>
       </div>
-      <nav className='flex justify-between w-3/4'>
+      <nav>
         <ul>
-          <li>
+          <div className='hamberger'>
+            <RxHamburgerMenu title='카테고리' />
             <Link to=''>카테고리</Link>
-          </li>
+          </div>
           <li>
             <Link to='/new'>신상품</Link>
           </li>
