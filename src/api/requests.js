@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { showLoading, hideLoading } from './../store/loadingSlice.js';
 
 const API_URL = `https://asia-northeast3-heropy-api.cloudfunctions.net/api`;
 const API_KEY = `FcKdtJs202209`;
@@ -21,6 +23,8 @@ const BUY_OK = `/products/ok`;
 const TRANSACTION = `/products/transactions`;
 const TRANSACTION_ALL = `/products/transactions/all`;
 const TRANSACTION_DETAIL = `/products/transactions/details`;
+
+let dispatch = useDispatch();
 
 // 회원가입 /auth/signup, POST
 // 로그인 /auth/login, POST
@@ -74,12 +78,15 @@ function getHeader(option) {
  */
 export async function signup({ email, password, displayName, profileImgBase64 }) {
   try {
+    dispatch(showLoading());
     axios.post(API_URL, { email, password, displayName, profileImgBase64 }, getHeader()).then((res) => {
       ACCESS_TOKEN.Authorization += res.accessToken;
       return res;
     });
   } catch {
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    dispatch(hideLoading());
   }
 }
 

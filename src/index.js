@@ -35,19 +35,11 @@ const router = createBrowserRouter([
       { index: true, path: '/', element: <Home /> },
       {
         path: '/login',
-        element: (
-          <ProtectedRoute>
-            <Login />
-          </ProtectedRoute>
-        ),
+        element: <Login />,
       },
       {
         path: '/signup',
-        element: (
-          <ProtectedRoute>
-            <Signup />
-          </ProtectedRoute>
-        ),
+        element: <Signup />,
       },
       { path: '/products', element: <Products /> },
       {
@@ -56,11 +48,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/cart',
-        element: (
-          <ProtectedRoute>
-            <Cart />
-          </ProtectedRoute>
-        ),
+        element: <Cart />,
       },
       {
         path: '/payment',
@@ -80,53 +68,29 @@ const router = createBrowserRouter([
         children: [
           {
             path: '/mypage/order',
-            element: (
-              <ProtectedRoute>
-                <MyOrder />
-              </ProtectedRoute>
-            ),
+            element: <MyOrder />,
           },
           {
             path: '/mypage/order/:id',
-            element: (
-              <ProtectedRoute>
-                <MyOrderDetail />
-              </ProtectedRoute>
-            ),
+            element: <MyOrderDetail />,
           },
           {
             path: '/mypage/account',
-            element: (
-              <ProtectedRoute>
-                <MyAccount />
-              </ProtectedRoute>
-            ),
+            element: <MyAccount />,
             children: [
               {
                 path: '/mypage/account/add',
-                element: (
-                  <ProtectedRoute>
-                    <MyAccountForm />
-                  </ProtectedRoute>
-                ),
+                element: <MyAccountForm />,
               },
             ],
           },
           {
             path: '/mypage/info',
-            element: (
-              <ProtectedRoute>
-                <MyInfo />
-              </ProtectedRoute>
-            ),
+            element: <MyInfo />,
             children: [
               {
                 path: '/mypage/info/modify',
-                element: (
-                  <ProtectedRoute>
-                    <MyInfoForm />
-                  </ProtectedRoute>
-                ),
+                element: <MyInfoForm />,
               },
             ],
           },
@@ -135,50 +99,30 @@ const router = createBrowserRouter([
       {
         path: '/mypage/admin',
         element: (
-          <ProtectedRoute>
+          <ProtectedRoute requireAdmin>
             <Dashboard />
           </ProtectedRoute>
         ),
         children: [
           {
             path: '/mypage/admin/dashboard',
-            element: (
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            ),
+            element: <Dashboard />,
           },
           {
             path: '/mypage/admin/orders',
-            element: (
-              <ProtectedRoute>
-                <AdminOrders />
-              </ProtectedRoute>
-            ),
+            element: <AdminOrders />,
           },
           {
             path: '/mypage/admin/orders/:id',
-            element: (
-              <ProtectedRoute>
-                <AdminOrderDetail />
-              </ProtectedRoute>
-            ),
+            element: <AdminOrderDetail />,
           },
           {
             path: '/mypage/admin/products',
-            element: (
-              <ProtectedRoute>
-                <AdminProducts />
-              </ProtectedRoute>
-            ),
+            element: <AdminProducts />,
           },
           {
             path: '/mypage/admin/products/:id',
-            element: (
-              <ProtectedRoute>
-                <AdminProductDetail />
-              </ProtectedRoute>
-            ),
+            element: <AdminProductDetail />,
           },
         ],
       },
