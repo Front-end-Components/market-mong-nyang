@@ -1,0 +1,14 @@
+@import './../common.scss';
+
+h1 {
+  font-weight: 800;
+}
+
+.mypage {
+  padding: 1rem;
+}
+
+.mypageNav {
+  display: flex;
+  flex-direction: column;
+}

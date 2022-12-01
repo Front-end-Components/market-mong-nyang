@@ -4,7 +4,7 @@
   top: 25vh;
 }
 
-.ajax-loader {
+.ajaxLoader {
   transform-origin: 50% 50%;
   transform: rotate(90deg) translate(-50%, 0%);
   font-size: 20px;
@@ -12,44 +12,44 @@
   height: 3em;
   color: #43007c;
 }
-.ajax-loader .paw {
+.ajaxLoader .paw {
   width: 1em;
   height: 1em;
   animation: 2050ms pawAnimation ease-in-out infinite;
   opacity: 0;
 }
-.ajax-loader .paw svg {
+.ajaxLoader .paw svg {
   width: 100%;
   height: 100%;
 }
-.ajax-loader .paw .icon {
+.ajaxLoader .paw .icon {
   fill: currentColor;
 }
-.ajax-loader .paw:nth-child(odd) {
+.ajaxLoader .paw:nth-child(odd) {
   transform: rotate(-10deg);
 }
-.ajax-loader .paw:nth-child(even) {
+.ajaxLoader .paw:nth-child(even) {
   transform: rotate(10deg) translate(125%, 0);
 }
-.ajax-loader .paw:nth-child(1) {
+.ajaxLoader .paw:nth-child(1) {
   animation-delay: 1.25s;
 }
-.ajax-loader .paw:nth-child(2) {
+.ajaxLoader .paw:nth-child(2) {
   animation-delay: 1s;
 }
-.ajax-loader .paw:nth-child(3) {
+.ajaxLoader .paw:nth-child(3) {
   animation-delay: 0.75s;
 }
-.ajax-loader .paw:nth-child(4) {
+.ajaxLoader .paw:nth-child(4) {
   animation-delay: 0.5s;
 }
-.ajax-loader .paw:nth-child(5) {
+.ajaxLoader .paw:nth-child(5) {
   animation-delay: 0.25s;
 }
-.ajax-loader .paw:nth-child(6) {
+.ajaxLoader .paw:nth-child(6) {
   animation-delay: 0s;
 }
-.no-cssanimations .ajax-loader .paw {
+.no-cssanimations .ajaxLoader .paw {
   opacity: 1;
 }
 

@@ -12,6 +12,7 @@ import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
+import Mypage from './pages/Mypage';
 import MyOrder from './pages/MyOrder';
 import MyOrderDetail from './pages/MyOrderDetail';
 import MyAccount from './pages/MyAccount';
@@ -25,6 +26,7 @@ import AdminProducts from './pages/admin/Products';
 import AdminProductDetail from './pages/admin/ProductDetail';
 import AdminOrders from './pages/admin/Orders';
 import AdminOrderDetail from './pages/admin/OrderDetail';
+import MyLike from './pages/MyLike';
 
 const router = createBrowserRouter([
   {
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
         path: '/mypage',
         element: (
           <ProtectedRoute>
-            <MyOrder />
+            <Mypage />
           </ProtectedRoute>
         ),
         children: [
@@ -83,6 +85,10 @@ const router = createBrowserRouter([
                 element: <MyAccountForm />,
               },
             ],
+          },
+          {
+            path: '/mypage/like',
+            element: <MyLike />,
           },
           {
             path: '/mypage/info',

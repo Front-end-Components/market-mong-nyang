@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
 import { useSelector } from 'react-redux';
-import './App.scss';
+import style from './App.module.scss';
 
 function App() {
   let loading = useSelector((state) => {
@@ -12,7 +12,7 @@ function App() {
     <div>
       {loading ? <Loading /> : null}
       <Navbar />
-      <div className='outlet'>
+      <div className={style.outlet}>
         <Outlet />
       </div>
     </div>

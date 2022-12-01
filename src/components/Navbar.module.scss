@@ -10,7 +10,7 @@ header {
   .service {
     width: $width-inner;
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     gap: 1rem;
     height: 2.6rem;
@@ -35,6 +35,9 @@ header {
     width: $width-inner;
     display: flex;
     justify-content: space-between;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
     a {
       display: flex;
       align-items: center;
@@ -42,15 +45,15 @@ header {
       .logo {
         width: 50px;
       }
-      h1 {
+      .title {
         font-size: 18px;
         font-weight: 600;
         color: $color-purple;
       }
     }
-    .input-wrap {
+    .inputWrap {
       position: relative;
-      .search-input {
+      .searchInput {
         width: 24rem;
         font-size: 16px;
         outline: none;
@@ -58,7 +61,7 @@ header {
         border-radius: 6px;
         padding: 0.8rem;
       }
-      .search-btn {
+      .searchBtn {
         border: none;
         background-color: transparent;
         position: absolute;
@@ -90,4 +93,8 @@ header {
       }
     }
   }
+}
+
+.mypage {
+  background-color: red;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from '../components/Button';
 
 export default function Login() {
   const [text, setText] = useState('');
@@ -19,7 +20,7 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <input type='text' onChange={handleChange} />
       </form>
-      <button type='submit'></button>
+      <Button name='로그인'></Button>
     </div>
   );
 }

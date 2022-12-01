@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../components/Banner';
 import Products from '../components/Products';
-import './Home.scss';
+import './Home.module.scss';
 
 export default function Home() {
   return (
