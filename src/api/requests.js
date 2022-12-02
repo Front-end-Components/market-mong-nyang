@@ -6,7 +6,7 @@ const API_URL = `https://asia-northeast3-heropy-api.cloudfunctions.net/api`;
 const API_KEY = `FcKdtJs202209`;
 const USER_NAME = `KDT3_TEAM7`;
 
-const ACCESS_TOKEN = { Authorization: 'Bearer ' };
+const ACCESS_TOKEN = { Authorization: '' };
 const MASTER_KEY = { masterKey: 'true' };
 
 const SIGNUP = `/auth/signup`;
@@ -52,11 +52,14 @@ export async function signup({ email, password, displayName, profileImgBase64 })
   try {
     // 로딩 보여주기
     dispatch(showLoading());
-    axios.post(API_URL, { email, password, displayName, profileImgBase64 }, getHeader()).then((res) => {
-      ACCESS_TOKEN.Authorization += res.accessToken;
+    const data = { email, password, displayName, profileImgBase64 };
+    await axios.post(API_URL, data, getHeader()).then((res) => {
+      // 로그인 시 토큰 저장 ? 어디에 ?
+      // ACCESS_TOKEN.Authorization = `Beared ${res.accessToken}`;
       return res;
     });
   } catch {
+    // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
   } finally {
     // 로딩 숨기기
@@ -75,11 +78,20 @@ export async function signup({ email, password, displayName, profileImgBase64 })
  */
 export async function updateUserInfo({ displayName, profileImgBase64, oldPassword, newPassword }) {
   try {
-    axios.put(API_URL, { displayName, profileImgBase64, oldPassword, newPassword }, getHeader(ACCESS_TOKEN)).then((res) => {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    const url = API_URL;
+    const data = { displayName, profileImgBase64, oldPassword, newPassword };
+    const header = getHeader(ACCESS_TOKEN);
+    await axios.put(url, data, header).then((res) => {
       return res;
     });
   } catch {
+    // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
   }
 }
 
@@ -90,11 +102,19 @@ export async function updateUserInfo({ displayName, profileImgBase64, oldPasswor
  */
 export async function selectBanks() {
   try {
-    axios.get(API_URL + BANKS, getHeader(ACCESS_TOKEN)).then((res) => {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    const url = API_URL + BANKS;
+    const header = getHeader(ACCESS_TOKEN);
+    await axios.get(url, header).then((res) => {
       return res;
     });
   } catch {
+    // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
   }
 }
 
@@ -104,23 +124,41 @@ export async function selectBanks() {
  */
 export async function getProducts() {
   try {
-    axios.get(API_URL + PRODUCT, getHeader(MASTER_KEY)).then((res) => {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    const url = API_URL + PRODUCT;
+    const header = getHeader(MASTER_KEY);
+    await axios.get(url, header).then((res) => {
       return res;
     });
   } catch {
+    // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
   }
 }
 
 /**
  * 단일 제품 상세 조회
  * @param {string} id 제품 아이디
+ * @return {Promise}
  */
 export async function deleteListTodo(id) {
   try {
-    axios.get(API_URL + PRODUCT + `/${id}`, getHeader());
+    // 로딩 보여주기
+    dispatch(showLoading());
+    const url = API_URL + PRODUCT + `/${id}`;
+    const header = getHeader();
+    await axios.get(url, header).then((res) => {
+      return res;
+    });
   } catch {
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
   }
 }
 
@@ -132,11 +170,20 @@ export async function deleteListTodo(id) {
  */
 export async function reorderTodo({ productId, accountId, reservation }) {
   try {
-    axios.post(API_URL + BUY, { productId, accountId, reservation }, getHeader(ACCESS_TOKEN)).then((res) => {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    const url = API_URL + BUY;
+    const data = { productId, accountId, reservation };
+    const header = getHeader(ACCESS_TOKEN);
+    await axios.post(url, data, header).then((res) => {
       return res;
     });
   } catch {
+    // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
   }
 }
 
