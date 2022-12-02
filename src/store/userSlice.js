@@ -17,10 +17,13 @@ let user = createSlice({
     increaseNum(state, action) {
       // state.age += action.payload; // payload : 전달한 것 (화물)
     },
+    testIsAdmin(state) {
+      state.isAdmin = true;
+    },
   },
 });
 
 // state 변경함수들(reducers)이 object 로 꺼내어짐
-export let { changeName, increase, increaseNum } = user.actions;
+export let { changeName, increase, increaseNum, testIsAdmin } = user.actions;
 
 export default user;

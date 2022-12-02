@@ -1,0 +1,27 @@
+@import './../../common.scss';
+
+.adminHeader {
+  width: 100vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  box-shadow: $box-shadow;
+  a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+    margin-left: 3rem;
+    width: 20vw;
+    box-sizing: border-box;
+    .logo {
+      width: 40px;
+    }
+    .title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: $color-purple;
+    }
+  }
+}

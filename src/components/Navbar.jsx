@@ -9,7 +9,7 @@ import style from './Navbar.module.scss';
 
 export default function Header() {
   return (
-    <header>
+    <header className={style.userHeader}>
       <div className={style.service}>
         <Link to='/signup'>회원가입</Link>
         <Link to='/login'>로그인</Link>
@@ -51,6 +51,9 @@ export default function Header() {
           </li>
           <li>
             <Link to='/sale'>알뜰쇼핑</Link>
+          </li>
+          <li>
+            <Link to='/admin'>관리자페이지</Link>
           </li>
         </ul>
       </nav>

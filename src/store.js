@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import cart from './store/cartSlice.js';
 import stock from './store/stockSlice.js';
 import user from './store/userSlice.js';
+import loading from './store/loadingSlice.js';
 
 // Redux store 안에 모든 state 를 넣지 않는 것이 좋음
 // 컴포넌트 간 공유가 필요하지 않은 경우 useState() 만 써도 됨
@@ -12,5 +13,6 @@ export default configureStore({
     user: user.reducer,
     stock: stock.reducer,
     cart: cart.reducer,
+    loading: loading.reducer,
   },
 });

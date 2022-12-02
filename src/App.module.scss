@@ -4,3 +4,11 @@
   display: flex;
   justify-content: center;
 }
+
+.adminWrap {
+  display: flex;
+  width: 100vw;
+  .adminOutlet {
+    width: 80vw;
+  }
+}

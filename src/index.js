@@ -103,31 +103,31 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: '/mypage/admin',
+        path: '/admin',
         element: (
-          <ProtectedRoute requireAdmin>
-            <Dashboard />
-          </ProtectedRoute>
+          // <ProtectedRoute requireAdmin>
+          <Dashboard />
+          // </ProtectedRoute>
         ),
         children: [
           {
-            path: '/mypage/admin/dashboard',
+            path: '/admin/dashboard',
             element: <Dashboard />,
           },
           {
-            path: '/mypage/admin/orders',
+            path: '/admin/order',
             element: <AdminOrders />,
           },
           {
-            path: '/mypage/admin/orders/:id',
+            path: '/admin/order/:id',
             element: <AdminOrderDetail />,
           },
           {
-            path: '/mypage/admin/products',
+            path: '/admin/products',
             element: <AdminProducts />,
           },
           {
-            path: '/mypage/admin/products/:id',
+            path: '/admin/product/:id',
             element: <AdminProductDetail />,
           },
         ],
