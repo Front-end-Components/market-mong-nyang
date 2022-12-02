@@ -15,8 +15,8 @@ function App() {
     return state.user.isAdmin;
   });
   // TEST
-  let dispatch = useDispatch();
-  dispatch(testIsAdmin());
+  // let dispatch = useDispatch();
+  // dispatch(testIsAdmin());
   return (
     <div>
       {loading ? <Loading /> : null}
