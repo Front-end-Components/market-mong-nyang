@@ -4,10 +4,10 @@ import Button from '../components/Button';
 export default function Signup() {
   // test
   const formRef = useRef();
-  const displayNameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const fileRef = useRef();
+  // const displayNameRef = useRef();
+  // const emailRef = useRef();
+  // const passwordRef = useRef();
+  // const fileRef = useRef();
 
   const onSubmit = (event) => {
     event.preventDefault();
