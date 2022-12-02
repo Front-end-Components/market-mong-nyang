@@ -7,13 +7,12 @@
   align-items: center;
   box-sizing: border-box;
   box-shadow: $box-shadow;
+  justify-content: space-between;
+  padding: 0 3rem;
   a {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 1rem;
-    margin-left: 3rem;
-    width: 20vw;
     box-sizing: border-box;
     .logo {
       width: 40px;
@@ -23,5 +22,13 @@
       font-weight: 600;
       color: $color-purple;
     }
+  }
+  .adminLogout {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
   }
 }
