@@ -55,17 +55,17 @@ const router = createBrowserRouter([
       {
         path: '/payment',
         element: (
-          <ProtectedRoute>
-            <Payment />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Payment />
+          // </ProtectedRoute>
         ),
       },
       {
         path: '/mypage',
         element: (
-          <ProtectedRoute>
-            <Mypage />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Mypage />
+          // </ProtectedRoute>
         ),
         children: [
           {
@@ -105,9 +105,9 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          // <ProtectedRoute requireAdmin>
-          <Dashboard />
-          // </ProtectedRoute>
+          <ProtectedRoute requireAdmin>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       {
