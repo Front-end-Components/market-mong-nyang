@@ -1,14 +1,47 @@
 @import './../common.scss';
 
-h1 {
-  font-weight: 800;
-}
-
 .mypage {
-  padding: 1rem;
-}
-
-.mypageNav {
+  margin-top: 2rem;
+  width: 20%;
   display: flex;
   flex-direction: column;
+  gap: 2rem;
+  h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: rgb(51, 51, 51);
+  }
+  .mypageNav {
+    display: flex;
+    flex-direction: column;
+    ul {
+      li {
+        font-size: 0.9rem;
+        border: 1px solid $color-lightgray;
+        border-bottom: none;
+        a {
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: inherit;
+          cursor: pointer;
+          &:hover {
+            background-color: rgb(250, 250, 250);
+            color: $color-purple;
+            font-weight: 500;
+          }
+        }
+        &:last-child {
+          border-bottom: 1px solid $color-lightgray;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  background-color: rgb(250, 250, 250);
+  color: $color-purple;
+  font-weight: 500;
 }
