@@ -1,5 +1,5 @@
-import { useDispatch } from 'react-redux';
-import { showLoading, hideLoading } from './../store/loadingSlice.js';
+// import { useDispatch } from 'react-redux';
+// import { showLoading, hideLoading } from '../store/loadingSlice.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
 
 const SIGNUP = `/auth/signup`;
@@ -16,103 +16,141 @@ const TRANSACTION = `/products/transactions`;
 const TRANSACTION_ALL = `/products/transactions/all`;
 const TRANSACTION_DETAIL = `/products/transactions/details`;
 
-let dispatch = useDispatch();
-
-export const requestPost = (router, instance, data) => {
+// let dispatch = useDispatch();
+const requestPost = async (path, instance, data) => {
   try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    await instance.post(router, data).then((res) => {
+    // dispatch(showLoading());
+    await instance.post(path, JSON.stringify(data)).then((res) => {
       return res;
     });
-  } catch {
+  } catch (e) {
     // TODO: 에러 처리 추가
+    console.log(e);
     throw new Error('에러가 발생하였습니다.');
   } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
+    // dispatch(hideLoading());
   }
 };
 
-export const requestGet = (router, instance) => {
+const requestGet = async (path, instance) => {
   try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    await instance.get(router).then((res) => {
+    await instance.get(path).then((res) => {
       return res;
     });
-  } catch {
+  } catch (e) {
+    // TODO: 에러 처리 추가
+    console.log(e);
     // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
   } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
   }
 };
 
-export const requestPut = (router, instance, data) => {
+const requestPut = async (path, instance, data) => {
   try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    await instance.put(router, data).then((res) => {
+    await instance.put(path, JSON.stringify(data)).then((res) => {
       return res;
     });
-  } catch {
+  } catch (e) {
+    // TODO: 에러 처리 추가
+    console.log(e);
     // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
   } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
   }
 };
 
-export const requestDelete = (router, instance) => {
+const requestDelete = async (path, instance) => {
   try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    await instance.delete(router).then((res) => {
+    await instance.delete(path).then((res) => {
       return res;
     });
-  } catch {
+  } catch (e) {
+    // TODO: 에러 처리 추가
+    console.log(e);
     // TODO: 에러 처리 추가
     throw new Error('에러가 발생하였습니다.');
   } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
   }
 };
 
 // 회원가입
-export async function signup(data) {
-  requestPost(SIGNUP, defaultInstance, data);
-}
+export const signup = (data) => {
+  return requestPost(SIGNUP, defaultInstance, data);
+};
+
+// 로그인
+export const login = (data) => {
+  return requestPost(LOGIN, defaultInstance, data);
+};
+
+// 로그아웃
+export const logout = () => {};
+
+// 인증확인
+export const checkAuth = () => {};
 
 // 사용자 정보 수정
-export async function updateUserInfo(data) {
-  requestGet(AUTH_USER, authInstance, data);
-}
+export const updateUserInfo = (data) => {
+  return requestGet(AUTH_USER, authInstance, data);
+};
 
 // 선택 가능한 은행 목록 조회
-export async function selectBanks() {
-  requestGet(BANKS, authInstance);
-}
+export const selectBanks = () => {
+  return requestGet(BANKS, authInstance);
+};
+
+// 계좌 목록 및 잔액 조회
+export const selectListAccount = () => {};
+
+// 계좌 연결
+export const insertAccount = () => {};
+
+// 계좌 해지
+export const deleteAccount = () => {};
 
 // 모든 제품 조회 (관리자)
-export async function selectProducts() {
-  requestGet(PRODUCT, adminInstance);
-}
+export const selectListProductAdmin = () => {
+  return requestGet(PRODUCT, adminInstance);
+};
+
+// 전체 거래 내역 조회 (관리자)
+export const selectListOrderAdmin = () => {};
+
+// 거래 내역 완료/완료 해제, 취소/취소 해제
+export const updateOrderAdmin = () => {};
+
+// 제품 추가
+export const insertProduct = () => {};
+
+// 제품 수정
+export const updateProduct = () => {};
+
+// 제품 삭제
+export const deleteProduct = () => {};
 
 // 단일 제품 상세 조회
-export async function selectProductDetail(id) {
-  requestGet(PRODUCT + `/${id}`, authInstance);
-}
+export const selectProductDetail = (id) => {
+  return requestGet(PRODUCT + `/${id}`, authInstance);
+};
+
+// 제품 검색
+export const searchProduct = () => {};
 
 // 제품 거래 신청
-export async function insertOrder(data) {
-  requestPost(BUY, authInstance, data);
-}
+export const insertOrder = (data) => {
+  return requestPost(BUY, authInstance, data);
+};
 
-// 회원가입 /auth/signup, POST
+// 제품 거래 확정
+export const updateOrderOk = () => {};
+
+// 제품 전체 거래 내역
+export const selectListOrder = () => {};
+
+// 단일 제품 상세 거래 내역
+export const selectOrder = () => {};
+
 // 로그인 /auth/login, POST
 // 인증확인 /auth/me, POST
 // 로그아웃 /auth/logout, POST
