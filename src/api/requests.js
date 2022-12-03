@@ -1,17 +1,11 @@
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { showLoading, hideLoading } from './../store/loadingSlice.js';
-
-const API_URL = `https://asia-northeast3-heropy-api.cloudfunctions.net/api`;
-const API_KEY = `FcKdtJs202209`;
-const USER_NAME = `KDT3_TEAM7`;
-
-const ACCESS_TOKEN = { Authorization: '' };
-const MASTER_KEY = { masterKey: 'true' };
+import { defaultInstance, authInstance, adminInstance } from './util.js';
 
 const SIGNUP = `/auth/signup`;
 const LOGIN = `/auth/login`;
 const AUTH_ME = `/auth/me`;
+const AUTH_USER = `/auth/user`;
 const BANKS = `/account/banks`;
 const ACCOUNT = `/account`;
 const PRODUCT = `/products`;
@@ -24,38 +18,11 @@ const TRANSACTION_DETAIL = `/products/transactions/details`;
 
 let dispatch = useDispatch();
 
-/**
- * request header 생성
- * @param {object} option
- * @returns
- */
-function getHeader(option) {
-  const header = {
-    'content-type': 'application/json',
-    apikey: API_KEY,
-    username: USER_NAME,
-  };
-  if (option) Object.assign(header, option);
-  return header;
-}
-
-/**
- * 회원가입
- * @method POST
- * @param {string} email 사용자 아이디 (필수)
- * @param {string} password 사용자 비밀번호, 8자 이상 (필수)
- * @param {string} displayName 사용자 이름, 20자 이하 (필수)
- * @param {string} profileImgBase64 사용자 프로필 이미지(base64) - jpg, jpeg, webp, png, gif, svg
- * @return {Promise}
- */
-export async function signup({ email, password, displayName, profileImgBase64 }) {
+export const requestPost = (router, instance, data) => {
   try {
     // 로딩 보여주기
     dispatch(showLoading());
-    const data = { email, password, displayName, profileImgBase64 };
-    await axios.post(API_URL, data, getHeader()).then((res) => {
-      // 로그인 시 토큰 저장 ? 어디에 ?
-      // ACCESS_TOKEN.Authorization = `Beared ${res.accessToken}`;
+    await instance.post(router, data).then((res) => {
       return res;
     });
   } catch {
@@ -65,25 +32,13 @@ export async function signup({ email, password, displayName, profileImgBase64 })
     // 로딩 숨기기
     dispatch(hideLoading());
   }
-}
+};
 
-/**
- * 사용자 정보 수정
- * @method GET
- * @param {string} displayName 새로운 표시 이름
- * @param {string} profileImgBase64 사용자 프로필 이미지(base64) - jpg, jpeg, webp, png, gif, svg
- * @param {string} oldPassword 기존 비밀번호
- * @param {string} newPassword 새로운 비밀번호
- * @return {Promise}
- */
-export async function updateUserInfo({ displayName, profileImgBase64, oldPassword, newPassword }) {
+export const requestGet = (router, instance) => {
   try {
     // 로딩 보여주기
     dispatch(showLoading());
-    const url = API_URL;
-    const data = { displayName, profileImgBase64, oldPassword, newPassword };
-    const header = getHeader(ACCESS_TOKEN);
-    await axios.put(url, data, header).then((res) => {
+    await instance.get(router).then((res) => {
       return res;
     });
   } catch {
@@ -93,98 +48,68 @@ export async function updateUserInfo({ displayName, profileImgBase64, oldPasswor
     // 로딩 숨기기
     dispatch(hideLoading());
   }
+};
+
+export const requestPut = (router, instance, data) => {
+  try {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    await instance.put(router, data).then((res) => {
+      return res;
+    });
+  } catch {
+    // TODO: 에러 처리 추가
+    throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
+  }
+};
+
+export const requestDelete = (router, instance) => {
+  try {
+    // 로딩 보여주기
+    dispatch(showLoading());
+    await instance.delete(router).then((res) => {
+      return res;
+    });
+  } catch {
+    // TODO: 에러 처리 추가
+    throw new Error('에러가 발생하였습니다.');
+  } finally {
+    // 로딩 숨기기
+    dispatch(hideLoading());
+  }
+};
+
+// 회원가입
+export async function signup(data) {
+  requestPost(SIGNUP, defaultInstance, data);
 }
 
-/**
- * 선택 가능한 은행 목록 조회
- * @method GET
- * @return {Promise}
- */
+// 사용자 정보 수정
+export async function updateUserInfo(data) {
+  requestGet(AUTH_USER, authInstance, data);
+}
+
+// 선택 가능한 은행 목록 조회
 export async function selectBanks() {
-  try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    const url = API_URL + BANKS;
-    const header = getHeader(ACCESS_TOKEN);
-    await axios.get(url, header).then((res) => {
-      return res;
-    });
-  } catch {
-    // TODO: 에러 처리 추가
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
-  }
+  requestGet(BANKS, authInstance);
 }
 
-/**
- * 모든 제품 조회 (관리자)
- * @return {Promise}
- */
-export async function getProducts() {
-  try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    const url = API_URL + PRODUCT;
-    const header = getHeader(MASTER_KEY);
-    await axios.get(url, header).then((res) => {
-      return res;
-    });
-  } catch {
-    // TODO: 에러 처리 추가
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
-  }
+// 모든 제품 조회 (관리자)
+export async function selectProducts() {
+  requestGet(PRODUCT, adminInstance);
 }
 
-/**
- * 단일 제품 상세 조회
- * @param {string} id 제품 아이디
- * @return {Promise}
- */
-export async function deleteListTodo(id) {
-  try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    const url = API_URL + PRODUCT + `/${id}`;
-    const header = getHeader();
-    await axios.get(url, header).then((res) => {
-      return res;
-    });
-  } catch {
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
-  }
+// 단일 제품 상세 조회
+export async function selectProductDetail(id) {
+  requestGet(PRODUCT + `/${id}`, authInstance);
 }
 
-/**
- * 제품 거래 신청
- * @param {string} productId 거래할 제품 ID (필수)
- * @param {string} accountId 결제할 사용자 계좌 ID (필수)
- * @param {object} reservation 예약 정보(예약 시스템을 사용하는 경우만 필요)
- */
-export async function reorderTodo({ productId, accountId, reservation }) {
-  try {
-    // 로딩 보여주기
-    dispatch(showLoading());
-    const url = API_URL + BUY;
-    const data = { productId, accountId, reservation };
-    const header = getHeader(ACCESS_TOKEN);
-    await axios.post(url, data, header).then((res) => {
-      return res;
-    });
-  } catch {
-    // TODO: 에러 처리 추가
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-    // 로딩 숨기기
-    dispatch(hideLoading());
-  }
+// 제품 거래 신청
+export async function insertOrder(data) {
+  requestPost(BUY, authInstance, data);
 }
 
 // 회원가입 /auth/signup, POST

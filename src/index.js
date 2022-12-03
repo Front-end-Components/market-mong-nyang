@@ -4,7 +4,7 @@ import './index.scss';
 import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './store/store';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
