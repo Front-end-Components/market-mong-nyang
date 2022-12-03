@@ -1,49 +1,42 @@
-import React, { useRef } from 'react';
+import React from 'react';
+import { signup } from '../api/requests';
 import Button from '../components/Button';
 
 export default function Signup() {
-  // test
-  const formRef = useRef();
-  // const displayNameRef = useRef();
-  // const emailRef = useRef();
-  // const passwordRef = useRef();
-  // const fileRef = useRef();
-
+  // TEST
   const onSubmit = (event) => {
     event.preventDefault();
-    // const user = {
-    //   email: emailRef.current.value,
-    //   password: passwordRef.current.value,
-    //   displayNameRef: displayNameRef.current.value,
-    //   profileImgBase64: fileRef.fileName || '',
-    // };
-    // formRef.current.reset();
-    // setFile({ file: null });
-    // onAdd(user);
+    const test = {
+      email: 'test@test.com',
+      password: '1q2w3e4r',
+      displayName: 'test',
+    };
+    const res = signup(test);
+    console.log(res);
   };
 
   return (
-    <form ref={formRef}>
+    <form>
       <div>
-        <label for='email'>
+        <label htmlFor='email'>
           이메일<span>*</span>
         </label>
         <input type='text' className='email' />
       </div>
       <div>
-        <label for='password'>
+        <label htmlFor='password'>
           비밀번호<span>*</span>
         </label>
         <input type='text' className='password' />
       </div>
       <div>
-        <label for='password-check'>
+        <label htmlFor='password-check'>
           비밀번호 확인<span>*</span>
         </label>
         <input type='text' className='password-check' />
       </div>
       <div>
-        <label for='name'>
+        <label htmlFor='name'>
           이름<span>*</span>
         </label>
         <input type='text' className='name' />
