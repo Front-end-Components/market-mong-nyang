@@ -1,7 +1,6 @@
 import React from 'react';
 import { Global, css } from '@emotion/react';
 import reset from 'emotion-reset';
-import theme from './theme';
 
 export const GlobalStyle = () => <Global styles={style} />;
 
@@ -14,7 +13,7 @@ const style = css`
     font-family: 'Noto Sans KR', dotum, sans-serif;
   }
   a {
-    color: ${theme.color.black};
+    color: ${({ theme }) => theme.color.black};
     text-decoration: none;
   }
 `;
