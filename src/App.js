@@ -1,3 +1,6 @@
+// 개발 후 삭제
+/* eslint-disable */
+
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
