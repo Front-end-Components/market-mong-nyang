@@ -3,4 +3,10 @@
 .mypage {
   display: flex;
   width: $width-inner;
+  margin-top: 2rem;
+}
+
+.mypageOutlet {
+  width: 80%;
+  margin-left: 2rem;
 }

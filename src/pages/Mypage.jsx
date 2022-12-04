@@ -7,7 +7,9 @@ export default function Mypage() {
   return (
     <div className={style.mypage}>
       <MypageNavbar />
-      <Outlet />
+      <div className={style.mypageOutlet}>
+        <Outlet />
+      </div>
     </div>
   );
 }
