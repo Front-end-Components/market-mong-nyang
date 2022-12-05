@@ -1,20 +1,7 @@
 // import { useDispatch } from 'react-redux';
 // import { showLoading, hideLoading } from '../store/loadingSlice.js';
+import PATH from '@/constants/path.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
-
-const SIGNUP = `/auth/signup`;
-const LOGIN = `/auth/login`;
-const AUTH_ME = `/auth/me`;
-const AUTH_USER = `/auth/user`;
-const BANKS = `/account/banks`;
-const ACCOUNT = `/account`;
-const PRODUCT = `/products`;
-const SEARCH = `/products/search`;
-const BUY = `/products/buy`;
-const BUY_OK = `/products/ok`;
-const TRANSACTION = `/products/transactions`;
-const TRANSACTION_ALL = `/products/transactions/all`;
-const TRANSACTION_DETAIL = `/products/transactions/details`;
 
 // let dispatch = useDispatch();
 const requestPost = async (path, instance, data) => {
@@ -78,12 +65,12 @@ const requestDelete = async (path, instance) => {
 
 // 회원가입
 export const signup = (data) => {
-  return requestPost(SIGNUP, defaultInstance, data);
+  return requestPost(PATH.SIGNUP, defaultInstance, data);
 };
 
 // 로그인
 export const login = (data) => {
-  return requestPost(LOGIN, defaultInstance, data);
+  return requestPost(PATH.LOGIN, defaultInstance, data);
 };
 
 // 로그아웃
@@ -94,7 +81,7 @@ export const checkAuth = () => {};
 
 // 사용자 정보 수정
 export const updateUserInfo = (data) => {
-  return requestGet(AUTH_USER, authInstance, data);
+  return requestGet(PATH.AUTH_USER, authInstance, data);
 };
 
 // 선택 가능한 은행 목록 조회 /account/banks, GET
@@ -104,7 +91,7 @@ export const updateUserInfo = (data) => {
 
 // 선택 가능한 은행 목록 조회
 export const selectBanks = () => {
-  return requestGet(BANKS, authInstance);
+  return requestGet(PATH.BANKS, authInstance);
 };
 
 // 계좌 목록 및 잔액 조회
@@ -125,7 +112,7 @@ export const deleteAccount = () => {};
 
 // 단일 제품 상세 조회
 export const selectProductDetail = (id) => {
-  return requestGet(`${PRODUCT}/${id}`, authInstance);
+  return requestGet(`${PATH.PRODUCT}/${id}`, authInstance);
 };
 
 // 제품 검색
@@ -133,7 +120,7 @@ export const searchProduct = () => {};
 
 // 제품 거래 신청
 export const insertOrder = (data) => {
-  return requestPost(BUY, authInstance, data);
+  return requestPost(PATH.BUY, authInstance, data);
 };
 
 // 제품 거래 확정
@@ -154,30 +141,30 @@ export const selectOrder = () => {};
 
 // 모든 제품 조회 (관리자)
 export const selectListProductAdmin = () => {
-  return requestGet(PRODUCT, adminInstance);
+  return requestGet(PATH.PRODUCT, adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
 export const selectListOrderAdmin = () => {
-  return requestGet(TRANSACTION_ALL, adminInstance);
+  return requestGet(PATH.TRANSACTION_ALL, adminInstance);
 };
 
 // 거래 내역 완료/완료 해제, 취소/취소 해제 (관리자)
 export const updateOrderAdmin = (id, data) => {
-  return requestPut(`${TRANSACTION}/${id}`, adminInstance, data);
+  return requestPut(`${PATH.TRANSACTION}/${id}`, adminInstance, data);
 };
 
 // 제품 추가 (관리자)
 export const insertProduct = (data) => {
-  return requestPost(PRODUCT, adminInstance, data);
+  return requestPost(PATH.PRODUCT, adminInstance, data);
 };
 
 // 제품 수정 (관리자)
 export const updateProduct = (id, data) => {
-  return requestPut(`${PRODUCT}/${id}`, adminInstance, data);
+  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, data);
 };
 
 // 제품 삭제 (관리자)
 export const deleteProduct = (id) => {
-  return requestDelete(`${PRODUCT}/${id}`, adminInstance);
+  return requestDelete(`${PATH.PRODUCT}/${id}`, adminInstance);
 };
