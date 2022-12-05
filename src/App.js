@@ -1,7 +1,8 @@
 // 개발 후 삭제 필요
 /* eslint-disable */
 
-import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from '@emotion/react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
@@ -10,8 +11,6 @@ import AdminNavbar from './components/admin/AdminNavbar';
 import { testIsAdmin } from './store/userSlice';
 import AdminHeader from './components/admin/AdminHeader';
 import { GlobalStyle } from './style/GlobalStyle';
-import { ThemeProvider } from '@emotion/react';
-import theme from './style/theme';
 
 function App() {
   let loading = useSelector((state) => {
@@ -24,32 +23,32 @@ function App() {
   // let dispatch = useDispatch();
   // dispatch(testIsAdmin());
   return (
-    <ThemeProvider theme={theme}>
+    <div>
       <GlobalStyle />
-      {loading && <Loading />}
+      {loading ? <Loading /> : null}
       {isAdmin ? (
         <div>
           <AdminHeader />
-          <AdminWrap>
+          <div css={adminStyle}>
             <AdminNavbar />
             <div>
               <Outlet />
             </div>
-          </AdminWrap>
+          </div>
         </div>
       ) : (
         <div>
           <Navbar />
-          <UserWrap>
+          <div css={userStyle}>
             <Outlet />
-          </UserWrap>
+          </div>
         </div>
       )}
-    </ThemeProvider>
+    </div>
   );
 }
 
-const AdminWrap = styled.div`
+const adminStyle = css`
   display: flex;
   width: 100vw;
   div {
@@ -58,7 +57,7 @@ const AdminWrap = styled.div`
   }
 `;
 
-const UserWrap = styled.div`
+const userStyle = css`
   display: flex;
   justify-content: center;
 `;

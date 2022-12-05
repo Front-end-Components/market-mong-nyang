@@ -1,17 +1,19 @@
 import React from 'react';
-import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import Banner from '../components/Banner';
 import Products from '../components/Products';
+import theme from './../style/theme';
 
 export default function Home() {
   return (
-    <Container>
+    <div css={containerStyle}>
       <Banner />
       <Products />
-    </Container>
+    </div>
   );
 }
 
-const Container = styled.div`
-  width: ${({ theme }) => theme.size.widthInner};
+const containerStyle = css`
+  width: ${theme.size.widthInner};
 `;

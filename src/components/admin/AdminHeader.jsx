@@ -1,26 +1,28 @@
 import React from 'react';
-import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
+import theme from './../../style/theme';
 
 export default function AdminHeader() {
   return (
-    <Header>
+    <header css={adminHeaderStyle}>
       <Link to='/admin'>
-        <Image src={'/images/logo.png'} alt={'logo'} />
+        <img src='/images/logo.png' alt='logo' />
         <h1>마켓멍냥 Admin Page</h1>
       </Link>
       <button>Logout</button>
-    </Header>
+    </header>
   );
 }
 
-const Header = styled.header`
+const adminHeaderStyle = css`
   width: 100vw;
   height: 10vh;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  box-shadow: ${({ theme }) => theme.shadow.default};
+  box-shadow: ${theme.shadow.default};
   justify-content: space-between;
   padding: 0 3rem;
   a {
@@ -34,7 +36,7 @@ const Header = styled.header`
     h1 {
       font-size: 1.1rem;
       font-weight: 600;
-      color: ${({ theme }) => theme.color.purple};
+      color: ${theme.color.purple};
     }
   }
   button {

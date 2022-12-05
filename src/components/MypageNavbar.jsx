@@ -1,46 +1,48 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
-import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import theme from './../style/theme';
 
 export default function MypageNavbar() {
   const location = useLocation();
   return (
-    <Container>
+    <div css={mypageStyle}>
       <h1>마이페이지</h1>
-      <Navbar>
+      <nav css={navbarStyle}>
         <ul>
-          <li className={location.pathname === '/mypage/order' && 'active'}>
+          <li css={location.pathname === '/mypage/order' ? activeStyle : ''}>
             <Link to='/mypage/order'>
               <span>주문 내역</span>
               <MdOutlineArrowForwardIos fontSize='12' color='rgb(95, 0, 128)' />
             </Link>
           </li>
-          <li className={location.pathname === '/mypage/account' && 'active'}>
+          <li css={location.pathname === '/mypage/account' ? activeStyle : ''}>
             <Link to='/mypage/account'>
               <span>계좌 관리</span>
               <MdOutlineArrowForwardIos fontSize='12' color='rgb(95, 0, 128)' />
             </Link>
           </li>
-          <li className={location.pathname === '/mypage/like' && 'active'}>
+          <li css={location.pathname === '/mypage/like' ? activeStyle : ''}>
             <Link to='/mypage/like'>
               <span>찜한 상품</span>
               <MdOutlineArrowForwardIos fontSize='12' color='rgb(95, 0, 128)' />
             </Link>
           </li>
-          <li className={location.pathname === '/mypage/info' && 'active'}>
+          <li css={location.pathname === '/mypage/info' ? activeStyle : ''}>
             <Link to='/mypage/info'>
               <span>개인 정보 수정</span>
               <MdOutlineArrowForwardIos fontSize='12' color='rgb(95, 0, 128)' />
             </Link>
           </li>
         </ul>
-      </Navbar>
-    </Container>
+      </nav>
+    </div>
   );
 }
 
-const Container = styled.div`
+const mypageStyle = css`
   width: 20%;
   display: flex;
   flex-direction: column;
@@ -52,13 +54,13 @@ const Container = styled.div`
   }
 `;
 
-const Navbar = styled.nav`
+const navbarStyle = css`
   display: flex;
   flex-direction: column;
   ul {
     li {
       font-size: 0.9rem;
-      border: 1px solid ${({ theme }) => theme.color.lightgray};
+      border: 1px solid ${theme.color.lightgray};
       border-bottom: none;
       a {
         padding: 1rem;
@@ -69,18 +71,19 @@ const Navbar = styled.nav`
         cursor: pointer;
         &:hover {
           background-color: rgb(250, 250, 250);
-          color: ${({ theme }) => theme.color.purple};
+          color: ${theme.color.purple};
           font-weight: 600;
         }
       }
       &:last-of-type {
-        border-bottom: 1px solid ${({ theme }) => theme.color.lightgray};
-      }
-      &.active {
-        background-color: rgb(250, 250, 250);
-        color: ${({ theme }) => theme.color.purple};
-        font-weight: 600;
+        border-bottom: 1px solid ${theme.color.lightgray};
       }
     }
   }
+`;
+
+const activeStyle = css`
+  background-color: rgb(250, 250, 250);
+  color: ${theme.color.purple};
+  font-weight: 600;
 `;

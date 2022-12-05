@@ -5,27 +5,29 @@ import { BsCart2 } from 'react-icons/bs';
 import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
-import styled from '@emotion/styled';
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import theme from './../style/theme';
 
 export default function Header() {
   return (
-    <Container>
-      <Service>
+    <header css={userHeaderStyle}>
+      <div css={serviceStyle}>
         <Link to='/signup'>회원가입</Link>
         <Link to='/login'>로그인</Link>
-      </Service>
-      <Search>
+      </div>
+      <div css={searchStyle}>
         <Link to='/'>
           <img src='/images/logo.png' alt='logo' />
           <h1>마켓멍냥</h1>
         </Link>
-        <InputWrap>
+        <div css={inputWrapStyle}>
           <input className='search-input' type='text' placeholder='검색어를 입력해 주세요' />
           <button className='search-btn' aria-label='submit'>
             <BiSearch size='24' color='rgb(95, 0, 128)' />
           </button>
-        </InputWrap>
-        <Sub>
+        </div>
+        <div>
           <Link to='/mypage/like'>
             <VscHeart size='30' title='찜목록' />
           </Link>
@@ -35,16 +37,14 @@ export default function Header() {
           <Link to='/mypage'>
             <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />
           </Link>
-        </Sub>
-      </Search>
-      <Navbar>
-        <ul>
-          <li>
-            <Hamberger>
-              <RxHamburgerMenu title='카테고리' />
-              <Link to=''>카테고리</Link>
-            </Hamberger>
-          </li>
+        </div>
+      </div>
+      <nav>
+        <ul css={linkStyle}>
+          <div className='hamberger' css={hambergerStyle}>
+            <RxHamburgerMenu title='카테고리' />
+            <Link to=''>카테고리</Link>
+          </div>
           <li>
             <Link to='/new'>신상품</Link>
           </li>
@@ -58,44 +58,38 @@ export default function Header() {
             <Link to='/admin'>관리자페이지</Link>
           </li>
         </ul>
-      </Navbar>
-    </Container>
+      </nav>
+    </header>
   );
 }
 
-const Container = styled.header`
+const userHeaderStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid lightgray;
-  box-shadow: ${({ theme }) => theme.shadow.default};
+  box-shadow: ${theme.shadow.default};
   width: 100vw;
-`;
-
-const Navbar = styled.nav`
-  width: ${({ theme }) => theme.size.widthInner};
-  ul {
-    display: flex;
-    justify-content: space-between;
-    height: 4rem;
-    align-items: center;
-    font-weight: 600;
-    li {
-      a {
-        color: ${({ theme }) => theme.color.black};
-      }
+  nav {
+    width: ${theme.size.widthInner};
+    ul {
+      display: flex;
+      justify-content: space-between;
+      height: 4rem;
+      align-items: center;
+      font-weight: 600;
     }
   }
 `;
 
-const Hamberger = styled.div`
+const hambergerStyle = css`
   display: flex;
   align-items: center;
   gap: 0.5rem;
 `;
 
-const Service = styled.div`
-  width: ${({ theme }) => theme.size.widthInner};
+const serviceStyle = css`
+  width: ${theme.size.widthInner};
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -104,7 +98,7 @@ const Service = styled.div`
   font-size: 12px;
   a {
     &:first-of-type {
-      color: ${({ theme }) => theme.color.purple};
+      color: ${theme.color.purple};
       &::after {
         content: ' ';
         display: inline-block;
@@ -114,13 +108,13 @@ const Service = styled.div`
         background-color: rgb(217, 217, 217);
       }
     }
-    color: ${({ theme }) => theme.color.black};
+    color: ${theme.color.black};
     font-weight: 600;
   }
 `;
 
-const Search = styled.div`
-  width: ${({ theme }) => theme.size.widthInner};
+const searchStyle = css`
+  width: ${theme.size.widthInner};
   display: flex;
   justify-content: space-between;
   display: flex;
@@ -136,24 +130,18 @@ const Search = styled.div`
     h1 {
       font-size: 18px;
       font-weight: 600;
-      color: ${({ theme }) => theme.color.purple};
+      color: ${theme.color.purple};
     }
   }
 `;
 
-const Sub = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
-const InputWrap = styled.div`
+const inputWrapStyle = css`
   position: relative;
   input {
     width: 24rem;
     font-size: 16px;
     outline: none;
-    border: 1px solid ${({ theme }) => theme.color.purple};
+    border: 1px solid ${theme.color.purple};
     border-radius: 6px;
     padding: 0.8rem;
   }
@@ -167,4 +155,10 @@ const InputWrap = styled.div`
     padding: 0.6rem;
     cursor: pointer;
   }
+`;
+
+const linkStyle = css`
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
 `;
