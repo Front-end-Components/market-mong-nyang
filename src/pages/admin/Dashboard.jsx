@@ -1,5 +1,6 @@
 import React from 'react';
+import style from './Dashboard.module.scss';
 
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return <div className={style.dashBoard}>Dashboard</div>;
 }

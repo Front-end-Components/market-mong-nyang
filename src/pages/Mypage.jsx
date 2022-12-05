@@ -1,26 +1,15 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import MypageNavbar from '../components/MypageNavbar';
-import styled from '@emotion/styled';
+import style from './Mypage.module.scss';
 
 export default function Mypage() {
   return (
-    <Container>
+    <div className={style.mypage}>
       <MypageNavbar />
-      <OutletWrap>
+      <div className={style.mypageOutlet}>
         <Outlet />
-      </OutletWrap>
-    </Container>
+      </div>
+    </div>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  width: ${({ theme }) => theme.size.widthInner};
-  margin-top: 2rem;
-`;
-
-const OutletWrap = styled.div`
-  width: 80%;
-  margin-left: 2rem;
-`;

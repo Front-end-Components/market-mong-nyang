@@ -1,17 +1,13 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import Banner from '../components/Banner';
 import Products from '../components/Products';
+import './Home.module.scss';
 
 export default function Home() {
   return (
-    <Container>
+    <div className='container'>
       <Banner />
       <Products />
-    </Container>
+    </div>
   );
 }
-
-const Container = styled.div`
-  width: ${({ theme }) => theme.size.widthInner};
-`;

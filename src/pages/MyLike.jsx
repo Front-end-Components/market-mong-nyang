@@ -1,35 +1,16 @@
 import React from 'react';
 import MypageHeader from '../components/MypageHeader';
+import style from './MyLike.module.scss';
 import { VscHeart } from 'react-icons/vsc';
-import styled from '@emotion/styled';
 
 export default function MyLike() {
   return (
-    <Container>
+    <div className={style.myLike}>
       <MypageHeader name={'찜한 상품'} />
-      <Content>
+      <div className={style.content}>
         <VscHeart size='60' title='찜' color='lightgray' />
         <p>찜한 상품이 없습니다.</p>
-      </Content>
-    </Container>
+      </div>
+    </div>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-`;
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  height: 557px;
-  p {
-    color: ${({ theme }) => theme.color.darkgray};
-  }
-`;
