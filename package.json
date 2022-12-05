@@ -3,15 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/babel-preset-css-prop": "^11.10.0",
-    "@emotion/react": "^11.10.5",
+    "@craco/craco": "^7.0.0",
     "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.13",
     "axios": "^1.2.0",
-    "emotion-reset": "^3.0.1",
     "node-sass": "^8.0.0",
     "postcss": "^8.4.19",
     "react": "^18.2.0",
@@ -23,9 +21,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src"
@@ -49,6 +47,8 @@
     ]
   },
   "devDependencies": {
+    "craco-alias": "^3.0.1",
+    "craco-sass-resources-loader": "^1.1.0",
     "eslint": "^8.29.0",
     "eslint-plugin-react": "^7.31.11"
   }

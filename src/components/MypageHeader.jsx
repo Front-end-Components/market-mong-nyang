@@ -1,21 +1,10 @@
 import React from 'react';
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import style from './MypageHeader.module.scss';
 
 export default function MypageHeader({ name }) {
   return (
-    <div css={headerStyle}>
+    <div className={style.header}>
       <h1>{name}</h1>
     </div>
   );
 }
-
-const headerStyle = css`
-  border-bottom: 2px solid rgb(51, 51, 51);
-  padding-bottom: 2rem;
-  h1 {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: rgb(51, 51, 51);
-  }
-`;

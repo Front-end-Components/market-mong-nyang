@@ -1,0 +1,15 @@
+.adminNavbar {
+  width: 20vw;
+  height: 90vh;
+  background-color: $color-purple;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 2rem;
+  box-sizing: border-box;
+  padding: 2rem;
+  a {
+    color: $color-white;
+    font-weight: 500;
+  }
+}
