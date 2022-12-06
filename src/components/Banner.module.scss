@@ -1,5 +1,20 @@
-.cart {
-  width: 64vw;
-  height: 500px;
+.banner {
+  width: 100vw;
+  height: 370px;
   background-color: aqua;
+  .swiper{
+    .slide {
+      .image {
+        width: 100%;
+        min-width: 1050px;
+        height: 370px;
+        object-fit: cover;
+      }
+    }
+    .swiper-button-prev {
+      background-color: white;
+      counter-reset: white;
+    }
+  }
 }
+
