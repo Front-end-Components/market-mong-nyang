@@ -11,7 +11,6 @@ export default function Banner() {
   return (
     <div className={style.banner}>
       <Swiper
-      className={style.swiper}
       modules = {[Pagination, Navigation, Autoplay]}
       pagination={{ clickable : true }}
       loop={true} // 루프 슬라이드
@@ -21,10 +20,10 @@ export default function Banner() {
       navigation
       onSlideChange={() => console.log('slide change')}
       onSwiper={(swiper) => console.log(swiper)}
-      // style={{
-      //   "--swiper-navigation-color": "#000",
-      //   "--swiper-pagination-color": "#fff",
-      // }}
+      style={{
+        "--swiper-navigation-color": "#43007c",
+        "--swiper-pagination-color": "#43007c",
+      }}
     >
     <SwiperSlide className={style.slide}>
       <a href="#">
