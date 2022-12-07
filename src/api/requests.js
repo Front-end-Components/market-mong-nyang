@@ -7,9 +7,7 @@ import { defaultInstance, authInstance, adminInstance } from './util.js';
 const requestPost = async (path, instance, data) => {
   try {
     // dispatch(showLoading());
-    await instance.post(path, JSON.stringify(data)).then((res) => {
-      return res;
-    });
+    return await instance.post(path, JSON.stringify(data));
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
@@ -21,9 +19,7 @@ const requestPost = async (path, instance, data) => {
 
 const requestGet = async (path, instance) => {
   try {
-    await instance.get(path).then((res) => {
-      return res;
-    });
+    return await instance.get(path);
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
@@ -34,9 +30,7 @@ const requestGet = async (path, instance) => {
 
 const requestPut = async (path, instance, data) => {
   try {
-    await instance.put(path, JSON.stringify(data)).then((res) => {
-      return res;
-    });
+    return await instance.put(path, JSON.stringify(data));
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
@@ -47,9 +41,7 @@ const requestPut = async (path, instance, data) => {
 
 const requestDelete = async (path, instance) => {
   try {
-    await instance.delete(path).then((res) => {
-      return res;
-    });
+    return await instance.delete(path);
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);

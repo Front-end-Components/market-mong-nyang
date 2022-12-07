@@ -11,8 +11,7 @@ export default function Login() {
       email: 'test@test.com',
       password: '1q2w3e4r',
     };
-    const res = login(test);
-    console.log(res);
+    const res = login(test).then((res) => console.log(res));
   };
 
   return (
