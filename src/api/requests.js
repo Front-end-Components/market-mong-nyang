@@ -1,6 +1,7 @@
 // import { useDispatch } from 'react-redux';
 // import { showLoading, hideLoading } from '../store/loadingSlice.js';
 import PATH from '@/constants/path.js';
+import { setItem } from '@/utils/storage.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
 
 // let dispatch = useDispatch();
@@ -69,8 +70,10 @@ export const signup = (data) => {
 };
 
 // 로그인
-export const login = (data) => {
-  return requestPost(PATH.LOGIN, defaultInstance, data);
+export const login = async (data) => {
+  const res = await requestPost(PATH.LOGIN, defaultInstance, data);
+  setItem('token', res.accessToken);
+  return;
 };
 
 // 로그아웃
