@@ -11,7 +11,8 @@ const PATH = {
   BUY_OK: '/products/ok',
   TRANSACTION: '/products/transactions',
   TRANSACTION_ALL: '/products/transactions/all',
-  TRANSACTION_DETAIL: '/products/transactions/details',
+  TRANSACTION_DETAILS: '/products/transactions/details',
+  TRANSACTION_DETAIL: '/products/transactions/detail'
 };
 
 export default PATH;

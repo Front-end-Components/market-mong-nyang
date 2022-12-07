@@ -23,8 +23,8 @@ const requestGet = async (path, instance) => {
   try {
     await instance.get(path).then((res) => {
       return res;
-    });
-  } catch (e) {
+  });
+} catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
     throw new Error('에러가 발생하였습니다.');
@@ -127,7 +127,9 @@ export const insertOrder = (data) => {
 export const updateOrderOk = () => {};
 
 // 제품 전체 거래 내역
-export const selectListOrder = () => {};
+export const selectListOrder = () => {
+  return requestGet(PATH.TRANSACTION_DETAILS, authInstance);
+};
 
 // 단일 제품 상세 거래 내역
 export const selectOrder = () => {};
