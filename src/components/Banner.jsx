@@ -22,7 +22,7 @@ export default function Banner() {
       onSwiper={(swiper) => console.log(swiper)}
       style={{
         "--swiper-navigation-color": "#43007c",
-        "--swiper-pagination-color": "#43007c",
+        "--swiper-pagination-color": "#43007c"
       }}
     >
     <SwiperSlide className={style.slide}>

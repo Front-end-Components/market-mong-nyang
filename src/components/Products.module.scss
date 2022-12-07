@@ -1,0 +1,29 @@
+.products {
+  margin: auto;
+  width: $width-inner;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-bottom: 100px;
+  .title {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    font-weight: 700;
+    font-size: 28px;
+    color: $color-black;
+  }
+  .swiper {
+    .slide {
+      display: flex;
+      justify-content: center;
+      box-sizing:border-box;
+      img {
+        display: block;
+        width: 300px;
+        border-radius: 30px;
+        margin-right: 20px;
+      }
+    }
+  }
+}
