@@ -1,3 +1,4 @@
+import { getItem } from '@/utils/storage';
 import axios from 'axios';
 
 const MASTER_KEY = { masterKey: 'true' };
@@ -20,7 +21,7 @@ const axiosApi = (url, options) => {
 
 // token 추가 인스턴스
 const axiosAuthApi = (url, options) => {
-  const token = '어디서가져옴?';
+  const token = getItem('token');
   const accessToken = token ? { Authorization: `Bearer ${token}` } : '';
   const instance = axios.create({
     baseURL: url,
