@@ -5,13 +5,14 @@ import Button from '../components/Button';
 
 export default function Login() {
   // TEST
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const test = {
       email: 'test@test.com',
       password: '1q2w3e4r',
     };
-    const res = login(test).then((res) => console.log(res));
+    const res = await login(test);
+    console.log(res);
   };
 
   return (
