@@ -4,7 +4,9 @@ import MypageHeader from '../components/MypageHeader';
 import {selectListOrder} from '../api/requests.js';
 
 export default function MyOrder() {
-  renderDtails();
+  let detailsRes = selectListOrder();
+  console.log(detailsRes);
+  
   return (
     <div className={style.myLike}>
     <MypageHeader name={'주문 내역'} />
@@ -14,7 +16,3 @@ export default function MyOrder() {
   );
 }
 
-async function renderDtails() {
-  let detailsRes = selectListOrder();
-  console.log(detailsRes);
-}
