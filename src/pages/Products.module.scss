@@ -1,0 +1,13 @@
+.products {
+  color: $color-black;
+  .container {
+    width: $width-inner;
+    // background-color: rgb(143, 143, 143);
+    .row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+}
