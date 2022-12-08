@@ -22,7 +22,9 @@ const requestPost = async (path, instance, data) => {
 
 const requestGet = async (path, instance) => {
   try {
-    return await instance.get(path);
+    return await instance.get(path).then((res) => {
+      return res.data;
+    });
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
@@ -143,8 +145,8 @@ export const selectOrder = () => {};
 // 제품 삭제 /products/:productId, DELETE
 
 // 모든 제품 조회 (관리자)
-export const selectListProductAdmin = () => {
-  return requestGet(PATH.PRODUCT, adminInstance);
+export const selectListProductAdmin = async () => {
+  return await requestGet(PATH.PRODUCT, adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
