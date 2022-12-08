@@ -1,3 +1,22 @@
+.white {
+  display: block;
+  padding: 0px 10px;
+  text-align: center;
+  overflow: hidden;
+  // width: 100%;
+  padding: 0 1rem;
+  height: 44px;
+  border-radius: 3px;
+  color: $color-purple;
+  background-color: $color-white;
+  border: 1px solid $color-purple;
+  cursor: pointer;
+  span {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
 
 .purple {
   display: block;
