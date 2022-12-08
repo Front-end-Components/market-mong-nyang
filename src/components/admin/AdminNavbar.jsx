@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import NavbarItem from '../NavbarItem';
 import style from './AdminNavbar.module.scss';
 
 export default function AdminNavbar() {
   return (
     <nav className={style.adminNavbar}>
-      <Link to='/admin'> 대시 보드</Link>
-      <Link to='/admin/products'> 상품 관리</Link>
-      <Link to='/admin/order'> 거래 내역 관리</Link>
+      <ul>
+        <NavbarItem page={'/admin'} title={'대시 보드'} />
+        <NavbarItem page={'/admin/products'} title={'상품 관리'} />
+        <NavbarItem page={'/admin/order'} title={'거래 내역 관리'} />
+      </ul>
     </nav>
   );
 }
