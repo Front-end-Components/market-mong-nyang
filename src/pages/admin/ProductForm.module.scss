@@ -1,0 +1,61 @@
+.formWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .header {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 5rem;
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: rgb(51, 51, 51);
+    }
+  }
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    .inputWrap {
+      box-sizing: border-box;
+      display: flex;
+      width: 80%;
+      span {
+        display: inline-block;
+        width: 20%;
+      }
+      input {
+        border: 1px solid $color-gray;
+        padding: 1rem;
+        outline: none;
+        border-radius: 5px;
+        width: 80%;
+      }
+      .textWrap {
+        display: flex;
+        align-items: flex-start;
+        width: 20%;
+        span {
+          width: 100%;
+        }
+      }
+      textarea {
+        border: 1px solid $color-gray;
+        padding: 1rem;
+        outline: none;
+        border-radius: 5px;
+        width: 80%;
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 5rem;
+  }
+}
