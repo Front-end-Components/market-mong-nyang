@@ -82,7 +82,7 @@ export const logout = () => {};
 // 인증확인
 export const checkAuth = () => {};
 
-// 사용자 정보 수정
+// 사용자 정보 수정 (사용자)
 export const updateUserInfo = (data) => {
   return requestGet(PATH.AUTH_USER, authInstance, data);
 };
@@ -92,18 +92,18 @@ export const updateUserInfo = (data) => {
 // 계좌 연결 /account, POST
 // 계좌 해지 /account, DELETE
 
-// 선택 가능한 은행 목록 조회
+// 선택 가능한 은행 목록 조회 (사용자)
 export const selectBanks = () => {
   return requestGet(PATH.BANKS, authInstance);
 };
 
-// 계좌 목록 및 잔액 조회
+// 계좌 목록 및 잔액 조회 (사용자)
 export const selectListAccount = () => {};
 
-// 계좌 연결
+// 계좌 연결 (사용자)
 export const insertAccount = () => {};
 
-// 계좌 해지
+// 계좌 해지 (사용자)
 export const deleteAccount = () => {};
 
 // 단일 제품 상세 조회 /products/:productId, GET
@@ -113,28 +113,28 @@ export const deleteAccount = () => {};
 // 제품 전체 거래 내역 /products/transactions/details, GET
 // 단일 제품 상세 거래 내역 /products/transactions/detail, POST
 
-// 단일 제품 상세 조회
+// 단일 제품 상세 조회 (공용)
 export const selectProductDetail = (id) => {
   return requestGet(`${PATH.PRODUCT}/${id}`, authInstance);
 };
 
-// 제품 검색
+// 제품 검색 (사용자)
 export const searchProduct = () => {};
 
-// 제품 거래 신청
+// 제품 거래 신청 (사용자)
 export const insertOrder = (data) => {
   return requestPost(PATH.BUY, authInstance, data);
 };
 
-// 제품 거래 확정
+// 제품 거래 확정 (사용자)
 export const updateOrderOk = () => {};
 
-// 제품 전체 거래 내역
+// 제품 전체 거래 내역 (사용자)
 export const selectListOrder = () => {
   return requestGet(PATH.TRANSACTION_DETAILS, authInstance);
 };
 
-// 단일 제품 상세 거래 내역
+// 단일 제품 상세 거래 내역 (사용자)
 export const selectOrder = () => {};
 
 // 모든 제품 조회 /products, GET
@@ -145,8 +145,8 @@ export const selectOrder = () => {};
 // 제품 삭제 /products/:productId, DELETE
 
 // 모든 제품 조회 (관리자)
-export const selectListProductAdmin = async () => {
-  return await requestGet(PATH.PRODUCT, adminInstance);
+export const selectListProductAdmin = () => {
+  return requestGet(PATH.PRODUCT, adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
