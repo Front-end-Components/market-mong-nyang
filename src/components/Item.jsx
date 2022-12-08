@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './Item.module.scss';
+import { Link } from 'react-router-dom';
 
 export default function Item(props) {
 
@@ -9,9 +10,11 @@ export default function Item(props) {
 
   return (
     <div className={style.item}>
-      <img src={props.item.thumbnail} width="100%" alt={props.item.title}/>
-      <h4 className={style.title}>{props.item.title}</h4>
-      <p className={style.price}>{priceComma}원</p>
+      <Link to={"/products/" + props.item.id}>
+        <img src={props.item.thumbnail} width="100%" alt={props.item.title}/>
+        <h4 className={style.title}>{props.item.title}</h4>
+        <p className={style.price}>{priceComma}원</p>
+      </Link>
     </div>
   )
 }
