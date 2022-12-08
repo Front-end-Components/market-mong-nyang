@@ -1,0 +1,9 @@
+.header {
+  border-bottom: 2px solid rgb(51, 51, 51);
+  padding-bottom: 2rem;
+}
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: rgb(51, 51, 51);
+}/*# sourceMappingURL=MypageHeader.module.css.map */

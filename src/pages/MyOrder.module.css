@@ -1,0 +1,14 @@
+.myOrder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.myOrder .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 557px;
+}/*# sourceMappingURL=MyOrder.module.css.map */
