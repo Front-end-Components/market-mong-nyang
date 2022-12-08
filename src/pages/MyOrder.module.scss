@@ -75,9 +75,16 @@
       .btnContent {
         display: table-cell;
         vertical-align: middle;
-        button {
-          display: block;
+        :first-child {
           margin-bottom: 10px;
+        }
+        Button {
+          width: 80%;
+          height: 30px;
+          padding: 5px;
+          span {
+            font-size: 13px;
+          }
         }
       }
     }

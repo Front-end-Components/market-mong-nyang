@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import style from './MyOrder.module.scss';
 import MypageHeader from '../components/MypageHeader';
 import {selectListOrder} from '../api/requests.js';
+import Button from '@/components/Button';
 
 export default function MyOrder() {
   let detailsRes = selectListOrder();
@@ -30,8 +31,8 @@ export default function MyOrder() {
           <p className={style.orderGuide}>구매 확정 이후에는 주문 취소가 불가능합니다.</p>
         </div>
         <div className={style.btnContent}>
-          <button className={style.orderCancel}>주문 취소</button>
-          <button className={style.orderOk}>구매 확정</button>
+          <Button className={style.orderCancel} name={'주문 취소'} />
+          <Button className={style.orderOk} name={'구매 확정'} isPurple={true} />
         </div>
       </div>
     </div>
