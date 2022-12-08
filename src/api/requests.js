@@ -22,9 +22,7 @@ const requestPost = async (path, instance, data) => {
 
 const requestGet = async (path, instance) => {
   try {
-    return await instance.get(path).then((res) => {
-      return res.data;
-    });
+    return await instance.get(path);
   } catch (e) {
     // TODO: 에러 처리 추가
     console.log(e);
