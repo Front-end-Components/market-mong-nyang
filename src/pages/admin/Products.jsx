@@ -1,21 +1,44 @@
 import { selectListProductAdmin } from '@/api/requests';
-import React from 'react';
+import ProductItem from '@/components/admin/ProductItem';
+import Button from '@/components/Button';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
 
 export default function Products() {
-  const res = selectListProductAdmin();
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await selectListProductAdmin();
+      setProducts(data);
+    }
+    getData();
+  }, []);
+
   return (
     <div>
       <div className={style.buttons}>
-        <button>삭제</button>
+        <Button name={'삭제'} color={'purple'} />
         <Link to='/admin/products/add'>
-          <button>등록</button>
+          <Button name={'등록'} />
         </Link>
       </div>
-      {res.data || <div>등록된 상품이 없습니다.</div>}
-      <ul>
-        <li></li>
+      <ul className={style.productList}>
+        <li>
+          <span></span>
+          <span>NO</span>
+          <span>상품명</span>
+          <span>가격</span>
+          <span>품절여부</span>
+        </li>
+        {Array.isArray(products) ? (
+          products.map((item, idx) => {
+            return <ProductItem key={item.id} item={item} idx={idx} />;
+          })
+        ) : (
+          <li>등록된 상품이 없습니다.</li>
+        )}
       </ul>
     </div>
   );

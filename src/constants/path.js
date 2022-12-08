@@ -12,7 +12,7 @@ const PATH = {
   TRANSACTION: '/products/transactions',
   TRANSACTION_ALL: '/products/transactions/all',
   TRANSACTION_DETAILS: '/products/transactions/details',
-  TRANSACTION_DETAIL: '/products/transactions/detail'
+  TRANSACTION_DETAIL: '/products/transactions/detail',
 };
 
 export default PATH;
