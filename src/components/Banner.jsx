@@ -27,27 +27,27 @@ export default function Banner() {
     >
     <SwiperSlide className={style.slide}>
       <a href="#">
-      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/88b298cf-de5a-4cf9-81d6-5ca180c2b6c5.jpg" alt="" className={style.image}/>
+      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/b474b6a1-5077-4800-947d-6e7b1929a37a.jpg" alt="" className={style.image}/>
       </a>
       </SwiperSlide>
     <SwiperSlide className={style.slide}>
       <a href="">
-      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/1eef26f1-31a8-410a-b2b6-866ab59d9c93.jpg" alt="" className={style.image}/>
+      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/b474b6a1-5077-4800-947d-6e7b1929a37a.jpg" alt="" className={style.image}/>
       </a>
     </SwiperSlide>
     <SwiperSlide className={style.slide}>
       <a href="">
-      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/7ee9376a-ac1c-4e3e-972b-0a72e01d5803.png" alt="" className={style.image} />
+      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/b474b6a1-5077-4800-947d-6e7b1929a37a.jpg" alt="" className={style.image} />
       </a>
     </SwiperSlide>
     <SwiperSlide className={style.slide}>
       <a href="">
-      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/8f74bcc8-8f8a-410e-8cf3-62828cd5e3d5.jpg" alt="" className={style.image} />
+      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/a916f9a1-e2e2-4600-b856-206490758140.jpg" alt="" className={style.image} />
       </a>
     </SwiperSlide>
     <SwiperSlide className={style.slide}>
       <a href="">
-      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/29046e9d-e1b1-4e6c-8e6f-3ed0fe592bc7.jpg" alt="" className={style.image} />
+      <img src="https://product-image.kurly.com/cdn-cgi/image/format=auto/banner/main/pc/img/20139e33-d871-4de9-a2e8-18a3024af36d.jpg" alt="" className={style.image} />
       </a>
     </SwiperSlide>
     </Swiper>
