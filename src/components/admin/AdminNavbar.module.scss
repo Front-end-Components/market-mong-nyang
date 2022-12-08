@@ -6,10 +6,24 @@
   font-size: 1rem;
   gap: 2rem;
   box-sizing: border-box;
-  padding: 2rem;
   border-right: 1px solid $color-lightgray;
-  a {
-    color: $color-purple;
-    font-weight: 600;
+  ul {
+    li {
+      font-size: 0.9rem;
+      border-bottom: 1px solid $color-lightgray;
+      a {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: inherit;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(250, 250, 250);
+          color: $color-purple;
+          font-weight: 600;
+        }
+      }
+    }
   }
 }

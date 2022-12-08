@@ -23,6 +23,7 @@ import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
 import Dashboard from './pages/admin/Dashboard';
 import AdminProducts from './pages/admin/Products';
+import AdminProductForm from './pages/admin/ProductForm';
 import AdminProductDetail from './pages/admin/ProductDetail';
 import AdminOrders from './pages/admin/Orders';
 import AdminOrderDetail from './pages/admin/OrderDetail';
@@ -121,6 +122,10 @@ const router = createBrowserRouter([
       {
         path: '/admin/products',
         element: <AdminProducts />,
+      },
+      {
+        path: '/admin/products/add',
+        element: <AdminProductForm />,
       },
       {
         path: '/admin/product/:id',
