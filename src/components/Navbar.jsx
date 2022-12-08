@@ -32,7 +32,7 @@ export default function Header() {
           <Link to='/cart'>
             <BsCart2 size='30' title='장바구니' />
           </Link>
-          <Link to='/mypage'>
+          <Link to='/mypage/order'>
             <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />
           </Link>
         </div>
