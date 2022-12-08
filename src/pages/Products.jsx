@@ -3,6 +3,7 @@ import { useState } from 'react';
 import style from './Products.module.scss';
 import { orders, products } from '../data/data.js';
 import Item from '../components/Item.jsx'
+import ProductHeader from '../components/ProductHeader';
 
 export default function AllProducts() {
 
@@ -11,8 +12,8 @@ export default function AllProducts() {
 
   return (
     <div className={style.products}>
-      AllProducts
       <div className={style.container}>
+        <ProductHeader name={'전체 상품'} />
         <div className={style.row}>
           {
             item.map((a, i) => {

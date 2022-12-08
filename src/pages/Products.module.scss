@@ -1,13 +1,19 @@
 .products {
   color: $color-black;
+  display: flex;
+  justify-content: center;
   .container {
     width: $width-inner;
-    // background-color: rgb(143, 143, 143);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     .row {
       width: 100%;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 180px);
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 15px;
     }
   }
 }
