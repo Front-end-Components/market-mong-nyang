@@ -19,7 +19,7 @@ export default function Products() {
       pagination={{ clickable : true }}
       loop={true} // 루프 슬라이드
       autoplay={{ delay: 4000 }} // 자동 슬라이드
-      spaceBetween={40} // 슬라이드간의 간격
+      spaceBetween={10} // 슬라이드간의 간격
       slidesPerView={4} // 한 번에 보여지는 슬라이드 개수
       navigation
       style={{
@@ -28,14 +28,18 @@ export default function Products() {
         "--swiper-pagination-color": "#404040"
       }}
       breakpoints= {{
+        1800:{
+          slidesPerView:4,             
+          },
+        1320:{
+          slidesPerView:3,             
+          },
         1024:{
-          slidesPerView:4,
-          spaceBetween: 40,             
+          slidesPerView:2,             
           },
-        768:{
-          slidesPerView:3,
-          spaceBetween: 40,    
-          },
+        0:{
+          slidesPerView:1, 
+          }
       }}
     >
     <SwiperSlide className={style.slide}>
