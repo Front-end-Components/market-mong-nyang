@@ -1,0 +1,15 @@
+.detail {
+  .container {
+    width: $width-inner;
+    height: auto;
+    background-color: rgb(207, 207, 207);
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: 300px;
+    }
+    .info {
+      width: 300px;
+    }
+  }
+}
