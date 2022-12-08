@@ -135,4 +135,69 @@ const products = [
   },
 ];
 
-export { orders, products };
+const bank = [
+  {
+    "name": "KB국민은행",
+    "code": "004",
+    "digits": [3, 2, 4, 3],
+    "disabled": false
+  },
+  {
+    "name": "신한은행",
+    "code": "088",
+    "digits": [3, 3, 6],
+    "disabled": true
+  },
+  {
+    "name": "우리은행",
+    "code": "020",
+    "digits": [4, 3, 6],
+    "disabled": true
+  },
+  {
+    "name": "하나은행",
+    "code": "081",
+    "digits": [3, 6, 5],
+    "disabled": false
+  },
+  {
+    "name": "케이뱅크",
+    "code": "089",
+    "digits": [3, 3, 6],
+    "disabled": false
+  },
+  {
+    "name": "카카오뱅크",
+    "code": "090",
+    "digits": [4, 2, 7],
+    "disabled": false
+  },
+  {
+    "name": "NH농협은행",
+    "code": "011",
+    "digits": [3, 4, 4, 2],
+    "disabled": false
+  }
+];
+
+const account = {
+  "totalBalance": 5999900,
+  "accounts": [
+    {
+      "id": "jQMfKla8vOIFELA3mAXv",
+      "bankName": "NH농협은행",
+      "bankCode": "011",
+      "accountNumber": "356-XXXX-XXXX-XX",
+      "balance": 2999900
+    },
+    {
+      "id": "wiPgsXvMAmcLw8AuRHIi",
+      "bankName": "KB국민은행",
+      "bankCode": "004",
+      "accountNumber": "123-XX-XXXX-XXX",
+      "balance": 3000000
+    }
+  ]
+}
+
+export { orders, products, bank, account };
