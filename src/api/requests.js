@@ -74,10 +74,10 @@ export const login = (data) => {
 };
 
 // 로그아웃
-export const logout = () => {};
+export const logout = () => { };
 
 // 인증확인
-export const checkAuth = () => {};
+export const checkAuth = () => { };
 
 // 사용자 정보 수정
 export const updateUserInfo = (data) => {
@@ -95,13 +95,19 @@ export const selectBanks = () => {
 };
 
 // 계좌 목록 및 잔액 조회
-export const selectListAccount = () => {};
+export const selectListAccount = () => {
+  return requestGet(PATH.ACCOUNT, authInstance);
+};
 
 // 계좌 연결
-export const insertAccount = () => {};
+export const insertAccount = () => {
+  return requestPost(PATH.ACCOUNT, authInstance);
+};
 
 // 계좌 해지
-export const deleteAccount = () => {};
+export const deleteAccount = () => {
+  return requestDelete(PATH.ACCOUNT, authInstance);
+};
 
 // 단일 제품 상세 조회 /products/:productId, GET
 // 제품 검색 /products/search, POST
@@ -116,7 +122,7 @@ export const selectProductDetail = (id) => {
 };
 
 // 제품 검색
-export const searchProduct = () => {};
+export const searchProduct = () => { };
 
 // 제품 거래 신청
 export const insertOrder = (data) => {
@@ -124,13 +130,13 @@ export const insertOrder = (data) => {
 };
 
 // 제품 거래 확정
-export const updateOrderOk = () => {};
+export const updateOrderOk = () => { };
 
 // 제품 전체 거래 내역
-export const selectListOrder = () => {};
+export const selectListOrder = () => { };
 
 // 단일 제품 상세 거래 내역
-export const selectOrder = () => {};
+export const selectOrder = () => { };
 
 // 모든 제품 조회 /products, GET
 // 전체 거래 내역 /products/transactions/all, GET

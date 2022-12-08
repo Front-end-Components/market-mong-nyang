@@ -1,5 +1,5 @@
 {
-  "extends": "./jsconfig.paths.json",
+  "extends": "./jsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -8,6 +8,6 @@
   },
   "include": [
     "src",
-    "jsconfig.paths.json"
+    "jsconfig.json"
   ]
 }
