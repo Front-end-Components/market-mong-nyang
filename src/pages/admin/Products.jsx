@@ -19,9 +19,9 @@ export default function Products() {
   return (
     <div>
       <div className={style.buttons}>
-        <Button name={'삭제'} color={'purple'} />
+        <Button name={'삭제'} />
         <Link to='/admin/products/add'>
-          <Button name={'등록'} />
+          <Button name={'등록'} isPurple={true} />
         </Link>
       </div>
       <ul className={style.productList}>
