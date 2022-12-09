@@ -1,0 +1,14 @@
+.nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  button {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
+  }
+}
