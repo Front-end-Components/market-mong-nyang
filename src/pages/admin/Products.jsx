@@ -1,5 +1,5 @@
 import { selectListProductAdmin } from '@/api/requests';
-import ProductItem from '@/components/admin/ProductItem';
+import AdminProductItem from '@/components/admin/AdminProductItem';
 import Button from '@/components/Button';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ export default function Products() {
         </li>
         {Array.isArray(products) ? (
           products.map((item, idx) => {
-            return <ProductItem key={item.id} item={item} idx={idx} />;
+            return <AdminProductItem key={item.id} item={item} idx={idx} />;
           })
         ) : (
           <li>등록된 상품이 없습니다.</li>
