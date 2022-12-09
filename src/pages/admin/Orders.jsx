@@ -23,12 +23,6 @@ export default function Orders() {
 
   return (
     <div>
-      <div className={style.buttons}>
-        {/* <Button name={'삭제'} />
-        <Link to='/admin/products/add'>
-          <Button name={'등록'} isPurple={true} />
-        </Link> */}
-      </div>
       <ul className={style.orderList}>
         <li>
           <span></span>
