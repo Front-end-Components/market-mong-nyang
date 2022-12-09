@@ -1,31 +1,42 @@
+import { selectListProductAdmin } from '@/api/requests';
 import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
-import { orders, products } from '../data/data.js';
 import Button from '../components/Button';
 
 export default function ProductDetail(props) {
-  let [item] = useState(products);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await selectListProductAdmin();
+      setProducts(data);
+    }
+    getData();
+  }, []);
+
   const {id} = useParams();
-  const [count, setCount] = useState(1);
-  
+
   // 랜더할 Item 찾기
   let detailItem = '';
-  for(let i = 0; i < item.length; i++){
-    if(item[i].id === id){
-      detailItem = item[i];
+  for(let i = 0; i < products.length; i++){
+    if(products[i].id === id){
+      detailItem = products[i];
       break;
     }
   };
 
-  // 가격 콤마
-  function setComma(originPrice) {
-    const result = originPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return result;
-  }
+  const [count, setCount] = useState(1);
 
+  // 가격 콤마 변환
   const price = detailItem.price;
+  function setComma(originPrice) {
+    if(originPrice){
+      let result = originPrice.toLocaleString('ko-KR');
+      return result;
+    }
+  }
   
   return (
     <div className={style.detail}>
