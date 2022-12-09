@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
+import { formatPrice } from '@/utils/formats.js';
 
 export default function ProductDetail(props) {
   const [products, setProducts] = useState([]);
@@ -31,12 +32,12 @@ export default function ProductDetail(props) {
 
   // 가격 콤마 변환
   const price = matchedProduct.price;
-  function setComma(originPrice) {
-    if(originPrice){
-      let result = originPrice.toLocaleString('ko-KR');
-      return result;
-    }
-  }
+  // function setComma(originPrice) {
+  //   if(originPrice){
+  //     let result = originPrice.toLocaleString('ko-KR');
+  //     return result;
+  //   }
+  // }
   
   return (
     <div className={style.detail}>
@@ -58,7 +59,7 @@ export default function ProductDetail(props) {
           <div className={style.fixed}>
             <div className={style.info}>
               <h4 className={style.title}>{matchedProduct.title}</h4>
-              <p className={style.price}>{setComma(price)}원</p>
+              <p className={style.price}>{formatPrice(price)}원</p>
               <p className={style.desc}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
             <div className={style.total}>
@@ -80,7 +81,7 @@ export default function ProductDetail(props) {
               </div>
               <div className={style.totalprice}>
                 <p>총 상품 금액</p>
-                <p>₩ {setComma(price * count)}원</p>
+                <p>₩ {formatPrice(price * count)}원</p>
               </div>
             </div>
             <div className={style.button}>

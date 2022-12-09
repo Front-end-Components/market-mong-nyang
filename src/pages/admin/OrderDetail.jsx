@@ -1,5 +1,5 @@
 import Button from '@/components/Button';
-import { formatDate } from '@/utils/dateFormat';
+import { formatDate } from '@/utils/formats';
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './OrderDetail.module.scss';
