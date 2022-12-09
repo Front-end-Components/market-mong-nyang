@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { insertProduct } from '@/api/requests';
 import Button from '@/components/Button';
-import style from './ProductForm.module.scss';
+import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
 
 // interface RequestBody {
@@ -36,13 +36,7 @@ export default function ProductForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      title: product.title,
-      price: product.price,
-      description: product.description,
-      tags: product.tags,
-    };
-    insertProduct(data);
+    insertProduct(product);
     alert('상품 등록이 완료되었습니다.');
     navigate('/admin/products');
     // setIsUploading(true);
@@ -97,7 +91,7 @@ export default function ProductForm() {
         </div>
         <div className={style.buttons}>
           <Button name={'등록'} isPurple={true} />
-          <Button name={'취소'} />
+          <Button name={'취소'} onClick={() => navigate(-1)} />
         </div>
       </form>
     </div>
