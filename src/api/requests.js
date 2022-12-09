@@ -77,10 +77,10 @@ export const login = async (data) => {
 };
 
 // 로그아웃
-export const logout = () => { };
+export const logout = () => {};
 
 // 인증확인
-export const checkAuth = () => { };
+export const checkAuth = () => {};
 
 // 사용자 정보 수정 (사용자)
 export const updateUserInfo = (data) => {
@@ -103,8 +103,8 @@ export const selectListAccount = () => {
 };
 
 // 계좌 연결
-export const insertAccount = () => {
-  return requestPost(PATH.ACCOUNT, authInstance);
+export const insertAccount = (data) => {
+  return requestPost(PATH.ACCOUNT, authInstance, data);
 };
 
 // 계좌 해지
@@ -125,7 +125,7 @@ export const selectProductDetail = (id) => {
 };
 
 // 제품 검색
-export const searchProduct = () => { };
+export const searchProduct = () => {};
 
 // 제품 거래 신청 (사용자)
 export const insertOrder = (data) => {
@@ -133,13 +133,13 @@ export const insertOrder = (data) => {
 };
 
 // 제품 거래 확정
-export const updateOrderOk = () => { };
+export const updateOrderOk = () => {};
 
 // 제품 전체 거래 내역
-export const selectListOrder = () => { };
+export const selectListOrder = () => {};
 
 // 단일 제품 상세 거래 내역
-export const selectOrder = () => { };
+export const selectOrder = () => {};
 
 // 모든 제품 조회 /products, GET
 // 전체 거래 내역 /products/transactions/all, GET
