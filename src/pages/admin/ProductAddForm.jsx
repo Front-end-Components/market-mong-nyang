@@ -36,9 +36,16 @@ export default function ProductForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    insertProduct(product);
-    alert('상품 등록이 완료되었습니다.');
-    navigate('/admin/products');
+    if (window.confirm('상품을 등록하시겠습니까?')) {
+      insertProduct(product).then((res) => {
+        if (res) {
+          alert('상품 등록이 완료되었습니다.');
+          navigate('/admin/products');
+        } else {
+          alert('상품 등록이 완료되지 못했습니다.');
+        }
+      });
+    }
     // setIsUploading(true);
     // uploadImage(file) //
     //   .then((url) => {
