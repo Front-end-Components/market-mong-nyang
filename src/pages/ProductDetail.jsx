@@ -19,10 +19,10 @@ export default function ProductDetail(props) {
   const {id} = useParams();
 
   // 랜더할 Item 찾기
-  let detailItem = '';
+  let matchedProduct = '';
   for(let i = 0; i < products.length; i++){
     if(products[i].id === id){
-      detailItem = products[i];
+      matchedProduct = products[i];
       break;
     }
   };
@@ -30,7 +30,7 @@ export default function ProductDetail(props) {
   const [count, setCount] = useState(1);
 
   // 가격 콤마 변환
-  const price = detailItem.price;
+  const price = matchedProduct.price;
   function setComma(originPrice) {
     if(originPrice){
       let result = originPrice.toLocaleString('ko-KR');
@@ -43,21 +43,21 @@ export default function ProductDetail(props) {
       <div className={style.container}>
         {/* 왼쪽 영역 (썸네일, 상세페이지) */}
         <div className={style.imgarea}>
-        <img src={detailItem.thumbnail} width="100%" alt={detailItem.title}/>
+        <img src={matchedProduct.thumbnail} width="100%" alt={matchedProduct.title}/>
         {/* 상세페이지 하드코딩 */}
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_1.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_2.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_3.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_4.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_6.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_7.jpg' width="100%" alt={detailItem.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_8.jpg' width="100%" alt={detailItem.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_1.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_2.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_3.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_4.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_6.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_7.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_8.jpg' width="100%" alt={matchedProduct.title}/>
         </div>
         {/* 오른쪽 영역 (상품정보, 수량, 총 가격, 장바구니 버튼, 구매 버튼) */}
         <div className={style.menu}>
           <div className={style.fixed}>
             <div className={style.info}>
-              <h4 className={style.title}>{detailItem.title}</h4>
+              <h4 className={style.title}>{matchedProduct.title}</h4>
               <p className={style.price}>{setComma(price)}원</p>
               <p className={style.desc}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
