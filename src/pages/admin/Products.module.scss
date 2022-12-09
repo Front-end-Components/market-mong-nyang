@@ -1,24 +1,27 @@
-.buttons {
-  display: flex;
-  justify-content: space-between;
-}
-
 .productList {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   text-align: center;
   li {
     display: flex;
     align-items: center;
     text-align: center;
     border-bottom: 1px solid $color-gray;
-    padding: 1rem;
+    padding: 1vw;
     cursor: pointer;
+    font-size: 14px;
     &:hover {
       background-color: rgb(250, 250, 250);
       color: $color-purple;
       font-weight: 600;
+    }
+    &:nth-child(1) {
+      cursor: default;
+      &:hover {
+        background-color: $color-white;
+        color: $color-black;
+        font-weight: 400;
+      }
     }
     span {
       &:nth-child(1) {
@@ -39,4 +42,10 @@
       }
     }
   }
+}
+
+.buttons {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
 }
