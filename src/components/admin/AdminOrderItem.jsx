@@ -1,4 +1,4 @@
-import { formatDate } from '@/utils/dateFormat';
+import { formatDate } from '@/utils/formats';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,8 +21,8 @@ export default function AdminOrderItem({ item, idx }) {
       <span>{item.user.displayName}</span>
       <span>{item.account.bankName}</span>
       <span>{formatDate(item.timePaid)}</span>
-      <span>{item.isCanceled}</span>
-      <span>{item.done}</span>
+      <span>{item.isCanceled ? 'Y' : 'N'}</span>
+      <span>{item.done ? 'Y' : 'N'}</span>
     </li>
   );
 }
