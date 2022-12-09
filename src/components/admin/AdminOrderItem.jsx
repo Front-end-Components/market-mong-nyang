@@ -1,4 +1,4 @@
-import { formatDate } from '@/constants/dateFormat';
+import { formatDate } from '@/utils/dateFormat';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
