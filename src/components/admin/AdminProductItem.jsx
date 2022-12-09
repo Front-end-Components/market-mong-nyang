@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProductItem({ item, idx }) {
+export default function AdminProductItem({ item, idx }) {
   const navigate = useNavigate();
 
   return (
