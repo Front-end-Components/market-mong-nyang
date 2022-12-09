@@ -20,9 +20,13 @@ export default function ProductDetail(props) {
   };
 
   // 가격 콤마
-  const price = detailItem.price;
-  const priceComma = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  function setComma(originPrice) {
+    const result = originPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return result;
+  }
 
+  const price = detailItem.price;
+  
   return (
     <div className={style.detail}>
       <div className={style.container}>
@@ -43,12 +47,13 @@ export default function ProductDetail(props) {
           <div className={style.fixed}>
             <div className={style.info}>
               <h4 className={style.title}>{detailItem.title}</h4>
-              <p className={style.price}>{priceComma}원</p>
+              <p className={style.price}>{setComma(price)}원</p>
               <p className={style.desc}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
             <div className={style.total}>
               <div className={style.countwrap}>
                 <p>구매 수량</p>
+                {/* 카운트 버튼 */}
                 <div className={style.count}>
                   <button onClick={() => {
                     if(count === 1){
@@ -64,7 +69,7 @@ export default function ProductDetail(props) {
               </div>
               <div className={style.totalprice}>
                 <p>총 상품 금액</p>
-                <p>₩ 원</p>
+                <p>₩ {setComma(price * count)}원</p>
               </div>
             </div>
             <div className={style.button}>
