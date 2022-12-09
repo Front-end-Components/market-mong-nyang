@@ -3,22 +3,22 @@
   flex-direction: column;
   gap: 2rem;
   .content {
-    gap: 1rem;
     width: 100%;
-    height: 150px;
+    height: 130px;
+    margin-top: 15px;
     position: relative;
     .orderContent {
       justify-content: center;
       display: table;
       width: 100%;
-      padding: 20px 0;
+      padding: 5px 0;
       min-height: 150px;
       border: 1px solid #f5f5f5;
       .imgContent {
         position: absolute;
         top: 50%;
         left: 20px;
-        margin-top: -30px;
+        margin-top: -35px;
         .orderImg {
           width: 80px;
           height: 100px;
@@ -81,7 +81,7 @@
         Button {
           width: 80%;
           height: 30px;
-          padding: 5px;
+          padding: 7px;
           span {
             font-size: 13px;
           }

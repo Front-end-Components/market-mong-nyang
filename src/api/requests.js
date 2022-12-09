@@ -136,7 +136,7 @@ export const insertOrder = (data) => {
 export const updateOrderOk = () => {};
 
 // 제품 전체 거래 내역
-export const selectListOrder = () => {};
+export const selectListOrder = () => { };
 
 // 단일 제품 상세 거래 내역
 export const selectOrder = () => {};
