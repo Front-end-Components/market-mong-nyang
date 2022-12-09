@@ -2,14 +2,87 @@
   .container {
     width: $width-inner;
     height: auto;
-    background-color: rgb(207, 207, 207);
+    // background-color: rgb(207, 207, 207);
     display: flex;
     justify-content: space-between;
-    img {
-      width: 300px;
+    padding-top: 30px;
+    .imgarea {
+      width: 60%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      img {
+        width: 80%;
+        display: block;
+      }
     }
-    .info {
-      width: 300px;
+    .menu {
+      width: 40%;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-content: flex-start;
+      padding-top: 50px;
+      padding-left: 40px;
+      border-left: 1px solid $color-lightgray;
+      .fixed {
+        width: 100%;
+        position: sticky;
+        top: 100px;
+        color: $color-black;
+        .info {
+          .title {
+            width: 100%;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.3;
+            padding-bottom: 20px;
+          }
+          .price {
+            width: 100%;
+            font-size: 20px;
+            font-weight: 700;
+            padding-bottom: 30px;
+          }
+          .desc {
+            line-height: 1.3;
+          }
+        }
+        .total {
+          margin-top: 20px;
+          border-top: 2px solid $color-lightgray;
+          padding-top: 40px;
+          .countwrap {
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: $color-black;
+            .count {
+              display: flex;
+              gap: 10px;
+            }
+          }
+          .totalprice {
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            font-weight: 700;
+            color: $color-black;
+          }
+        }
+        .button {
+          padding-top: 50px;
+          display: flex;
+          justify-content: flex-start;
+          gap: 10px;
+          Button {
+            width: 50%;
+          }
+        }
+      }
     }
   }
 }
