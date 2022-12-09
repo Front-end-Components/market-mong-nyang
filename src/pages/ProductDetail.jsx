@@ -8,10 +8,10 @@ import Button from '../components/Button';
 export default function ProductDetail(props) {
   let [item] = useState(products);
   const {id} = useParams();
-
+  const [count, setCount] = useState(1);
+  
   // 랜더할 Item 찾기
   let detailItem = '';
-
   for(let i = 0; i < item.length; i++){
     if(item[i].id === id){
       detailItem = item[i];
@@ -50,9 +50,16 @@ export default function ProductDetail(props) {
               <div className={style.countwrap}>
                 <p>구매 수량</p>
                 <div className={style.count}>
-                  <button>-</button>
-                  <p>1</p>
-                  <button>+</button>
+                  <button onClick={() => {
+                    if(count === 1){
+                      return 1;
+                    }
+                    setCount(count - 1);
+                  }}>-</button>
+                  <p>{count}</p>
+                  <button onClick={() => {
+                    setCount(count + 1);
+                  }}>+</button>
                 </div>
               </div>
               <div className={style.totalprice}>

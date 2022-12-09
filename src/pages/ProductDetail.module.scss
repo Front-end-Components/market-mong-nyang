@@ -61,7 +61,15 @@
             color: $color-black;
             .count {
               display: flex;
+              align-items: center;
               gap: 10px;
+              button {
+                width: 22px;
+                height: 22px;
+                border-radius: 30px;
+                border: 1px solid $color-black;
+                background-color: $color-white;
+              }
             }
           }
           .totalprice {
@@ -74,7 +82,7 @@
           }
         }
         .button {
-          padding-top: 50px;
+          padding-top: 30px;
           display: flex;
           justify-content: flex-start;
           gap: 10px;
