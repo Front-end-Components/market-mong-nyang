@@ -14,7 +14,7 @@ export default function AdminProductItem({ item, idx }) {
       <span>
         <input type='checkbox' name='' id='' />
       </span>
-      <span>{idx}</span>
+      <span>{idx + 1}</span>
       <span>{item.title}</span>
       <span>{item.price}</span>
       <span>{item.isSoldOut}</span>
