@@ -25,7 +25,7 @@ export default function MyOrder() {
       return <Order key={item.id} item={item} />;
     })
   ) : (
-    <p>구매하시 상품이 없습니다.</p>
+    <p>구매하신 상품이 없습니다.</p>
   )}
     </div>
   );
