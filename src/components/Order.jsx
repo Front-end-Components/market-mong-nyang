@@ -2,11 +2,12 @@ import React from 'react';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/MyOrder.module.scss';
+import { formatPrice } from '@/utils/formats';
 
 export default function Order({ item, idx }) {
   const navigate = useNavigate();
   let date = item.timePaid.substr(0, 10);
-  console.log(item.thumbnail);
+  let price = formatPrice(item.product.price);
   let orderState = '구매완료';
   return (
     <div className={style.content}>
@@ -18,7 +19,7 @@ export default function Order({ item, idx }) {
             <p className={style.productName} onClick={() => {
               navigate(`/mypage/order/${item.detailId}`, { state: { item }});
             }}>{item.product.title}</p>
-          <p className={style.orderPrice}>{item.product.price}원</p>
+          <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>
           <p className={style.orderState}>{orderState}</p>
           <p className={style.orderGuide}>구매가 완료 되었습니다.</p>
@@ -27,7 +28,7 @@ export default function Order({ item, idx }) {
         <div className={style.btnContent}>
           <Button className={style.orderCancel} name={'주문 취소'} />
           <Button className={style.orderOk} name={'구매 확정'} isPurple={true} onClick={() => {
-            orderState = '구매확정';
+
           }}/>
         </div>
       </div>
