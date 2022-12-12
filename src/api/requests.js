@@ -23,6 +23,7 @@ const requestPost = async (path, instance, data) => {
 const requestGet = async (path, instance) => {
   try {
     return await instance.get(path).then((res) => {
+      console.log(res.data);
       return res.data;
     });
   } catch (e) {
@@ -115,6 +116,7 @@ export const deleteAccount = () => {
 // 단일 제품 상세 조회 /products/:productId, GET
 // 제품 검색 /products/search, POST
 // 제품 거래 신청 /products/buy, POST
+// 제품 거래 취소 /products/cancel, POST
 // 제품 거래 확정 /products/ok, POST
 // 제품 전체 거래 내역 /products/transactions/details, GET
 // 단일 제품 상세 거래 내역 /products/transactions/detail, POST
@@ -132,8 +134,15 @@ export const insertOrder = (data) => {
   return requestPost(PATH.BUY, authInstance, data);
 };
 
+// 제품 거래 취소
+export const updateOrderCancel = (id) => {
+  return requestPost(PATH.BUY_CANCEL, authInstance, id);
+};
+
 // 제품 거래 확정
-export const updateOrderOk = () => {};
+export const updateOrderOk = (id) => {
+  return requestPost(PATH.BUY_OK, authInstance, id);
+};
 
 // 제품 전체 거래 내역
 export const selectListOrder = () => {
