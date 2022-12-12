@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
-import { updateOrderOk, updateOrderCancel } from '@/api/requests'
+import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
 export default function Order({ item }) {
   const navigate = useNavigate();

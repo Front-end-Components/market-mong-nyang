@@ -150,7 +150,9 @@ export const selectListOrder = () => {
 };
 
 // 단일 제품 상세 거래 내역
-export const selectOrder = () => {};
+export const selectOrder = (id) => {
+  return requestPost(PATH.TRANSACTION_DETAIL, authInstance, id)
+};
 
 // 모든 제품 조회 /products, GET
 // 전체 거래 내역 /products/transactions/all, GET
