@@ -8,6 +8,7 @@ const PATH = {
   PRODUCT: '/products',
   SEARCH: '/products/search',
   BUY: '/products/buy',
+  BUY_CANCEL: '/products/cancel',
   BUY_OK: '/products/ok',
   TRANSACTION: '/products/transactions',
   TRANSACTION_ALL: '/products/transactions/all',

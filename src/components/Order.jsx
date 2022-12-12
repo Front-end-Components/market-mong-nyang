@@ -3,12 +3,22 @@ import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
+import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
-export default function Order({ item, idx }) {
+export default function Order({ item }) {
   const navigate = useNavigate();
+  const detailID = {
+    'detailId': item.detailId
+  };
+  let stateText = '구매 완료'
+  if(item.done) {
+    stateText = '구매 확정';
+  } else if (item.isCanceled) {
+    stateText = '주문 취소';
+  }
   let date = item.timePaid.substr(0, 10);
   let price = formatPrice(item.product.price);
-  let orderState = '구매완료';
+
   return (
     <div className={style.content}>
       <div className={style.orderContent}>
@@ -21,15 +31,17 @@ export default function Order({ item, idx }) {
             }}>{item.product.title}</p>
           <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>
-          <p className={style.orderState}>{orderState}</p>
+          <p className={style.orderState}>{stateText}</p>
           <p className={style.orderGuide}>구매가 완료 되었습니다.</p>
           <p className={style.orderGuide}>구매 확정 이후에는 주문 취소가 불가능합니다.</p>
         </div>
         <div className={style.btnContent}>
-          <Button className={style.orderCancel} name={'주문 취소'} />
-          <Button className={style.orderOk} name={'구매 확정'} isPurple={true} onClick={() => {
-
-          }}/>
+          <Button display={item.done || item.isCanceled} name={'주문 취소'} onClick={() => {
+            updateOrderCancel(detailID);
+          }} />
+          <Button display={item.done || item.isCanceled} name={'구매 확정'} isPurple={true} onClick={() => {
+            updateOrderOk(detailID);
+          }} />
         </div>
       </div>
     </div>
