@@ -1,13 +1,9 @@
-// import { useDispatch } from 'react-redux';
-// import { showLoading, hideLoading } from '../store/loadingSlice.js';
 import PATH from '@/constants/path.js';
 import { setItem } from '@/utils/storage.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
 
-// let dispatch = useDispatch();
 const requestPost = async (path, instance, data) => {
   try {
-    // dispatch(showLoading());
     return await instance.post(path, JSON.stringify(data)).then((res) => {
       return res.data;
     });
@@ -16,7 +12,6 @@ const requestPost = async (path, instance, data) => {
     console.log(e);
     throw new Error('에러가 발생하였습니다.');
   } finally {
-    // dispatch(hideLoading());
   }
 };
 
@@ -93,12 +88,12 @@ export const updateUserInfo = (data) => {
 // 계좌 해지 /account, DELETE
 
 // 선택 가능한 은행 목록 조회 (사용자)
-export const selectBanks = () => {
+export const getListBank = () => {
   return requestGet(PATH.BANKS, authInstance);
 };
 
 // 계좌 목록 및 잔액 조회
-export const selectListAccount = () => {
+export const getListAccount = () => {
   return requestGet(PATH.ACCOUNT, authInstance);
 };
 
@@ -120,7 +115,7 @@ export const deleteAccount = () => {
 // 단일 제품 상세 거래 내역 /products/transactions/detail, POST
 
 // 단일 제품 상세 조회 (공용)
-export const selectProductDetail = (id) => {
+export const getProductDetail = (id) => {
   return requestGet(`${PATH.PRODUCT}/${id}`, authInstance);
 };
 
@@ -136,12 +131,12 @@ export const insertOrder = (data) => {
 export const updateOrderOk = () => {};
 
 // 제품 전체 거래 내역
-export const selectListOrder = () => {
+export const getListOrder = () => {
   return requestGet(PATH.TRANSACTION_DETAILS, authInstance);
 };
 
 // 단일 제품 상세 거래 내역
-export const selectOrder = () => {};
+export const getOrderDetail = () => {};
 
 // 모든 제품 조회 /products, GET
 // 전체 거래 내역 /products/transactions/all, GET
@@ -151,12 +146,12 @@ export const selectOrder = () => {};
 // 제품 삭제 /products/:productId, DELETE
 
 // 모든 제품 조회 (관리자)
-export const selectListProductAdmin = () => {
+export const getListProductAdmin = () => {
   return requestGet(PATH.PRODUCT, adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
-export const selectListOrderAdmin = () => {
+export const getListOrderAdmin = () => {
   return requestGet(PATH.TRANSACTION_ALL, adminInstance);
 };
 
