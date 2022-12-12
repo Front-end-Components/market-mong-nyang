@@ -4,7 +4,7 @@ import style from './CartItem.module.scss';
 import { formatPrice } from '@/utils/formats';
 
 export default function CartItem({ item }) {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(item.count);
 
   return (
     <div className={style.cartitem}>
@@ -40,7 +40,7 @@ export default function CartItem({ item }) {
             </button>
           </div>
         </div>
-        <div className={style.price}>{formatPrice(item.price)} 원</div>
+        <div className={style.price}>{formatPrice(item.price * count)} 원</div>
       </div>
     </div>
   );
