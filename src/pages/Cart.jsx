@@ -4,10 +4,13 @@ import CartItem from '../components/CartItem';
 import style from './Cart.module.scss';
 
 export default function Cart() {
+
   return (
     <div className={style.cart}>
      <MypageHeader name={'장바구니'} />
-    <CartItem />
+     <div className={style.container}>
+      <CartItem />
+     </div>
     </div>
   );
 }
