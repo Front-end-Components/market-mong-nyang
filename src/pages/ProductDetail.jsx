@@ -29,16 +29,8 @@ export default function ProductDetail(props) {
   };
 
   const [count, setCount] = useState(1);
-
-  // 가격 콤마 변환
   const price = matchedProduct.price;
-  // function setComma(originPrice) {
-  //   if(originPrice){
-  //     let result = originPrice.toLocaleString('ko-KR');
-  //     return result;
-  //   }
-  // }
-  
+
   return (
     <div className={style.detail}>
       <div className={style.container}>
