@@ -1,17 +1,20 @@
-import { selectListProductAdmin } from '@/api/requests';
+import { getListProductAdmin } from '@/api/requests';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
 import { formatPrice } from '@/utils/formats.js';
+import { insertItem } from '@/store/cartSlice';
+import { useDispatch } from "react-redux";
 
-export default function ProductDetail(props) {
+export default function ProductDetail() {
   const [products, setProducts] = useState([]);
+  let dispatch = useDispatch();
 
   useEffect(() => {
     async function getData() {
-      const data = await selectListProductAdmin();
+      const data = await getListProductAdmin();
       setProducts(data);
     }
     getData();
@@ -77,7 +80,16 @@ export default function ProductDetail(props) {
               </div>
             </div>
             <div className={style.button}>
-              <Button name={'장바구니'} />
+              <Button name={'장바구니'} onClick={() => {
+                dispatch(insertItem({
+                  id: matchedProduct.id,
+                  isSoldOut: false,
+                  price: matchedProduct.price,
+                  thumbnail: matchedProduct.thumbnail,
+                  title: matchedProduct.title,
+                  count: count,
+                }));
+              }} />
               <Button name={'구매하기'} isPurple={true} />
             </div>
           </div>
