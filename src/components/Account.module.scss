@@ -1,42 +1,32 @@
 .accountContent {
   padding: 16px 0;
-
   .title {
     background-color: $color-purple;
     color: $color-white !important;
     width: 100%;
     display: block;
     text-align: center;
-    line-height: 40px !important;
+    line-height: 44px !important;
   }
-
   .slide {
     overflow: hidden;
     margin: 20px 0 0;
-
-    ul {
+    width: 35vw;
+    .list {
+      height: 160px;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #fafafa;
+      border: 1px solid #f2f2f2;
+      box-sizing: border-box;
       display: flex;
-      gap: 15px;
-
-      li {
-        width: 280px;
-        height: 160px;
-        padding: 30px;
-        border-radius: 10px;
-        background-color: #fafafa;
-        border: 1px solid #f2f2f2;
-        box-sizing: border-box;
+      flex-flow: column;
+      p {
+        margin: 8px 0 42px;
+      }
+      span {
         display: flex;
-        flex-flow: column;
-
-        p {
-          margin: 8px 0 42px;
-        }
-
-        span {
-          display: flex;
-          justify-content: flex-end;
-        }
+        justify-content: flex-end;
       }
     }
   }

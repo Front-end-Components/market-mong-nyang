@@ -1,5 +1,6 @@
 import React from 'react';
 import Account from '@/components/Account';
+import Button from '@/components/Button';
 import style from './Payment.module.scss';
 
 export default function Payment() {
@@ -62,6 +63,7 @@ export default function Payment() {
         </div>
       </div>
     </div>
+    <Button name={'결제하기'} isPurple={true} />
   </div>
   )
 }
