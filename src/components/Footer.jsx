@@ -6,7 +6,6 @@ import style from './Footer.module.scss';
 export default function Footer() {
 let date = new Date();
 let year = date.getFullYear();
-console.log(year); 
 
   return (
     <div className={style.footer}>
