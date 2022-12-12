@@ -25,15 +25,17 @@ export default function Orders() {
     <div>
       <ul className={style.orderList}>
         <li>
-          <span></span>
-          <span>NO</span>
-          <span>상품명</span>
-          <span>가격</span>
-          <span>거래자</span>
-          <span>거래은행</span>
-          <span>거래시간</span>
-          <span>취소여부</span>
-          <span>완료여부</span>
+          <input type='checkbox' name='' id='' />
+          <div>
+            <span>NO</span>
+            <span>상품명</span>
+            <span>가격</span>
+            <span>거래자</span>
+            <span>거래은행</span>
+            <span>거래시간</span>
+            <span>취소여부</span>
+            <span>완료여부</span>
+          </div>
         </li>
         {Array.isArray(orders) ? (
           orders.slice(offset, offset + limit).map((item, idx) => {
