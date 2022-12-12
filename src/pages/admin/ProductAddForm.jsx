@@ -14,20 +14,22 @@ import { useNavigate } from 'react-router';
 // }
 export default function ProductForm() {
   const [product, setProduct] = useState({});
-  const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
 
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    let { name, value, files } = e.target;
-    if (name === 'thumbnail') {
-      // setFile(files && files[0]);
-      // console.log(files[0]);
-      return;
-    } else if (name === 'photo') {
-      return;
+  const handleChange = (event) => {
+    let { name, value, files } = event.target;
+    if (files) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.addEventListener('load', (e) => {
+        value = e.target.result;
+        setProduct((product) => ({ ...product, [name]: value }));
+        return;
+      });
     } else if (name === 'price') {
       value = Number(value);
     }
@@ -46,22 +48,6 @@ export default function ProductForm() {
         }
       });
     }
-    // setIsUploading(true);
-    // uploadImage(file) //
-    //   .then((url) => {
-    //     addProduct.mutate(
-    //       { product, url },
-    //       {
-    //         onSuccess: () => {
-    //           setSuccess('성공적으로 제품이 추가되었습니다.');
-    //           setTimeout(() => {
-    //             setSuccess(null);
-    //           }, 4000);
-    //         },
-    //       }
-    //     );
-    //   })
-    //   .finally(() => setIsUploading(false));
   };
 
   return (
@@ -71,16 +57,16 @@ export default function ProductForm() {
       </div>
       <form onSubmit={handleSubmit}>
         <div className={style.inputWrap}>
-          <span>제품명</span>
+          <span>제품명 *</span>
           <input type='text' name='title' value={product.title ?? ''} placeholder='제품명' required onChange={handleChange} />
         </div>
         <div className={style.inputWrap}>
-          <span>가격</span>
+          <span>가격 *</span>
           <input type='number' name='price' value={product.price ?? ''} placeholder='가격' required onChange={handleChange} />
         </div>
         <div className={style.inputWrap}>
           <div className={style.textWrap}>
-            <span>제품 상세 설명</span>
+            <span>제품 상세 설명 *</span>
           </div>
           <textarea type='text' name='description' value={product.description ?? ''} placeholder='제품 상세 설명' required onChange={handleChange} />
         </div>
@@ -90,11 +76,11 @@ export default function ProductForm() {
         </div>
         <div className={style.inputWrap}>
           <span>썸네일 이미지</span>
-          <input type='file' accept='image/*' name='thumbnail' onChange={handleChange} />
+          <input type='file' accept='image/*' name='thumbnailBase64' onChange={handleChange} />
         </div>
         <div className={style.inputWrap}>
           <span>상품 상세 이미지</span>
-          <input type='file' accept='image/*' name='photo' onChange={handleChange} />
+          <input type='file' accept='image/*' name='photoBase64' onChange={handleChange} />
         </div>
         <div className={style.buttons}>
           <Button name={'등록'} isPurple={true} />
