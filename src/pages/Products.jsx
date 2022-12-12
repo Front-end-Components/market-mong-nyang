@@ -1,4 +1,4 @@
-import { selectListProductAdmin } from '@/api/requests';
+import { getListProductAdmin } from '@/api/requests';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import style from './Products.module.scss';
@@ -7,10 +7,11 @@ import ProductHeader from '../components/ProductHeader';
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
+  console.log(products);
 
   useEffect(() => {
     async function getData() {
-      const data = await selectListProductAdmin();
+      const data = await getListProductAdmin();
       setProducts(data);
     }
     getData();
@@ -21,13 +22,9 @@ export default function AllProducts() {
       <div className={style.container}>
         <ProductHeader name={'전체 상품'} />
         <div className={style.row}>
-          {
-            products.map((a, i) => {
-              return (
-                  <Product products={products[i]} />
-              )
-            })
-          }
+          { products.map((products) => {
+              return <Product key={products.id} products={products} />
+            })}
         </div>
       </div>
     </div>

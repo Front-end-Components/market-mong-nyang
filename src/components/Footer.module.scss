@@ -1,0 +1,13 @@
+.footer {
+  width: 100%;
+  height: 200px;
+  background-color: $color-lightgray;
+  display: flex;
+  justify-content: center;;
+  .copy {
+    align-self: flex-end;
+    padding-bottom: 20px;
+    font-size: 14px;
+    color: $color-black;
+  }
+}
