@@ -12,7 +12,7 @@ export default function AdminProductItem({ item, idx }) {
       <div
         onClick={(event) => {
           if (event.target.type !== 'checkbox') {
-            navigate(`/admin/product/${item.id}`, { state: { item } });
+            navigate(`/admin/product/${item.id}`);
           }
         }}
       >
