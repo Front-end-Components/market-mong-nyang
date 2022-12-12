@@ -21,13 +21,9 @@ export default function AllProducts() {
       <div className={style.container}>
         <ProductHeader name={'전체 상품'} />
         <div className={style.row}>
-          {
-            products.map((a, i) => {
-              return (
-                  <Product products={products[i]} />
-              )
-            })
-          }
+          { products.map((products) => {
+              return <Product key={products.id} products={products} />
+            })}
         </div>
       </div>
     </div>
