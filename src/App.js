@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
+import Footer from './components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './App.module.scss';
 import AdminNavbar from './components/admin/AdminNavbar';
@@ -28,6 +29,9 @@ function App() {
             <div className={style.adminOutlet}>
               <Outlet />
             </div>
+            <div className={style.footer}>
+              <Footer />
+            </div>
           </div>
         </div>
       ) : (
@@ -36,6 +40,9 @@ function App() {
           <div className={style.outlet}>
             <Outlet />
           </div>
+          <div className={style.footer}>
+              <Footer />
+            </div>
         </div>
       )}
     </div>
