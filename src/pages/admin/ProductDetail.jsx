@@ -1,5 +1,6 @@
 import { deleteProduct, selectProductDetail } from '@/api/requests';
 import Button from '@/components/Button';
+import { formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
@@ -42,7 +43,7 @@ export default function ProductDetail() {
     <div>
       <img src='' alt='thumbnail' />
       <p>상품명 : {title}</p>
-      <p>가격 : {price}</p>
+      <p>가격 : {formatPrice(price)}</p>
       <p>상품 설명 : {description}</p>
       <p>태그 : {tags}</p>
       <p>품절 여부 : {isSoldOut ? 'Y' : 'N'}</p>

@@ -1,5 +1,5 @@
 import Button from '@/components/Button';
-import { formatDate } from '@/utils/formats';
+import { formatDate, formatPrice } from '@/utils/formats';
 import React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './OrderDetail.module.scss';
@@ -24,7 +24,7 @@ export default function OrderDetail() {
       <p>계좌번호 : {account.accountNumber}</p>
       <p>상품 ID : {product.productId}</p>
       <p>상품명 : {product.title}</p>
-      <p>상품가격 : {product.price}</p>
+      <p>상품가격 : {formatPrice(product.price)}</p>
       <p>상품설명 : {product.description}</p>
       <p>상품태그 : {product.tags}</p>
       <p>상품 썸네일 : {product.thumbnail}</p>
