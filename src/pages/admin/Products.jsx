@@ -1,4 +1,4 @@
-import { selectListProductAdmin } from '@/api/requests';
+import { getListProductAdmin } from '@/api/requests';
 import AdminProductItem from '@/components/admin/AdminProductItem';
 import Button from '@/components/Button';
 import React, { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export default function Products() {
 
   useEffect(() => {
     async function getData() {
-      const data = await selectListProductAdmin();
+      const data = await getListProductAdmin();
       setProducts(data);
     }
     getData();

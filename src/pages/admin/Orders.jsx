@@ -1,9 +1,10 @@
-import { selectListOrderAdmin } from '@/api/requests';
+import { getListOrderAdmin } from '@/api/requests';
 import AdminOrderItem from '@/components/admin/AdminOrderItem';
-import AdminProductItem from '@/components/admin/AdminProductItem';
 import Button from '@/components/Button';
 import Pagination from '@/components/Pagination';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import style from './Orders.module.scss';
 
@@ -12,11 +13,14 @@ export default function Orders() {
   const [page, setPage] = useState(1);
   const limit = 10;
   const offset = (page - 1) * limit;
+  let dispatch = useDispatch();
 
   useEffect(() => {
     async function getData() {
-      const data = await selectListOrderAdmin();
+      dispatch(showLoading());
+      const data = await getListOrderAdmin();
       setOrders(data);
+      dispatch(hideLoading());
     }
     getData();
   }, []);
