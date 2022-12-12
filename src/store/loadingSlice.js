@@ -2,14 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 let loading = createSlice({
   name: 'loading',
-  initialState: true,
-  // initialState: false,
+  initialState: { isLoading: false },
   reducers: {
-    showLoading() {
-      return true;
+    showLoading(state) {
+      state.isLoading = true;
     },
-    hideLoading() {
-      return false;
+    hideLoading(state) {
+      state.isLoading = false;
     },
   },
 });
