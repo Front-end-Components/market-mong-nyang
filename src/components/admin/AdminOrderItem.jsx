@@ -18,7 +18,7 @@ export default function AdminOrderItem({ item, idx }) {
       >
         <span>{idx + 1}</span>
         <span>{item.product.title}</span>
-        <span>{formatPrice(item.product.price)}</span>
+        <span>{`${formatPrice(item.product.price)} 원`}</span>
         <span>{item.user.displayName}</span>
         <span>{item.account.bankName}</span>
         <span>{formatDate(item.timePaid)}</span>

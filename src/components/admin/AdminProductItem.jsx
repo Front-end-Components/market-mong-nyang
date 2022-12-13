@@ -18,7 +18,7 @@ export default function AdminProductItem({ item, idx }) {
       >
         <span>{idx + 1}</span>
         <span>{item.title}</span>
-        <span>{formatPrice(item.price)}</span>
+        <span>{`${formatPrice(item.price)} 원`}</span>
         <span>{item.isSoldOut ? 'Y' : 'N'}</span>
       </div>
     </li>
