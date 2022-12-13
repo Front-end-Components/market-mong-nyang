@@ -18,11 +18,11 @@ export default function ProductDetail() {
     getData();
   }, []);
 
-  const onClickUpdateBtn = () => {
+  const handleClickUpdate = () => {
     navigate(`/admin/products/modify/${product.id}`, { state: { product } });
   };
 
-  const onClickdDeleteBtn = () => {
+  const handleClickDelete = () => {
     if (window.confirm('해당 상품을 삭제하시겠습니까?')) {
       deleteProduct(id).then((res) => {
         if (res) {
@@ -45,8 +45,8 @@ export default function ProductDetail() {
       <p>품절 여부 : {product.isSoldOut ? 'Y' : 'N'}</p>
       <img src={product.photo} alt='photo' />
       <div className={style.buttons}>
-        <Button name={'수정'} isPurple={true} onClick={onClickUpdateBtn} />
-        <Button name={'삭제'} isPurple={true} onClick={onClickdDeleteBtn} />
+        <Button name={'수정'} isPurple={true} onClick={handleClickUpdate} />
+        <Button name={'삭제'} isPurple={true} onClick={handleClickDelete} />
       </div>
     </div>
   );
