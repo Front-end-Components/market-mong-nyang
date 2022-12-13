@@ -1,37 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import MypageHeader from '../components/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
 import OrderDetail from '@/components/OrderDetail';
 
 export default function MyOrderDetail() {
-  let { orderId } = useParams();
+  let location = useLocation();
   const [detail, setDetail] = useState([]);
 
-  useEffect(() => {
-    async function getData() {
-      const detailID = {
-        'detailId': orderId
-      };
+  const id = location.state.item.detailId;
+  const detailID = {
+    'detailId': id
+  }
+  
+  async function postData(detailID) {
+    const data = await selectOrder(detailID);
+    // setDetail(data);
+  }
 
-      const data = await selectOrder(detailID);
-      setDetail(data);
-    }
-    getData();
+  postData(detailID);
 
-  }, [orderId]);
-
-  console.log(useParams().id);
   return (
     <div className={style.MyOrderDetail}>
       <MypageHeader name={'주문 상세정보'} />
       
       {(
-        detail.map((item) => {
-          return <OrderDetail key={item.id} item={item} />
-        })
-      )};
+    detail.map((item) => {
+      return <OrderDetail key={item.id} item={item} />;
+    })
+  )}
     </div>
   );
 }
