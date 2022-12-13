@@ -31,10 +31,10 @@ export default function CartItem({ item }) {
                 setCount(count - 1);
               }}>-</button>
               <p>{count}</p>
-              {/* <button onClick={() => {
+              <button onClick={() => {
                 setCount(count + 1);
-              }}>+</button> */}
-            <button onClick={() => { dispatch(increaseCount())}}>+</button>
+              }}>+</button>
+            {/* <button onClick={() => { dispatch(increaseCount())}}>+</button> */}
           </div>
         </div>
         <div className={style.price}>{formatPrice(item.price * count)} 원</div>
