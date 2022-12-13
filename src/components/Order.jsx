@@ -7,6 +7,7 @@ import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
 export default function Order({ item }) {
   let navigate = useNavigate();
+  
   const detailID = {
     'detailId': item.detailId
   };
