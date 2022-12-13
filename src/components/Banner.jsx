@@ -25,12 +25,12 @@ export default function Banner() {
       }}
     >
     <SwiperSlide className={style.slide}>
-      <a href="#">
+      <a href="/products/yZC7r2wzAuFxtDtWSmI3">
       <img src="/images/main-banner-01.jpg" alt="" className={style.image}/>
       </a>
       </SwiperSlide>
     <SwiperSlide className={style.slide}>
-      <a href="">
+      <a href="/products/0W89Uu9F5PIrvyPGKHQG">
       <img src="/images/main-banner-02.jpg" alt="" className={style.image}/>
       </a>
     </SwiperSlide>
