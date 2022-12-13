@@ -57,3 +57,30 @@
   display: flex;
   justify-content: space-between;
 }
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  .inputWrap {
+    position: relative;
+    input {
+      width: 24rem;
+      font-size: 14px;
+      outline: none;
+      border: 1px solid $color-purple;
+      border-radius: 6px;
+      padding: 0.8rem;
+    }
+    button {
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      outline: none;
+      top: 0;
+      right: 0;
+      padding: 0.6rem;
+      cursor: pointer;
+    }
+  }
+}
