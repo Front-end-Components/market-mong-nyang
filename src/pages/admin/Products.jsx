@@ -5,9 +5,11 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
 import Pagination from '@/components/Pagination';
+import { BiSearch } from 'react-icons/bi';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState([]);
   const [page, setPage] = useState(1);
   const limit = 10;
   const offset = (page - 1) * limit;
@@ -16,9 +18,21 @@ export default function Products() {
     async function getData() {
       const data = await getListProductAdmin();
       setProducts(data);
+      setSearch(data);
     }
     getData();
   }, []);
+
+  const handleSearch = () => {
+    const search = document.querySelector('.product-search').value;
+    let copy = [...products];
+    copy = copy.filter((item) => item.title.includes(search));
+    setSearch(copy);
+  };
+
+  const handleKeyup = (event) => {
+    if (event.key === 'Enter') handleSearch();
+  };
 
   return (
     <div>
@@ -32,8 +46,8 @@ export default function Products() {
             <span>품절여부</span>
           </div>
         </li>
-        {Array.isArray(products) ? (
-          products.slice(offset, offset + limit).map((item, idx) => {
+        {Array.isArray(search) ? (
+          search.slice(offset, offset + limit).map((item, idx) => {
             return <AdminProductItem key={item.id} item={item} idx={idx + 1 * offset} />;
           })
         ) : (
@@ -42,10 +56,18 @@ export default function Products() {
       </ul>
       <div className={style.buttons}>
         <Button name={'삭제'} />
-        {Array.isArray(products) ? <Pagination total={products.length} limit={limit} page={page} setPage={setPage} /> : null}
+        {Array.isArray(search) ? <Pagination total={search.length} limit={limit} page={page} setPage={setPage} /> : null}
         <Link to='/admin/products/add'>
           <Button name={'등록'} isPurple={true} />
         </Link>
+      </div>
+      <div className={style.search}>
+        <div className={style.inputWrap}>
+          <input className='product-search' type='text' placeholder='상품명을 입력해 주세요.' onKeyUp={handleKeyup} />
+          <button onClick={handleSearch}>
+            <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
+          </button>
+        </div>
       </div>
     </div>
   );

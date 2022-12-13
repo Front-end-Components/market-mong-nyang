@@ -29,7 +29,10 @@ import AdminProductDetail from './pages/admin/ProductDetail';
 import AdminOrders from './pages/admin/Orders';
 import AdminOrderDetail from './pages/admin/OrderDetail';
 import MyLike from './pages/MyLike';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 
+let persistor = persistStore(store);
 const router = createBrowserRouter([
   {
     path: '/',
@@ -107,9 +110,10 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          <ProtectedRoute requireAdmin>
-            <Dashboard />
-          </ProtectedRoute>
+          // <ProtectedRoute requireAdmin>
+          // <Dashboard />
+          <AdminProducts />
+          // </ProtectedRoute>
         ),
       },
       {
@@ -144,7 +148,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

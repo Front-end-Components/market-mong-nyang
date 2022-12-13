@@ -6,31 +6,6 @@ let cart = createSlice({
   name: 'cart',
   initialState: [],
   reducers: {
-    // increaseCount(state, action) {
-    //   //state[action.payload].count += 1; // 정렬 시 문제 발생
-    //   let num = state.findIndex((obj) => {
-    //     return obj.id === action.payload.id;
-    //   });
-    //   state[num].count += 1;
-    // },
-    // insertItem(state, action) {
-    //   let num = state.findIndex((obj) => {
-    //     return obj.id === action.payload.id;
-    //   });
-    //   if (num === -1) {
-    //     state.push({
-    //       id: action.payload.id,
-    //       name: action.payload.title,
-    //       count: action.payload.count,
-    //     });
-    //   } else {
-    //     state[num].count += 1;
-    //   }
-    // },
-    // insertItem(state, action) {
-      
-    //   state.push(action.payload);
-    // },
     increaseCount(state, action) {
       //state[action.payload].count += 1; // 정렬 시 문제 발생
       let num = state.findIndex((obj) => {

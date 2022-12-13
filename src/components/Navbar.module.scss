@@ -41,7 +41,7 @@
       align-items: center;
       gap: 1rem;
       .logo {
-        width: 50px;
+        width: 44px;
       }
       .title {
         font-size: 18px;
@@ -78,6 +78,7 @@
   }
   nav {
     width: $width-inner;
+    padding-top: 1rem;
     ul {
       display: flex;
       justify-content: space-between;
