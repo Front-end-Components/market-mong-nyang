@@ -28,19 +28,20 @@ export default function ProductDetail() {
   return (
     <div className={style.detail}>
       <div className={style.container}>
-        {/* 왼쪽 영역 (썸네일, 상세페이지) */}
+        {/* 이미지 영역 */}
         <div className={style.imgarea}>
-        <img src={products.thumbnail} width="100%" alt={products.title}/>
-        {/* 상세페이지 하드코딩 */}
-        <img src={products.photo} width="100%" alt={products.title}/>
+          {/* 썸네일 */}
+          <img src={products.thumbnail} width="100%" alt={products.title}/>
+          {/* 상세페이지 */}
+          <img src={products.photo} width="100%" alt={products.title}/>
         </div>
-        {/* 오른쪽 영역 (상품정보, 수량, 총 가격, 장바구니 버튼, 구매 버튼) */}
+        {/* 상품 정보 영역(수량, 총 가격, 장바구니 버튼, 구매 버튼) */}
         <div className={style.menu}>
           <div className={style.fixed}>
             <div className={style.info}>
               <h4 className={style.title}>{products.title}</h4>
               <p className={style.price}>{formatPrice(price)}원</p>
-              <p className={style.desc}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+              {/* <p className={style.tags}>{products.tags}</p> */}
             </div>
             <div className={style.total}>
               <div className={style.countwrap}>
