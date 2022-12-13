@@ -6,7 +6,7 @@ import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
 export default function Order({ item }) {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
   const detailID = {
     'detailId': item.detailId
   };
