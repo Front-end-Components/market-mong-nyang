@@ -2,8 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import style from './CartItem.module.scss';
 import { formatPrice } from '@/utils/formats';
-// // import us from '@/store/userSlice';
-import { increaseCount, deleteItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux"
 
 export default function CartItem({ item }) {
