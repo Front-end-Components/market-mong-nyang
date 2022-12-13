@@ -13,7 +13,7 @@ export default function OrderDetail({ item }) {
   let date = item.timePaid.substr(0, 10);
   return (
     <div className={style.content}>
-      <p>주문 일자 :</p>
+      <p>연결중</p>
     </div>
   );
 }
