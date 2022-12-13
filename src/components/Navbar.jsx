@@ -39,21 +39,24 @@ export default function Header() {
       </div>
       <nav>
         <ul>
-          <div className={style.hamberger}>
+          {/* <div className={style.hamberger}>
             <RxHamburgerMenu title='카테고리' />
             <Link to=''>카테고리</Link>
-          </div>
+          </div> */}
           <li>
-            <Link to='/new'>신상품</Link>
+            <Link to=''>주식 / 간식</Link>
           </li>
           <li>
-            <Link to='/best'>베스트</Link>
+            <Link to=''>건강 / 케어</Link>
           </li>
           <li>
-            <Link to='/sale'>알뜰쇼핑</Link>
+            <Link to=''>의류 / 리빙</Link>
           </li>
           <li>
-            <Link to='/admin'>관리자페이지</Link>
+            <Link to=''>외출 / 위생</Link>
+          </li>
+          <li>
+            <Link to='/admin'>관리자(임시)</Link>
           </li>
         </ul>
       </nav>
