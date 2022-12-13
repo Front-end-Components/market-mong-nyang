@@ -1,4 +1,4 @@
-import { getListProductAdmin } from '@/api/requests';
+import { getProductDetail } from '@/api/requests';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -7,53 +7,38 @@ import Button from '../components/Button';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function ProductDetail() {
   const [products, setProducts] = useState([]);
+  const {id} = useParams();
+  const [count, setCount] = useState(1);
+  const price = products.price;
   let dispatch = useDispatch();
 
   useEffect(() => {
     async function getData() {
-      const data = await getListProductAdmin();
+      const data = await getProductDetail(id);
       setProducts(data);
+      dispatch(hideLoading());
     }
     getData();
   }, []);
-
-  const {id} = useParams();
-
-  // 랜더할 Item 찾기
-  let matchedProduct = '';
-  for(let i = 0; i < products.length; i++){
-    if(products[i].id === id){
-      matchedProduct = products[i];
-      break;
-    }
-  };
-
-  const [count, setCount] = useState(1);
-  const price = matchedProduct.price;
 
   return (
     <div className={style.detail}>
       <div className={style.container}>
         {/* 왼쪽 영역 (썸네일, 상세페이지) */}
         <div className={style.imgarea}>
-        <img src={matchedProduct.thumbnail} width="100%" alt={matchedProduct.title}/>
+        <img src={products.thumbnail} width="100%" alt={products.title}/>
         {/* 상세페이지 하드코딩 */}
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_1.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_2.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_3.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_4.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_6.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_7.jpg' width="100%" alt={matchedProduct.title}/>
-        <img src='https://fly.gitt.co/baconbox/wp-content/uploads/2022/10/BACON_EASYWEAR-HEATING-QUILTED-COAT_ORANGE_contents_8.jpg' width="100%" alt={matchedProduct.title}/>
+        <img src={products.photo} width="100%" alt={products.title}/>
         </div>
         {/* 오른쪽 영역 (상품정보, 수량, 총 가격, 장바구니 버튼, 구매 버튼) */}
         <div className={style.menu}>
           <div className={style.fixed}>
             <div className={style.info}>
-              <h4 className={style.title}>{matchedProduct.title}</h4>
+              <h4 className={style.title}>{products.title}</h4>
               <p className={style.price}>{formatPrice(price)}원</p>
               <p className={style.desc}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
             </div>
@@ -82,11 +67,11 @@ export default function ProductDetail() {
             <div className={style.button}>
               <Button name={'장바구니'} onClick={() => {
                 dispatch(insertItem({
-                  id: matchedProduct.id,
+                  id: products.id,
                   isSoldOut: false,
-                  price: matchedProduct.price,
-                  thumbnail: matchedProduct.thumbnail,
-                  title: matchedProduct.title,
+                  price: products.price,
+                  thumbnail: products.thumbnail,
+                  title: products.title,
                   count: count,
                 }));
               }} />
