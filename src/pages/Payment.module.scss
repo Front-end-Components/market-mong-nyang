@@ -20,6 +20,16 @@
   }
 }
 
+.title {
+  background-color: $color-purple;
+  color: $color-white !important;
+  width: 100%;
+  display: block;
+  text-align: center;
+  line-height: 44px !important;
+  margin-top: 16px;
+}
+
 .notice {
   border-top: 1px solid $gray-line;
   padding-top: 20px;
@@ -36,6 +46,7 @@
   gap: 30px;
   .payForm {
     width: 30vw;
+    height: 357px;
     position: sticky;
     top: 0px;
     h3 {
@@ -104,14 +115,15 @@
         font-weight: 500;
       }
     }
+    button {
+      width: 100%;
+      margin-top: 22px;
+      height: 52px;
+    }
   }
 }
 
 .orderForm {
-  &:last-child {
-    width: 45vw;
-    display: grid;
-  }
   .inner {
     display: flex;
     padding: 10px 0;
@@ -130,7 +142,7 @@
       }
     }
     .right {
-      width: 100%;
+      width: 28vw;
       display: flex;
       flex-flow: column;
       .txt {
@@ -141,11 +153,31 @@
         color: $line;
         letter-spacing: -0.32px;
       }
-    }
-    .paymentBtn {
-      width: 100%;
-      margin-top: 22px;
-      height: 52px;
+      &:last-child {
+        display: block;
+        margin-bottom: 16px;
+        .totalBalance {
+          margin-top: 20px;
+          font-size: 14px;
+          text-align: right;
+          span {
+            color: $color-purple;
+            font-weight: bold;
+          }
+        }
+        .noList {
+          margin-top: 20px;
+          height: 160px;
+          padding: 30px;
+          border-radius: 10px;
+          background-color: #fafafa;
+          border: 1px solid #f2f2f2;
+          box-sizing: border-box;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
   }
 }

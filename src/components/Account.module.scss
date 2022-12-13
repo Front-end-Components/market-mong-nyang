@@ -1,42 +1,21 @@
-.accountContent {
-  padding: 16px 0;
-  .title {
-    background-color: $color-purple;
-    color: $color-white !important;
-    width: 100%;
-    display: block;
-    text-align: center;
-    line-height: 44px !important;
-  }
-  .totalBalance {
-    font-size: 14px;
-    margin-top: 18px;
-    text-align: right;
-    span {
-      color: $color-purple;
-      font-weight: bold;
+.slide {
+  overflow: hidden;
+  margin: 20px 0 0;
+  .list {
+    height: 160px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #fafafa;
+    border: 1px solid #f2f2f2;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+    p {
+      margin: 8px 0 42px;
     }
-  }
-  .slide {
-    overflow: hidden;
-    margin: 20px 0 0;
-    width: 28vw;
-    .list {
-      height: 160px;
-      padding: 30px;
-      border-radius: 10px;
-      background-color: #fafafa;
-      border: 1px solid #f2f2f2;
-      box-sizing: border-box;
+    span {
       display: flex;
-      flex-flow: column;
-      p {
-        margin: 8px 0 42px;
-      }
-      span {
-        display: flex;
-        justify-content: flex-end;
-      }
+      justify-content: flex-end;
     }
   }
 }
