@@ -9,14 +9,16 @@ import AdminHeader from './components/admin/AdminHeader';
 
 function App() {
   let loading = useSelector((state) => {
-    return state.loading;
+    return state.loading.isLoading;
   });
   let isAdmin = useSelector((state) => {
     return state.user.isAdmin;
   });
+
   // TEST
   // let dispatch = useDispatch();
   // dispatch(testIsAdmin());
+
   return (
     <div>
       {loading ? <Loading /> : null}
