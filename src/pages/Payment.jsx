@@ -61,9 +61,9 @@ export default function Payment() {
           </div>
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
+        <Button className={style.paymentBtn} name={'결제하기'} isPurple={true} />
       </div>
     </div>
-    <Button name={'결제하기'} isPurple={true} />
   </div>
   )
 }
