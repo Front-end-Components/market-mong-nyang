@@ -38,4 +38,4 @@ let cart = createSlice({
 
 export let { increaseCount, insertItem, deleteItem } = cart.actions;
 
-export default cart.reducer;
+export default cart;
