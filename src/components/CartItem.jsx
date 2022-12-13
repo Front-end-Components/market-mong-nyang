@@ -2,8 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import style from './CartItem.module.scss';
 import { formatPrice } from '@/utils/formats';
-// // import us from '@/store/userSlice';
-import { increaseCount, deleteItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux"
 
 export default function CartItem({ item }) {
@@ -31,10 +29,10 @@ export default function CartItem({ item }) {
                 setCount(count - 1);
               }}>-</button>
               <p>{count}</p>
-              {/* <button onClick={() => {
+              <button onClick={() => {
                 setCount(count + 1);
-              }}>+</button> */}
-            <button onClick={() => { dispatch(increaseCount())}}>+</button>
+              }}>+</button>
+            {/* <button onClick={() => { dispatch(increaseCount())}}>+</button> */}
           </div>
         </div>
         <div className={style.price}>{formatPrice(item.price * count)} 원</div>
