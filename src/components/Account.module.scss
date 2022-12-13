@@ -8,10 +8,19 @@
     text-align: center;
     line-height: 44px !important;
   }
+  .totalBalance {
+    font-size: 14px;
+    margin-top: 18px;
+    text-align: right;
+    span {
+      color: $color-purple;
+      font-weight: bold;
+    }
+  }
   .slide {
     overflow: hidden;
     margin: 20px 0 0;
-    width: 35vw;
+    width: 28vw;
     .list {
       height: 160px;
       padding: 30px;
