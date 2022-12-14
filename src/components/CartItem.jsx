@@ -1,12 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
 import style from './CartItem.module.scss';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
-import { useDispatch } from "react-redux"
 
 export default function CartItem({ item }) {
   const [count, setCount] = useState(item.count);
-  let dispatch = useDispatch();
 
   return (
     <div className={style.cartitem}>
@@ -14,10 +13,14 @@ export default function CartItem({ item }) {
         <div className={style.checkbox}>
           <input type='checkbox' />
         </div>
-        <div className={style.thumbnail}>
-          <img src={item.thumbnail} alt={item.title} />
-        </div>
-        <div className={style.name}>{item.title}</div>
+        <Link to={"/products/" + item.id}>
+          <div className={style.thumbnail}>
+            <img src={item.thumbnail} alt={item.title} />
+          </div>
+        </Link>
+        <Link to={"/products/" + item.id}>
+          <div className={style.name}>{item.title}</div>
+        </Link>
       </div>
       <div className={style.calcarea}>
         <div className={style.countwrap}>
@@ -32,7 +35,6 @@ export default function CartItem({ item }) {
               <button onClick={() => {
                 setCount(count + 1);
               }}>+</button>
-            {/* <button onClick={() => { dispatch(increaseCount())}}>+</button> */}
           </div>
         </div>
         <div className={style.price}>{formatPrice(item.price * count)} 원</div>
