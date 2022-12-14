@@ -10,7 +10,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const test = {
-      email: "test@test.com",
+      email: "test@naver.com",
       password: "1q2w3e4r",
     };
     login(test);
