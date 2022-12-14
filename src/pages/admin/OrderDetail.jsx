@@ -62,7 +62,7 @@ export default function OrderDetail() {
       <p>상품명 : {product.title}</p>
       <p>상품가격 : {formatPrice(product.price)}</p>
       <p>상품설명 : {product.description}</p>
-      <p>상품태그 : {product.tags}</p>
+      <p>상품 카테고리 : {product.tags}</p>
       <p>상품 썸네일 : {product.thumbnail}</p>
       <p>거래 일시 : {formatDate(timePaid)}</p>
       <p>취소여부 : {cancled ? 'Y' : 'N'}</p>

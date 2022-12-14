@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Account from '@/components/Account';
+import Button from '@/components/Button';
+import { getListAccount } from '@/api/requests';
+import { formatPrice } from '@/utils/formats';
+import { Swiper, SwiperSlide } from "swiper/react"; // basic
+import { Pagination } from "swiper";
+import "swiper/scss"; //basic
+import "swiper/scss/pagination";
 import style from './Payment.module.scss';
 
 export default function Payment() {
+  const [account, setAccounts] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const data = await getListAccount();
+      setAccounts(data);
+    }
+    getData();
+  }, []);
+
   return (
   <div className={style.container}>
     <h2>주문서</h2>
@@ -33,7 +50,32 @@ export default function Payment() {
             <span className={style.txt}>결제수단 선택</span>
           </div>
           <div className={style.right}>
-            <Account />
+            <span className={style.title}>계좌 간편결제</span>
+            {
+              Array.isArray(account.accounts) ? <p className={style.totalBalance}>총 계좌 잔액: <span>{formatPrice(account.totalBalance)}</span></p> : null
+            }
+            <Swiper
+              modules = {[Pagination]}
+              pagination={{ clickable : true }}
+              loop={false} // 루프 슬라이드
+              spaceBetween={10} // 슬라이드간의 간격
+              slidesPerView={1} // 한 번에 보여지는 슬라이드 개수
+              style={{
+                "--swiper-pagination-color": "#43007c"
+              }}
+            >
+              {Array.isArray(account.accounts) ? (
+                account.accounts.map((item, idx) => {
+                  return <SwiperSlide>
+                          <Account className={style.slide} item={item} key={idx} />
+                         </SwiperSlide>
+                })
+              ) : (
+                <div className={style.noList}>
+                  <h4>등록된 계좌가 없습니다.</h4>
+                </div>
+              )}
+            </Swiper>
           </div>
         </div>
         <ul class={style.notice}>
@@ -53,13 +95,14 @@ export default function Payment() {
             <span className={style.txt}>최종결제금액</span>
           </div>
           <div className={style.right}>
-            <span className={style.txt}>8000 원</span>
+            <span className={style.txt}>{formatPrice(8000)} 원</span>
             <span className={style.txt}>무료</span>
             <span className={style.txt}>0 원</span>
-            <span className={style.txt}><p>8000</p>원</span>
+            <span className={style.txt}><p>{formatPrice(8000)}</p>원</span>
           </div>
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
+        <Button name={'결제하기'} isPurple={true} />
       </div>
     </div>
   </div>

@@ -3,10 +3,12 @@ import { useLocation } from 'react-router-dom';
 import MypageHeader from '@/components/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
+import { formatPrice } from '@/utils/formats';
 
 export default function MyOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([]);
-  
+  console.log(orderDetail);
+
   const location = useLocation();
   const detailID = {
     'detailId': location.state
@@ -14,21 +16,46 @@ export default function MyOrderDetail() {
 
   useEffect(() => {
     async function postData() {
-      const data = await selectOrder(detailID)
+      const data = await selectOrder(detailID);
       setOrderDetail(data);
     }
     postData();
   }, []);
 
-  let date = String(orderDetail.timePaid).substring(0, 10);
+  const product = orderDetail.product;
 
+  let stateText = '구매 완료'
+  if(orderDetail.done) {
+    stateText = '구매 확정';
+  } else if (orderDetail.isCanceled) {
+    stateText = '주문 취소';
+  }
+
+  let date = String(orderDetail.timePaid).substring(0, 10);
+  // let productImg = `${orderDetail.product.thumbnail}`;
+  let price = formatPrice(product.price);
 
   return (
     <div className={style.MyOrderDetail}>
-      <MypageHeader name={'주문 상세정보 test'} />
+      <MypageHeader name={'주문 상세정보 썸네일 교체해야함!!!'} />
       <div className={style.content}>
-        <span className={style.orderDate}>주문 날짜 : <b>{date}</b></span>
-        <span className={style.orderNum}>주문 번호 : {orderDetail.detailId}</span>
+        <div className={style.orderDateNum}>
+          <span className={style.orderDate}>주문 날짜 : <b>{date}</b></span>
+          <span className={style.orderNum}>주문 번호 : {orderDetail.detailId}</span>
+        </div>
+        
+        <div className={style.productContent}>
+          <img src='https://storage.googleapis.com/heropy-api/vpOjQq7ZaSv093651.jpg' className={style.thumbnailImg}></img>
+          <div className={style.productText}>
+            <p className={style.productTitle}>{product.title}</p>
+            <p>{price}원</p>
+          </div>
+          <div className={style.productState}>
+            <p>{stateText}</p>
+          </div>
+          </div>
+
+          <p className={style.accountTitle}>결제 정보</p>
       </div>
     </div>
   );

@@ -41,7 +41,7 @@ export default function ProductDetail() {
       <p>상품명 : {product.title}</p>
       <p>가격 : {formatPrice(product.price)}</p>
       <p>상품 설명 : {product.description}</p>
-      <p>태그 : {product.tags}</p>
+      <p>카테고리 : {product.tags}</p>
       <p>품절 여부 : {product.isSoldOut ? 'Y' : 'N'}</p>
       <img src={product.photo} alt='photo' />
       <div className={style.buttons}>

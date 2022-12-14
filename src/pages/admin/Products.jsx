@@ -41,6 +41,7 @@ export default function Products() {
           <input type='checkbox' name='' id='' />
           <div>
             <span>NO</span>
+            <span>카테고리</span>
             <span>상품명</span>
             <span>가격</span>
             <span>품절여부</span>

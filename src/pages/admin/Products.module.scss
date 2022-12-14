@@ -33,17 +33,20 @@
         align-items: center;
         span {
           &:nth-child(1) {
-            width: 10%;
+            width: 5%;
           }
           &:nth-child(2) {
-            width: 60%;
-            text-align: left;
+            width: 10%;
           }
           &:nth-child(3) {
-            width: 15%;
-            text-align: left;
+            width: 55%;
+            // text-align: left;
           }
           &:nth-child(4) {
+            width: 15%;
+            text-align: right;
+          }
+          &:nth-child(5) {
             width: 15%;
           }
         }
