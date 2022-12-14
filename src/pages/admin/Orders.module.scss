@@ -69,3 +69,50 @@
   display: flex;
   justify-content: center;
 }
+
+.search {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+  .inputWrap {
+    position: relative;
+    input {
+      width: 24rem;
+      font-size: 14px;
+      outline: none;
+      border: 1px solid $color-purple;
+      border-radius: 6px;
+      padding: 0.8rem;
+    }
+    .searchBtn {
+      border: none;
+      background-color: transparent;
+      position: absolute;
+      outline: none;
+      top: 0;
+      right: 0;
+      padding: 0.6rem;
+      cursor: pointer;
+    }
+  }
+  .datePickerWrap {
+    display: inline-block;
+  }
+  .customInput {
+    border: 1px solid $color-purple;
+    background-color: $color-white;
+    padding: 13px 16px;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .searchReset {
+    border: 1px solid $color-purple;
+    background-color: $color-white;
+    padding: 0.6rem 0.8rem;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
