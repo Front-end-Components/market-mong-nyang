@@ -7,9 +7,9 @@ import { formatPrice } from '@/utils/formats';
 
 export default function MyOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([]);
-  console.log(orderDetail);
-
+  const [orderProduct, setOrderProduct] = useState([]);
   const location = useLocation();
+
   const detailID = {
     'detailId': location.state
   };
@@ -18,11 +18,11 @@ export default function MyOrderDetail() {
     async function postData() {
       const data = await selectOrder(detailID);
       setOrderDetail(data);
+      setOrderProduct(data.product);
     }
     postData();
   }, []);
 
-  const product = orderDetail.product;
 
   let stateText = '구매 완료'
   if(orderDetail.done) {
@@ -33,7 +33,7 @@ export default function MyOrderDetail() {
 
   let date = String(orderDetail.timePaid).substring(0, 10);
   // let productImg = `${orderDetail.product.thumbnail}`;
-  let price = formatPrice(product.price);
+  const orderPrice = formatPrice(orderProduct.price);
 
   return (
     <div className={style.MyOrderDetail}>
@@ -47,8 +47,8 @@ export default function MyOrderDetail() {
         <div className={style.productContent}>
           <img src='https://storage.googleapis.com/heropy-api/vpOjQq7ZaSv093651.jpg' className={style.thumbnailImg}></img>
           <div className={style.productText}>
-            <p className={style.productTitle}>{product.title}</p>
-            <p>{price}원</p>
+            <p className={style.productTitle}>{orderProduct.title}</p>
+            <p>{orderPrice}원</p>
           </div>
           <div className={style.productState}>
             <p>{stateText}</p>
@@ -56,6 +56,7 @@ export default function MyOrderDetail() {
           </div>
 
           <p className={style.accountTitle}>결제 정보</p>
+          <div className={style.accountContent}></div>
       </div>
     </div>
   );
