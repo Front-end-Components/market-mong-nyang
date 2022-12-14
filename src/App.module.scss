@@ -7,9 +7,20 @@
 .adminWrap {
   display: flex;
   width: 100vw;
-  .adminOutlet {
+  .adminOutletWrap {
     width: 80vw;
+    background-color: #f8f9fa;
     padding: 2rem;
+    .adminOutlet {
+      width: 100%;
+      height: fit-content;
+      min-height: 84vh;
+      background-color: $color-white;
+      border-radius: 10px;
+      box-shadow: $box-shadow-deep;
+      padding: 2rem;
+      box-sizing: border-box;
+    }
   }
 }
 

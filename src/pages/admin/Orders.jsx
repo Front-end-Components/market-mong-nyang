@@ -73,6 +73,23 @@ export default function Orders() {
   return (
     <div>
       {loading ? <Loading /> : null}
+      <div className={style.searchWrap}>
+        <h1>거래 내역 관리</h1>
+        <div className={style.search}>
+          <div className={style.inputWrap}>
+            <input className='order-search' type='text' placeholder='거래자명을 입력해 주세요.' onKeyUp={handleKeyup} />
+            <button className={style.searchBtn} onClick={() => handleSearch()}>
+              <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
+            </button>
+          </div>
+          <div className={style.datePickerWrap}>
+            <DatePicker className={style.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
+          </div>
+          <button className={style.searchReset} onClick={handleReset}>
+            <GrPowerReset color='rgb(95, 0, 128)' size='16' title='초기화' />
+          </button>
+        </div>
+      </div>
       <ul className={style.orderList}>
         <li>
           <input type='checkbox' name='' id='' />
@@ -96,20 +113,6 @@ export default function Orders() {
         )}
       </ul>
       <div className={style.buttons}>{Array.isArray(search) ? <Pagination total={search.length} limit={limit} page={page} setPage={setPage} /> : null}</div>
-      <div className={style.search}>
-        <div className={style.inputWrap}>
-          <input className='order-search' type='text' placeholder='거래자명을 입력해 주세요.' onKeyUp={handleKeyup} />
-          <button className={style.searchBtn} onClick={() => handleSearch()}>
-            <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
-          </button>
-        </div>
-        <div className={style.datePickerWrap}>
-          <DatePicker className={style.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
-        </div>
-        <button className={style.searchReset} onClick={handleReset}>
-          <GrPowerReset color='rgb(95, 0, 128)' size={16} title='초기화' />
-        </button>
-      </div>
     </div>
   );
 }

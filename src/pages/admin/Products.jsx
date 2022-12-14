@@ -36,6 +36,17 @@ export default function Products() {
 
   return (
     <div>
+      <div className={style.searchWrap}>
+        <h1>상품 관리</h1>
+        <div className={style.search}>
+          <div className={style.inputWrap}>
+            <input className='product-search' type='text' placeholder='상품명을 입력해 주세요.' onKeyUp={handleKeyup} />
+            <button onClick={handleSearch}>
+              <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
+            </button>
+          </div>
+        </div>
+      </div>
       <ul className={style.productList}>
         <li>
           <input type='checkbox' name='' id='' />
@@ -61,14 +72,6 @@ export default function Products() {
         <Link to='/admin/products/add'>
           <Button name={'등록'} isPurple={true} />
         </Link>
-      </div>
-      <div className={style.search}>
-        <div className={style.inputWrap}>
-          <input className='product-search' type='text' placeholder='상품명을 입력해 주세요.' onKeyUp={handleKeyup} />
-          <button onClick={handleSearch}>
-            <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
-          </button>
-        </div>
       </div>
     </div>
   );

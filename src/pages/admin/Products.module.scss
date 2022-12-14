@@ -1,3 +1,39 @@
+.searchWrap {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-gray;
+  padding-bottom: 1rem;
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .search {
+    display: flex;
+    justify-content: center;
+    .inputWrap {
+      position: relative;
+      input {
+        width: 20rem;
+        font-size: 14px;
+        outline: none;
+        border: 1px solid $color-gray;
+        border-radius: 6px;
+        padding: 10px;
+      }
+      button {
+        border: none;
+        background-color: transparent;
+        position: absolute;
+        outline: none;
+        top: 0;
+        right: 0;
+        padding: 6px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
 .productList {
   display: flex;
   flex-direction: column;
@@ -6,8 +42,8 @@
     display: flex;
     align-items: center;
     text-align: center;
-    border-bottom: 1px solid $color-gray;
-    height: 3rem;
+    border-bottom: 1px solid $color-lightgray;
+    height: 5.5vh;
     cursor: pointer;
     font-size: 14px;
     &:hover {
@@ -40,7 +76,6 @@
           }
           &:nth-child(3) {
             width: 55%;
-            // text-align: left;
           }
           &:nth-child(4) {
             width: 15%;
@@ -56,34 +91,7 @@
 }
 
 .buttons {
-  margin-top: 2rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: space-between;
-}
-
-.search {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  .inputWrap {
-    position: relative;
-    input {
-      width: 24rem;
-      font-size: 14px;
-      outline: none;
-      border: 1px solid $color-purple;
-      border-radius: 6px;
-      padding: 0.8rem;
-    }
-    button {
-      border: none;
-      background-color: transparent;
-      position: absolute;
-      outline: none;
-      top: 0;
-      right: 0;
-      padding: 0.6rem;
-      cursor: pointer;
-    }
-  }
 }
