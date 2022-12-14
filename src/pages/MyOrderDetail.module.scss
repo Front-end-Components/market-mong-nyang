@@ -1,27 +1,72 @@
 .MyOrderDetail {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   .content {
     width: 100%;
     height: 557px;
-    .orderDate {
-      display: inline-block;
-      margin-right: 10px;
+    .orderDateNum {
+      margin-bottom: 30px;
+      .orderDate {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .orderNum {
+        position: relative;
+        &::before {
+          content: '';
+          width: 1px;
+          height: 15px;
+          background-color: #333;
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -5px;
+          margin: auto;
+        }
+      }
     }
-    .orderNum {
+    
+    .productContent {
       position: relative;
-      &::before {
-        content: '';
-        width: 1px;
-        height: 15px;
-        background-color: #333;
+      border: 1px solid $color-purple;
+      padding: 10px;
+      border-radius: 5px;
+      height: 100px;
+      display: block;
+      margin-bottom: 30px;
+      .thumbnailImg {
+        width: 80px;
+        height: 100px;
         position: absolute;
         top: 0;
         bottom: 0;
-        left: -5px;
         margin: auto;
       }
+      .productText {
+        margin-left: 100px;
+        display: block;
+        position: absolute;
+        top: 15%;
+        .productTitle {
+          font-size: 20px;
+          font-weight: 500;
+          margin-bottom: 5px;
+        }
+      }
+      .productState {
+        display: block;
+        position: absolute;
+        right: 5%;
+        top: 40%;
+      }
+    }
+    .accountTitle{
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #333;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1rem;
     }
   }
 }
