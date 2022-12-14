@@ -18,7 +18,7 @@ export default function MyOrder() {
 
   return (
     <div className={style.myOrder}>
-    <MypageHeader name={'주문 내역 (썸네일 교체해야 함)'} />
+    <MypageHeader name={'주문 내역 (썸네일 -> null)'} />
 
     {Array.isArray(details) ? (
     details.map((item) => {

@@ -19,12 +19,13 @@ export default function Order({ item }) {
   }
   let date = item.timePaid.substr(0, 10);
   let price = formatPrice(item.product.price);
+  let thumbnail = `${item.thumbnail}`;
 
   return (
     <div className={style.content}>
       <div className={style.orderContent}>
         <div className={style.imgContent}>
-          <img src='https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg' className={style.orderImg}></img>
+          <img src={thumbnail} className={style.orderImg}></img>
         </div>
         <div className={style.textContent}>
             <p className={style.productName} onClick={() => {
