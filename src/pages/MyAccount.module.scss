@@ -1,0 +1,67 @@
+.container { 
+  margin-bottom: 100px;
+  .totalBalance {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: right;
+    span {
+      color: $color-purple;
+      font-weight: bold;
+    }
+  }
+}
+
+:global {
+  .myAccount.account {
+    div {
+      position: relative;
+      line-height: 36px;
+      height: auto;
+      padding: 20px;
+      border-radius: 0;
+      background-color: #fafafa;
+      border: 1px solid #eee;
+      box-sizing: border-box;
+      display: flex;
+      flex-flow: row;
+      p {
+        margin: 0 20px;
+        display: flex;
+        align-items: center;
+        &::before {
+          content: '';
+          width: 1px;
+          height: 12px;
+          background-color: $color-gray;
+          margin-right: 20px;
+        }
+        &::after {
+          content: '';
+          width: 1px;
+          height: 12px;
+          background-color: $color-gray;
+          margin-left: 20px;
+        }
+      }
+      span {
+        display: block;
+      }
+      button {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        display: block;
+        padding: 0px 10px;
+        text-align: center;
+        overflow: hidden;
+        padding: 0 1rem;
+        height: 36px;
+        border-radius: 3px;
+        color: #fff;
+        background-color: #5f0080;
+        border: 0px none;
+        cursor: pointer;
+      }
+    }
+  }
+}
