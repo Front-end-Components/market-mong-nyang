@@ -49,7 +49,6 @@ export default function Orders() {
     const selectDate = newDate ? formatDate(newDate) : date ? formatDate(date) : '';
     let copy = [...orders];
     copy = copy.filter((item) => item.user.displayName.includes(search));
-    console.log(selectDate);
     if (selectDate) {
       copy = copy.filter((item) => item.timePaid.slice(0, 10).replace(/-/g, '.') === selectDate.slice(0, 10));
     }
@@ -100,7 +99,7 @@ export default function Orders() {
       <div className={style.search}>
         <div className={style.inputWrap}>
           <input className='order-search' type='text' placeholder='거래자명을 입력해 주세요.' onKeyUp={handleKeyup} />
-          <button className={style.searchBtn} onClick={handleSearch}>
+          <button className={style.searchBtn} onClick={() => handleSearch()}>
             <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
           </button>
         </div>
