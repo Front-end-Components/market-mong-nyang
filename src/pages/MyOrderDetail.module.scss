@@ -65,8 +65,22 @@
       font-size: 1.2rem;
       font-weight: 600;
       color: #333;
-      border-bottom: 1px solid #333;
       padding-bottom: 1rem;
+    }
+    .accountContent {
+      border: 1px solid $color-purple;
+      padding: 10px;
+      border-radius: 5px;
+      .accountToolTitle {
+        color: #666;
+        font-size: 15px;
+        margin-bottom: 8px;
+      }
+      .accountBankNum {
+        font-size: 15px;
+        color: #666;
+        margin-left: 5px;
+      }
     }
   }
 }

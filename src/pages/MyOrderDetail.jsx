@@ -8,6 +8,7 @@ import { formatPrice } from '@/utils/formats';
 export default function MyOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([]);
   const [orderProduct, setOrderProduct] = useState([]);
+  const [orderAccount, setOrderAccount] = useState([]);
   const location = useLocation();
 
   const detailID = {
@@ -19,6 +20,7 @@ export default function MyOrderDetail() {
       const data = await selectOrder(detailID);
       setOrderDetail(data);
       setOrderProduct(data.product);
+      setOrderAccount(data.account);
     }
     postData();
   }, []);
@@ -56,7 +58,11 @@ export default function MyOrderDetail() {
           </div>
 
           <p className={style.accountTitle}>결제 정보</p>
-          <div className={style.accountContent}></div>
+          <div className={style.accountContent}>
+            <p className={style.accountToolTitle}>결제 수단</p>
+            <span className={style.accountBankName}>{orderAccount.bankName}</span>
+            <span className={style.accountBankNum}>({orderAccount.accountNumber})</span>
+          </div>
       </div>
     </div>
   );
