@@ -11,7 +11,7 @@ export default function Products() {
   return (
     <div className={style.products}>
     <div className={style.title}>
-      <p>이 상품 어때요?</p>
+      <p>MD 추천 상품</p>
     </div>
     <Swiper
       className={style.swiper}
@@ -43,8 +43,8 @@ export default function Products() {
       }}
     >
     <SwiperSlide className={style.slide}>
-      <a href="#">
-      <img src="https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg" alt="" className={style.image}/>
+      <a href="/products/4DRGV6C2jyXXcTvWcYuI">
+      <img src="https://storage.googleapis.com/heropy-api/voUSpW7ZuKv093603.jpg" alt="" className={style.image}/>
       </a>
       </SwiperSlide>
       <SwiperSlide className={style.slide}>

@@ -49,6 +49,13 @@
         border-radius: 5px;
         width: 80%;
       }
+      select {
+        border: 1px solid $color-gray;
+        padding: 0.8rem;
+        outline: none;
+        border-radius: 5px;
+        width: 83%;
+      }
     }
   }
   .buttons {

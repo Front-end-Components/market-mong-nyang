@@ -29,6 +29,8 @@ export default function ProductEditForm() {
       });
     } else if (name === 'price') {
       value = Number(value);
+    } else if (name === 'isSoldOut') {
+      value = Boolean(value);
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
@@ -69,8 +71,18 @@ export default function ProductEditForm() {
           <textarea type='text' name='description' value={product.description ?? ''} placeholder='제품 상세 설명' required onChange={handleChange} />
         </div>
         <div className={style.inputWrap}>
-          <span>태그</span>
-          <input type='text' name='tags' value={product.tags ?? ''} placeholder='태그(콤마(,)로 구분)' onChange={handleChange} />
+          <span>태그 *</span>
+          <select name='tags' onChange={handleChange} value={product.tags} required>
+            <option value=''>선택</option>
+            <option value='주식'>주식</option>
+            <option value='간식'>간식</option>
+            <option value='건강'>건강</option>
+            <option value='케어'>케어</option>
+            <option value='의류'>의류</option>
+            <option value='리빙'>리빙</option>
+            <option value='외출'>외출</option>
+            <option value='위생'>위생</option>
+          </select>
         </div>
         <div className={style.inputWrap}>
           <span>썸네일 이미지</span>
@@ -82,7 +94,10 @@ export default function ProductEditForm() {
         </div>
         <div className={style.inputWrap}>
           <span>품절 여부</span>
-          <input type='radio' checked={product.isSoldOut ?? 'checked'} name='isSoldOut' onChange={handleChange} />
+          <select name='isSoldOut' onChange={handleChange} value={product.isSoldOut}>
+            <option value={true}>Y</option>
+            <option value={false}>N</option>
+          </select>
         </div>
         <div className={style.buttons}>
           <Button name={'수정완료'} isPurple={true} onClick={handleSubmit} />

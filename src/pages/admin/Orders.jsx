@@ -9,8 +9,11 @@ import { Link } from 'react-router-dom';
 import style from './Orders.module.scss';
 import Loading from '@/components/Loading';
 import { BiSearch } from 'react-icons/bi';
+import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { data } from 'autoprefixer';
+import { formatDate } from '@/utils/formats';
 
 export default function Orders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +23,13 @@ export default function Orders() {
   const offset = (page - 1) * limit;
   // const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
+
+  const CustomInput = ({ value, onClick }) => (
+    <button className={style.customInput} onClick={onClick}>
+      {value ? value : `거래일자 선택`}
+    </button>
+  );
 
   useEffect(() => {
     async function getData() {
@@ -35,15 +44,30 @@ export default function Orders() {
     // dispatch(hideLoading());
   }, []);
 
-  const handleSearch = () => {
+  const handleSearch = (newDate) => {
     const search = document.querySelector('.order-search').value;
+    const selectDate = newDate ? formatDate(newDate) : date ? formatDate(date) : '';
     let copy = [...orders];
-    copy = copy.filter((item) => item.product.title.includes(search));
+    copy = copy.filter((item) => item.user.displayName.includes(search));
+    if (selectDate) {
+      copy = copy.filter((item) => item.timePaid.slice(0, 10).replace(/-/g, '.') === selectDate.slice(0, 10));
+    }
     setSearch(copy);
   };
 
   const handleKeyup = (event) => {
     if (event.key === 'Enter') handleSearch();
+  };
+
+  const handleDatePicker = (newDate) => {
+    setDate(newDate);
+    handleSearch(newDate);
+  };
+
+  const handleReset = () => {
+    setDate();
+    document.querySelector('.order-search').value = '';
+    handleSearch();
   };
 
   return (
@@ -58,7 +82,7 @@ export default function Orders() {
             <span>가격</span>
             <span>거래자</span>
             <span>거래은행</span>
-            <span>거래시간</span>
+            <span>거래일시</span>
             <span>취소여부</span>
             <span>완료여부</span>
           </div>
@@ -74,12 +98,17 @@ export default function Orders() {
       <div className={style.buttons}>{Array.isArray(search) ? <Pagination total={search.length} limit={limit} page={page} setPage={setPage} /> : null}</div>
       <div className={style.search}>
         <div className={style.inputWrap}>
-          <input className='order-search' type='text' placeholder='상품명을 입력해 주세요.' onKeyUp={handleKeyup} />
-          <button onClick={handleSearch}>
+          <input className='order-search' type='text' placeholder='거래자명을 입력해 주세요.' onKeyUp={handleKeyup} />
+          <button className={style.searchBtn} onClick={() => handleSearch()}>
             <BiSearch size='24' color='rgb(95, 0, 128)' title='검색' />
           </button>
         </div>
-        <DatePicker selected={date} onChange={(date) => setDate(date)} dateFormat='yyyy.MM.dd' />
+        <div className={style.datePickerWrap}>
+          <DatePicker className={style.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
+        </div>
+        <button className={style.searchReset} onClick={handleReset}>
+          <GrPowerReset color='rgb(95, 0, 128)' size={16} title='초기화' />
+        </button>
       </div>
     </div>
   );
