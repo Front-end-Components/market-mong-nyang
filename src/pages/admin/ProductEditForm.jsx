@@ -29,6 +29,8 @@ export default function ProductEditForm() {
       });
     } else if (name === 'price') {
       value = Number(value);
+    } else if (name === 'isSoldOut') {
+      value = Boolean(value);
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
@@ -82,7 +84,10 @@ export default function ProductEditForm() {
         </div>
         <div className={style.inputWrap}>
           <span>품절 여부</span>
-          <input type='radio' checked={product.isSoldOut ?? 'checked'} name='isSoldOut' onChange={handleChange} />
+          <select name='isSoldOut' id='' onChange={handleChange} value={product.isSoldOut}>
+            <option value={true}>Y</option>
+            <option value={false}>N</option>
+          </select>
         </div>
         <div className={style.buttons}>
           <Button name={'수정완료'} isPurple={true} onClick={handleSubmit} />
