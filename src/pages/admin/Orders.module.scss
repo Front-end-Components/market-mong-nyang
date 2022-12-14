@@ -1,13 +1,69 @@
+.searchWrap {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-gray;
+  padding-bottom: 1rem;
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .search {
+    display: flex;
+    gap: 1rem;
+    .inputWrap {
+      position: relative;
+      input {
+        width: 14rem;
+        font-size: 14px;
+        outline: none;
+        border: 1px solid $color-gray;
+        border-radius: 6px;
+        padding: 10px;
+      }
+      .searchBtn {
+        border: none;
+        background-color: transparent;
+        position: absolute;
+        outline: none;
+        top: 0;
+        right: 0;
+        padding: 6px;
+        cursor: pointer;
+      }
+    }
+    .datePickerWrap {
+      display: inline-block;
+    }
+    .customInput {
+      border: 1px solid $color-gray;
+      background-color: $color-white;
+      padding: 10px 14px;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .searchReset {
+      border: 1px solid $color-gray;
+      background-color: $color-white;
+      padding: 0 12px;
+      outline: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+}
+
 .orderList {
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: 80%;
   li {
     display: flex;
     align-items: center;
     text-align: center;
-    border-bottom: 1px solid $color-gray;
-    height: 3rem;
+    border-bottom: 1px solid $color-lightgray;
+    height: 5.5vh;
     cursor: pointer;
     font-size: 14px;
     &:hover {
@@ -67,51 +123,4 @@
   margin-top: 2rem;
   display: flex;
   justify-content: center;
-}
-
-.search {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  gap: 1rem;
-  .inputWrap {
-    position: relative;
-    input {
-      width: 24rem;
-      font-size: 14px;
-      outline: none;
-      border: 1px solid $color-purple;
-      border-radius: 6px;
-      padding: 0.8rem;
-    }
-    .searchBtn {
-      border: none;
-      background-color: transparent;
-      position: absolute;
-      outline: none;
-      top: 0;
-      right: 0;
-      padding: 0.6rem;
-      cursor: pointer;
-    }
-  }
-  .datePickerWrap {
-    display: inline-block;
-  }
-  .customInput {
-    border: 1px solid $color-purple;
-    background-color: $color-white;
-    padding: 13px 16px;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .searchReset {
-    border: 1px solid $color-purple;
-    background-color: $color-white;
-    padding: 0.6rem 0.8rem;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
 }

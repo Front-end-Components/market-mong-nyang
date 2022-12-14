@@ -71,7 +71,7 @@ export default function ProductEditForm() {
           <textarea type='text' name='description' value={product.description ?? ''} placeholder='제품 상세 설명' required onChange={handleChange} />
         </div>
         <div className={style.inputWrap}>
-          <span>태그 *</span>
+          <span>카테고리 *</span>
           <select name='tags' onChange={handleChange} value={product.tags} required>
             <option value=''>선택</option>
             <option value='주식'>주식</option>
