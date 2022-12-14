@@ -94,8 +94,11 @@
           display: flex;
           justify-content: flex-start;
           gap: 10px;
-          Button {
-            width: 50%;
+          button {
+            width: 100%;
+          }
+          .soldout {
+            background-color: gray;
           }
         }
       }
