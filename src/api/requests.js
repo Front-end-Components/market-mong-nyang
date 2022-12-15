@@ -76,7 +76,9 @@ export const login = async (data) => {
 export const logout = () => {};
 
 // 인증확인
-export const checkAuth = () => {};
+export const checkAuth = () => {
+  return requestPost(PATH.AUTH_ME, authInstance);
+};
 
 // 사용자 정보 수정 (사용자)
 export const updateUserInfo = (data) => {
