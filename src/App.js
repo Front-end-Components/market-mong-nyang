@@ -17,7 +17,7 @@ function App() {
   //   return state.user.isAdmin;
   // });
 
-  let isAdmin = true;
+  let isAdmin = false;
 
   // TEST
   // let dispatch = useDispatch();

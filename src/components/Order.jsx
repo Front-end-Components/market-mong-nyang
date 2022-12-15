@@ -17,6 +17,12 @@ export default function Order({ item }) {
   } else if (item.isCanceled) {
     stateText = '주문 취소';
   }
+
+  let orderGuide = '구매가 완료 되었습니다.';
+  if(item.isCanceled) {
+    orderGuide = '주문이 취소 되었습니다.'
+  }
+
   let date = item.timePaid.substr(0, 10);
   let price = formatPrice(item.product.price);
   let thumbnail = `${item.thumbnail}`;
@@ -35,7 +41,7 @@ export default function Order({ item }) {
           <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>
           <p className={style.orderState}>{stateText}</p>
-          <p className={style.orderGuide}>구매가 완료 되었습니다.</p>
+          <p className={style.orderGuide}>{orderGuide}</p>
           <p className={style.orderGuide}>구매 확정 이후에는 주문 취소가 불가능합니다.</p>
         </div>
         <div className={style.btnContent}>

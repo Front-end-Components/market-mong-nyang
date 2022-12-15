@@ -15,7 +15,7 @@ export default function MyOrder() {
     }
     getData();
   }, []);
-
+  
   return (
     <div className={style.myOrder}>
     <MypageHeader name={'주문 내역 (썸네일 -> null)'} />
