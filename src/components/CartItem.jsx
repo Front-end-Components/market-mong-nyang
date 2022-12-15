@@ -3,9 +3,11 @@ import style from './CartItem.module.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
+import { useDispatch } from "react-redux";
+import { increaseCount, decreaseCount } from '@/store/cartSlice';
 
-export default function CartItem({ item }) {
-  const [count, setCount] = useState(item.count);
+export default function CartItem({ item }) {  
+  let dispatch = useDispatch();
 
   return (
     <div className={style.cartitem}>
@@ -26,18 +28,15 @@ export default function CartItem({ item }) {
         <div className={style.countwrap}>
         <div className={style.count}>
               <button onClick={() => {
-                if(count === 1){
-                  return 1;
-                }
-                setCount(count - 1);
+                dispatch(decreaseCount(item.id))
               }}>-</button>
-              <p>{count}</p>
+              <p>{item.count}</p>
               <button onClick={() => {
-                setCount(count + 1);
+                dispatch(increaseCount(item.id))
               }}>+</button>
           </div>
         </div>
-        <div className={style.price}>{formatPrice(item.price * count)} 원</div>
+        <div className={style.price}>{formatPrice(item.price * item.count)} 원</div>
       </div>
     </div>
   );

@@ -9,9 +9,18 @@ let cart = createSlice({
     increaseCount(state, action) {
       //state[action.payload].count += 1; // 정렬 시 문제 발생
       let num = state.findIndex((obj) => {
-        return obj.title === action.payload.title;
+        return obj.id === action.payload;
       });
+      console.log(num);
       state[num].count += 1;
+    },
+    decreaseCount(state, action) {
+      //state[action.payload].count += 1; // 정렬 시 문제 발생
+      let num = state.findIndex((obj) => {
+        return obj.id === action.payload;
+      });
+      console.log(num);
+      state[num].count -= 1;
     },
     insertItem(state, action) {
       let num = state.findIndex((obj) => {
@@ -36,6 +45,6 @@ let cart = createSlice({
   },
 });
 
-export let { increaseCount, insertItem, deleteItem } = cart.actions;
+export let { increaseCount, decreaseCount, insertItem, deleteItem } = cart.actions;
 
 export default cart;
