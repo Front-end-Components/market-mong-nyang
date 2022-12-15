@@ -11,6 +11,7 @@ export default function MyOrder() {
   useEffect(() => {
     async function getData() {
       const data = await getListOrder();
+      console.log(123);
       setDetails(data);
     }
     getData();
@@ -22,7 +23,7 @@ export default function MyOrder() {
 
     {Array.isArray(details.length) ? (
     details.map((item) => {
-      return <Order key={item.id} item={item} />;
+      return <Order item={item} />;
     })
   ) : (
     <p>구매하신 상품이 없습니다.</p>

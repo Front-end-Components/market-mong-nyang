@@ -34,7 +34,6 @@ export default function MyOrderDetail() {
   }
 
   let date = String(orderDetail.timePaid).substring(0, 10);
-  // let productImg = `${orderDetail.product.thumbnail}`;
   const orderPrice = formatPrice(orderProduct.price);
   const thumbnailSrc = `${orderProduct.thumbnail}`;
 

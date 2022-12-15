@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Account from '@/components/Account';
 import Button from '@/components/Button';
-import { getListAccount } from '@/api/requests';
+import { getListAccount, checkAuth } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
 import { Pagination } from "swiper";
@@ -11,6 +11,7 @@ import style from './Payment.module.scss';
 
 export default function Payment() {
   const [account, setAccounts] = useState([]);
+  const [payAuth, setPayAuth] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -19,6 +20,12 @@ export default function Payment() {
     }
     getData();
   }, []);
+
+  useEffect(() => {
+    async function postData() {
+      const pData = await checkAuth();
+    }
+  });
 
   return (
   <div className={style.container}>
