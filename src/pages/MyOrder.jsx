@@ -20,7 +20,7 @@ export default function MyOrder() {
     <div className={style.myOrder}>
     <MypageHeader name={'주문 내역 (썸네일 -> null)'} />
 
-    {Array.isArray(details) ? (
+    {Array.isArray(details.length) ? (
     details.map((item) => {
       return <Order key={item.id} item={item} />;
     })
