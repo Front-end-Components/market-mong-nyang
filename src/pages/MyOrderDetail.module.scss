@@ -53,6 +53,16 @@
           font-weight: 500;
           margin-bottom: 5px;
         }
+        .productPrice {
+          position: relative;
+          .productCount {
+            color: #666;
+            font-size: 13px;
+            position: absolute;
+            top: 10%;
+            margin-left: 5px;
+          }
+        }
       }
       .productState {
         display: block;
@@ -69,17 +79,33 @@
     }
     .accountContent {
       border: 1px solid $color-purple;
-      padding: 10px;
       border-radius: 5px;
-      .accountToolTitle {
-        color: #666;
-        font-size: 15px;
-        margin-bottom: 8px;
+      display: flex;
+      .bankContent {
+        width: 60%;
+        margin: 10px 0 10px 10px;
+        .accountToolTitle {
+          color: #666;
+          font-size: 15px;
+          margin-bottom: 8px;
+        }
+        .accountBankNum {
+          font-size: 15px;
+          color: #666;
+          margin-left: 5px;
+        }
       }
-      .accountBankNum {
-        font-size: 15px;
-        color: #666;
-        margin-left: 5px;
+      .priceContent {
+        width: 40%;
+        background-color: #ddcee5;
+        .priceTitle {
+          color: #666;
+          font-size: 15px;
+          margin: 10px;
+        }
+        .accountPrice {
+          margin-left: 10px;
+        }
       }
     }
   }
