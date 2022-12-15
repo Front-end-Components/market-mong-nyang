@@ -36,10 +36,11 @@ export default function MyOrderDetail() {
   let date = String(orderDetail.timePaid).substring(0, 10);
   // let productImg = `${orderDetail.product.thumbnail}`;
   const orderPrice = formatPrice(orderProduct.price);
+  const thumbnailSrc = `${orderProduct.thumbnail}`;
 
   return (
     <div className={style.MyOrderDetail}>
-      <MypageHeader name={'주문 상세정보 썸네일 교체해야함!!!'} />
+      <MypageHeader name={'주문 상세정보 (개수+결제금액 수정하기!!!)'} />
       <div className={style.content}>
         <div className={style.orderDateNum}>
           <span className={style.orderDate}>주문 날짜 : <b>{date}</b></span>
@@ -47,10 +48,10 @@ export default function MyOrderDetail() {
         </div>
         
         <div className={style.productContent}>
-          <img src='https://storage.googleapis.com/heropy-api/vpOjQq7ZaSv093651.jpg' className={style.thumbnailImg}></img>
+          <img src={thumbnailSrc} className={style.thumbnailImg}></img>
           <div className={style.productText}>
             <p className={style.productTitle}>{orderProduct.title}</p>
-            <p>{orderPrice}원</p>
+            <p className={style.productPrice}>{orderPrice}원 <span className={style.productCount}>개수</span></p>
           </div>
           <div className={style.productState}>
             <p>{stateText}</p>
@@ -59,9 +60,15 @@ export default function MyOrderDetail() {
 
           <p className={style.accountTitle}>결제 정보</p>
           <div className={style.accountContent}>
-            <p className={style.accountToolTitle}>결제 수단</p>
-            <span className={style.accountBankName}>{orderAccount.bankName}</span>
-            <span className={style.accountBankNum}>({orderAccount.accountNumber})</span>
+            <div className={style.bankContent}>
+              <p className={style.accountToolTitle}>결제 수단</p>
+              <span className={style.accountBankName}>{orderAccount.bankName}</span>
+              <span className={style.accountBankNum}>({orderAccount.accountNumber})</span>
+            </div>
+            <div className={style.priceContent}>
+              <p className={style.priceTitle}>결제 금액</p>
+              <p className={style.accountPrice}>{orderPrice} * 개수 원</p>
+            </div>
           </div>
       </div>
     </div>
