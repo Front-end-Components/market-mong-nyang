@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/MyOrder.module.scss';
@@ -11,21 +11,24 @@ export default function Order({ item }) {
   const detailID = {
     'detailId': item.detailId
   };
-  let stateText = '구매 완료'
-  if(item.done) {
-    stateText = '구매 확정';
-  } else if (item.isCanceled) {
-    stateText = '주문 취소';
-  }
-
+    
   let orderGuide = '구매가 완료 되었습니다.';
   if(item.isCanceled) {
-    orderGuide = '주문이 취소 되었습니다.'
+    orderGuide = '주문이 취소 되었습니다.';
+  } else {
+    orderGuide = '구매가 완료 되었습니다.';
+  }
+
+  let stateText = '구매 완료';
+  if(item.done) {
+    stateText = '구매 확정';
+  } else if(item.isCanceled) {
+    stateText = '주문 취소';
   }
 
   let date = item.timePaid.substr(0, 10);
   let price = formatPrice(item.product.price);
-  let thumbnail = `${item.thumbnail}`;
+  let thumbnail = `${item.product.thumbnail}`;
 
   return (
     <div className={style.content}>

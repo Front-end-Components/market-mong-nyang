@@ -23,9 +23,13 @@ export default function Payment() {
 
   useEffect(() => {
     async function postData() {
-      const pData = await checkAuth();
+      const payData = await checkAuth();
+      setPayAuth(payData);
     }
-  });
+    postData();
+  }, []);
+
+  console.log(payAuth);
 
   return (
   <div className={style.container}>
@@ -43,8 +47,8 @@ export default function Payment() {
           <span className={style.txt}>이메일</span>
         </div>
         <div className={style.right}>
-          <span className={style.txt}>test</span>
-          <span className={style.txt}>test@test.com</span>
+          <span className={style.txt}>{payAuth.displayName}</span>
+          <span className={style.txt}>{payAuth.email}</span>
         </div>
       </div>
     </div>

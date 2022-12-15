@@ -11,7 +11,6 @@ export default function MyOrder() {
   useEffect(() => {
     async function getData() {
       const data = await getListOrder();
-      console.log(123);
       setDetails(data);
     }
     getData();
@@ -21,7 +20,7 @@ export default function MyOrder() {
     <div className={style.myOrder}>
     <MypageHeader name={'주문 내역 (썸네일 -> null)'} />
 
-    {Array.isArray(details.length) ? (
+    {Array.isArray(details) ? (
     details.map((item) => {
       return <Order item={item} />;
     })
