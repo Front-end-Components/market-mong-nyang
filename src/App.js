@@ -1,13 +1,13 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Loading from './components/Loading';
-import Footer from './components/Footer';
-import { useDispatch, useSelector } from 'react-redux';
-import style from './App.module.scss';
-import AdminNavbar from './components/admin/AdminNavbar';
-import { testIsAdmin } from './store/userSlice';
-import AdminHeader from './components/admin/AdminHeader';
-import { useEffect, useState } from 'react';
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Loading from "./components/Loading";
+import Footer from "./components/Footer";
+import { useDispatch, useSelector } from "react-redux";
+import style from "./App.module.scss";
+import AdminNavbar from "./components/admin/AdminNavbar";
+import { testIsAdmin } from "./store/userSlice";
+import AdminHeader from "./components/admin/AdminHeader";
+import { useEffect, useState } from "react";
 
 function App() {
   let loading = useSelector((state) => {
@@ -17,7 +17,7 @@ function App() {
   //   return state.user.isAdmin;
   // });
 
-  let isAdmin = true;
+  let isAdmin = false;
 
   // TEST
   // let dispatch = useDispatch();
