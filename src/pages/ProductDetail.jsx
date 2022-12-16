@@ -68,29 +68,7 @@ export default function ProductDetail() {
             </div>
             {products.isSoldOut ? 
             <div className={style.button}>
-<<<<<<< HEAD
-              <Button name={'장바구니'} onClick={() => {
-                dispatch(insertItem({
-                  id: products.id,
-                  isSoldOut: false,
-                  price: products.price,
-                  thumbnail: products.thumbnail,
-                  title: products.title,
-                  count: count,
-                }));
-              }} />
-              <Button name={'구매하기'} isPurple={true} onClick={() => {
-                navigate('/payment', {
-                  state: {
-                    title: products.title,
-                    id: products.id,
-                    count: count,
-                    price: products.price,
-                  }});
-              }} />
-=======
               <Button name={'품절'} className={style.soldout} disabled={true} />
->>>>>>> WooJiSoo
             </div>
             : 
             <div className={style.button}>
