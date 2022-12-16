@@ -42,9 +42,15 @@ let cart = createSlice({
         state[num].count -= 1;
       }
     },
+    checkedChange(state, action) {
+      let num = state.findIndex((obj) => {
+        return obj.id === action.payload;
+      });
+      state[num].checked = !state[num].checked;
+    }
   },
 });
 
-export let { increaseCount, decreaseCount, insertItem, deleteItem } = cart.actions;
+export let { increaseCount, decreaseCount, insertItem, deleteItem, checkedChange } = cart.actions;
 
 export default cart;

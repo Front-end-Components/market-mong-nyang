@@ -79,6 +79,7 @@ export default function ProductDetail() {
                 thumbnail: products.thumbnail,
                 title: products.title,
                 count: count,
+                checked: true,
               }));
             }} />
             <Button name={'구매하기'} className={style.sale} isPurple={true} />
