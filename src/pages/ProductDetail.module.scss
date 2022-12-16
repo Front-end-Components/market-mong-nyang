@@ -8,7 +8,7 @@
     padding-top: 30px;
     padding-bottom: 150px;
     .imgarea {
-      width: 60%;
+      width: 65%;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -18,7 +18,7 @@
       }
     }
     .menu {
-      width: 40%;
+      width: 35%;
       height: auto;
       display: flex;
       flex-wrap: wrap;
@@ -26,6 +26,7 @@
       align-content: flex-start;
       padding-top: 50px;
       padding-left: 40px;
+      box-sizing: border-box;
       border-left: 1px solid $color-lightgray;
       .fixed {
         width: 100%;
@@ -94,8 +95,11 @@
           display: flex;
           justify-content: flex-start;
           gap: 10px;
-          Button {
-            width: 50%;
+          button {
+            width: 100%;
+          }
+          .soldout {
+            background-color: gray;
           }
         }
       }

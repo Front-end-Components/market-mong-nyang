@@ -66,7 +66,9 @@ export default function ProductDetail() {
                 <p>₩ {formatPrice(price * count)}원</p>
               </div>
             </div>
+            {products.isSoldOut ? 
             <div className={style.button}>
+<<<<<<< HEAD
               <Button name={'장바구니'} onClick={() => {
                 dispatch(insertItem({
                   id: products.id,
@@ -86,7 +88,26 @@ export default function ProductDetail() {
                     price: products.price,
                   }});
               }} />
+=======
+              <Button name={'품절'} className={style.soldout} disabled={true} />
+>>>>>>> WooJiSoo
             </div>
+            : 
+            <div className={style.button}>
+            <Button name={'장바구니'} className={style.sale} onClick={() => {
+              dispatch(insertItem({
+                id: products.id,
+                isSoldOut: false,
+                price: products.price,
+                thumbnail: products.thumbnail,
+                title: products.title,
+                count: count,
+                checked: true,
+              }));
+            }} />
+            <Button name={'구매하기'} className={style.sale} isPurple={true} />
+          </div>
+          }
           </div>
         </div>
       </div>
