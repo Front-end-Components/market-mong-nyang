@@ -1,4 +1,4 @@
-.container { 
+.container {
   margin-bottom: 100px;
   .totalBalance {
     margin-top: 20px;
@@ -8,6 +8,20 @@
       color: $color-purple;
       font-weight: bold;
     }
+  }
+  .button {
+    display: block;
+    padding: 0px 10px;
+    text-align: center;
+    overflow: hidden;
+    padding: 0 1rem;
+    height: 44px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #5f0080;
+    border: 0px none;
+    cursor: pointer;
+    margin: 40px auto 0;
   }
 }
 
