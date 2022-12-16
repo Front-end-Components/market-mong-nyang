@@ -8,10 +8,14 @@ import { Pagination } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import style from './Payment.module.scss';
+import { useLocation } from 'react-router-dom';
 
 export default function Payment() {
   const [account, setAccounts] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
+
+  const location = useLocation();
+  console.log(location.state);
 
   useEffect(() => {
     async function getData() {
@@ -29,14 +33,19 @@ export default function Payment() {
     postData();
   }, []);
 
-  console.log(payAuth);
-
   return (
   <div className={style.container}>
     <h2>주문서</h2>
     <div className={style.orderForm}>
       <h3>주문 상품</h3>
-      <div>상품 이름</div>
+      <div className={style.inner}>
+        <div className={style.left}>
+          <span className={style.txt}>상품 이름</span>
+        </div>
+        <div className={style.right}>
+        <span className={style.txt}>이름</span>
+        </div>
+      </div>
     </div>
 
     <div className={style.orderForm}>

@@ -1,7 +1,7 @@
 import { getProductDetail } from '@/api/requests';
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
 import { formatPrice } from '@/utils/formats.js';
@@ -15,6 +15,7 @@ export default function ProductDetail() {
   const [count, setCount] = useState(1);
   const price = products.price;
   let dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
@@ -76,7 +77,16 @@ export default function ProductDetail() {
                   count: count,
                 }));
               }} />
-              <Button name={'구매하기'} isPurple={true} />
+              <Button name={'구매하기'} isPurple={true} onClick={() => {
+                navigate('/payment', {
+                  state: {
+                    id: products.id,
+                    title: products.title,
+                    price: products.price,
+                    count: count
+                  }
+                });
+              }} />
             </div>
           </div>
         </div>
