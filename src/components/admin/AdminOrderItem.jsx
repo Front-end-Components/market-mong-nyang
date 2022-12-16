@@ -6,8 +6,6 @@ import style from './AdminOrderItem.module.scss';
 export default function AdminOrderItem({ item, idx }) {
   const navigate = useNavigate();
 
-  const test = '';
-
   return (
     <li key={item.id} className={style.container}>
       <input type='checkbox' name='' id='' />
