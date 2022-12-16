@@ -1,4 +1,4 @@
-import MypageHeader from "@/components/MypageHeader";
+import { InfoList } from "@/components/Signup/infoList";
 import React, { useState } from "react";
 import { signup } from "../api/requests";
 import Button from "../components/Button";
@@ -12,7 +12,7 @@ export default function Signup() {
   });
 
   const { email, password, displayName } = inputs;
-  const onChange = (event) => {
+  const handleInfoInputs = (event) => {
     const { value, name } = event.target;
     setInputs({
       ...inputs,
@@ -21,7 +21,7 @@ export default function Signup() {
   };
 
   const [checkPassword, setCheckPassword] = useState("");
-  const onCheckPassword = (event) => {
+  const handlePasswordCheckInput = (event) => {
     setCheckPassword(event.currentTarget.value);
   };
 
@@ -46,65 +46,54 @@ export default function Signup() {
   return (
     <div className={style.signup}>
       <div className={style.header}>
-        <MypageHeader name={"회원가입"} />
+        <h1>회원가입</h1>
       </div>
       <form className={style.form}>
-        <div className={style.div}>
-          <label htmlFor="email" className={style.label}>
-            이메일<span className={style.span}>*</span>
-          </label>
-          <input
-            name="email"
-            type="email"
-            value={email}
-            className={style.input}
-            placeholder="이메일을 입력해 주세요"
-            onChange={onChange}
-          />
-          <Button name="중복확인" />
-        </div>
-        <div className={style.div}>
-          <label htmlFor="password" className={style.label}>
-            비밀번호<span className={style.span}>*</span>
-          </label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            className={style.input}
-            placeholder="비밀번호를 입력해 주세요"
-            onChange={onChange}
-          />
-        </div>
-        <div className={style.div}>
-          <label htmlFor="password-check" className={style.label}>
-            비밀번호 확인<span className={style.span}>*</span>
-          </label>
-          <input
-            name="checkPassword"
-            type="password"
-            value={checkPassword}
-            className={style.input}
-            placeholder="비밀번호를 한번 더 입력해 주세요"
-            onChange={onCheckPassword}
-          />
-        </div>
-        <div className={style.div}>
-          <label htmlFor="name" className={style.label}>
-            이름<span className={style.span}>*</span>
-          </label>
-          <input
-            name="displayName"
-            type="text"
-            value={displayName}
-            className={style.input}
-            placeholder="이름을 입력해 주세요"
-            onChange={onChange}
-          />
-        </div>
-        <div className={style.btn}>
+        <InfoList
+          label={"이메일"}
+          input={{
+            name: "email",
+            value: inputs.email,
+            onChange: handleInfoInputs,
+            placeholder: "이메일을 입력해 주세요",
+          }}
+          button={{
+            name: "중복확인",
+            onClick: () => {},
+          }}
+        />
+        <InfoList
+          label={"비밀번호"}
+          input={{
+            name: "password",
+            value: inputs.password,
+            type: "password",
+            onChange: handleInfoInputs,
+            placeholder: "비밀번호를 입력해 주세요",
+          }}
+        />
+        <InfoList
+          label={"비밀번호 확인"}
+          input={{
+            name: "checkPassword",
+            value: checkPassword,
+            type: "password",
+            onChange: handlePasswordCheckInput,
+            placeholder: "비밀번호를 다시 입력해 주세요",
+          }}
+        />
+        <InfoList
+          label={"이름"}
+          input={{
+            name: "displayName",
+            value: inputs.displayName,
+            onChange: handleInfoInputs,
+            placeholder: "이름을 입력해 주세요",
+          }}
+        />
+        <section className={style.btn}>
           <Button name="가입하기" onClick={onSubmit} isPurple={true} />
-        </div>
+        </section>
       </form>
     </div>
   );

@@ -1,9 +1,11 @@
 .login {
-  padding-top: 50px;
-  box-sizing: border-box;
-  width: 64vw;
-  min-height: 80vh;
-  height: auto;
+  margin-top: 90px;
+  margin-bottom: 60px;
+  width: 340px;
+  min-width: 340px;
+  padding: 0 305px;
+  display: flex;
+  flex-direction: column;
 
   h1 {
     font-weight: 800;
@@ -12,20 +14,19 @@
     text-align: center;
   }
 
-  .container {
-    width: 340px;
-    margin: 0px auto;
+  &_inputContainer {
+    width: 100%;
     letter-spacing: -0.6px;
-
-    .input {
-      height: 48px;
+    margin-top: 30px;
+    &_input {
+      height: 54px;
+      font-size: 14px;
       margin-bottom: 10px;
       width: 100%;
       padding: 0px 11px 1px 15px;
       border-radius: 4px;
       border: 1px solid rgb(221, 221, 221);
       font-weight: 400;
-      font-size: 16px;
       line-height: 1.5;
       color: rgb(51, 51, 51);
       outline: none;
@@ -35,14 +36,18 @@
         margin-top: 30px;
       }
     }
-
-    .btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-      gap: 10px;
+  }
+  &_findContainer {
+    align-self: end;
+    button {
+      border: none;
+      background-color: #fff;
     }
+  }
+  &_buttonContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 30px;
   }
 }
