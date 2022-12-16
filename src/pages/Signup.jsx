@@ -25,6 +25,7 @@ export default function Signup() {
     setCheckPassword(event.currentTarget.value);
   };
 
+  // TEST
   const onSubmit = (event) => {
     event.preventDefault();
     if (password !== checkPassword) {
