@@ -1,18 +1,14 @@
-// import React from 'react';
-// import style from './Button.module.scss';
-
-// export default function Button({ name, onClick, disabled, isPurple, display }) {
-//   return (
-//     <button className={`${isPurple ? style.purple : style.white} ${display ? style.displayNone : ''}`} onClick={onClick} disabled={disabled}>
-//       <span>{name}</span>
-//     </button>
-//   );
-// }
-
 import React from "react";
 import style from "./Button.module.scss";
 
-export default function Button({ name, onClick, disabled, isPurple, display }) {
+export default function Button({
+  name,
+  onClick,
+  disabled,
+  isPurple,
+  display,
+  width,
+}) {
   return (
     <button
       className={`${style.button} ${isPurple ? style.purple : style.white} ${
@@ -20,6 +16,7 @@ export default function Button({ name, onClick, disabled, isPurple, display }) {
       }`}
       onClick={onClick}
       disabled={disabled}
+      style={{ width: width }}
     >
       <span>{name}</span>
     </button>
