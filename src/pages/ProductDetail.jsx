@@ -83,7 +83,15 @@ export default function ProductDetail() {
                 checked: true,
               }));
             }} />
-            <Button name={'구매하기'} className={style.sale} isPurple={true} />
+            <Button name={'구매하기'} isPurple={true} onClick={() => {
+                navigate('/payment', {
+                  state: {
+                    title: products.title,
+                    id: products.id,
+                    count: count,
+                    price: products.price,
+                  }});
+              }} />
           </div>
           }
           </div>
