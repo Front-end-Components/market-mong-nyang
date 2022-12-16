@@ -80,12 +80,11 @@ export default function ProductDetail() {
               <Button name={'구매하기'} isPurple={true} onClick={() => {
                 navigate('/payment', {
                   state: {
-                    id: products.id,
                     title: products.title,
+                    id: products.id,
+                    count: count,
                     price: products.price,
-                    count: count
-                  }
-                });
+                  }});
               }} />
             </div>
           </div>

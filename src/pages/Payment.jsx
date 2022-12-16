@@ -8,14 +8,16 @@ import { Pagination } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import style from './Payment.module.scss';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Payment() {
+  const navigate = useNavigate();
   const [account, setAccounts] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
 
-  const location = useLocation();
-  console.log(location.state);
+  let { state } = useLocation();
+  const price = formatPrice(state.price);
+  const totalPrice = formatPrice(state.price * state.count);
 
   useEffect(() => {
     async function getData() {
@@ -41,9 +43,13 @@ export default function Payment() {
       <div className={style.inner}>
         <div className={style.left}>
           <span className={style.txt}>상품 이름</span>
+          <span className={style.txt}>상품 가격</span>
+          <span className={style.txt}>상품 개수</span>
         </div>
         <div className={style.right}>
-        <span className={style.txt}>이름</span>
+        <span className={style.txt}>{state.title}</span>
+        <span className={style.txt}>{price}원</span>
+        <span className={style.txt}>{state.count}개</span>
         </div>
       </div>
     </div>
@@ -115,10 +121,10 @@ export default function Payment() {
             <span className={style.txt}>최종결제금액</span>
           </div>
           <div className={style.right}>
-            <span className={style.txt}>{formatPrice(8000)} 원</span>
+            <span className={style.txt}>{totalPrice} 원</span>
             <span className={style.txt}>무료</span>
             <span className={style.txt}>0 원</span>
-            <span className={style.txt}><p>{formatPrice(8000)}</p>원</span>
+            <span className={style.txt}><p>{totalPrice}</p>원</span>
           </div>
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
