@@ -9,6 +9,7 @@ import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import style from './Payment.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
+import PaymentItem from '@/components/PaymentItem'
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -18,11 +19,13 @@ export default function Payment() {
   let { state } = useLocation();
   const price = formatPrice(state.price);
   const totalPrice = formatPrice(state.price * state.count);
+  const productId = state.id;
 
   useEffect(() => {
     async function getData() {
       const data = await getListAccount();
       setAccounts(data);
+      console.log(data.accounts)
     }
     getData();
   }, []);
@@ -128,7 +131,15 @@ export default function Payment() {
           </div>
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
-        <Button name={'결제하기'} isPurple={true} />
+        <Button name={'결제하기'} isPurple={true} onClick={() => {
+          try {
+            PaymentItem(productId);
+          } catch (error) {
+            alert('잔액이 부족합니다.');
+          } finally {
+            alert('결제가 완료되었습니다.');
+          }
+        }} />
       </div>
     </div>
   </div>

@@ -82,6 +82,7 @@ export default function ProductDetail() {
                 count: count,
                 checked: true,
               }));
+              alert('장바구니에 추가되었습니다.');
             }} />
             <Button name={'구매하기'} isPurple={true} onClick={() => {
                 navigate('/payment', {
