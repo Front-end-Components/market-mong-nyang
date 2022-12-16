@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MypageHeader from '../components/MypageHeader';
 import Account from '@/components/Account';
+import MyAccountForm from './MyAccountForm';
 import { getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
@@ -10,6 +11,7 @@ const cx = classNames.bind(style);
 
 export default function MyAccount() {
   const [account, setAccounts] = useState([]);
+  const [accoutFrom, setAccoutFrom] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -34,6 +36,10 @@ export default function MyAccount() {
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
+      <button onClick={() => {setAccoutFrom(true)}} className={style.button}>계좌 추가</button>
+      {
+        accoutFrom === true ? <MyAccountForm/> : null
+      }
     </div>
   )
 }
