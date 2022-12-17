@@ -3,6 +3,7 @@ import MypageHeader from '../components/MypageHeader';
 import CartItem from '../components/CartItem';
 import style from './CartList.module.scss';
 import { useSelector } from 'react-redux';
+import Button from '@/components/Button';
 
 export default function CartList() {
   let list = useSelector((state) => state.cart);
@@ -18,6 +19,7 @@ export default function CartList() {
           return <CartItem key={item.id} item={item} />;
         })}
       </div>
+      <Button name={'주문하기'} isPurple={true} />
     </div>
   );
 }
