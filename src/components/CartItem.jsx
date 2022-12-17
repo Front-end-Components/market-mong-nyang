@@ -1,5 +1,7 @@
 import React from 'react';
 import style from './CartItem.module.scss';
+import DeleteModal from '@/components/DeleteModal';
+import { useState } from 'react';
 import { RxCross1 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
@@ -8,9 +10,13 @@ import { increaseCount, decreaseCount, deleteItem, checkedChange } from '@/store
 
 export default function CartItem({ item }) {  
   let dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
 
   return (
     <div className={style.cartitem}>
+      {
+        modal === true ? <DeleteModal item={item} modal={modal} setModal={setModal} /> : null
+      }
       <div className={style.infoarea}>
         <div className={style.checkbox}>
           <input
@@ -44,10 +50,11 @@ export default function CartItem({ item }) {
           <button
           className={style.delete}
           onClick={() => {
-          dispatch(deleteItem(item.id))
+          setModal(true);
+          // dispatch(deleteItem(item.id))
         }}
         >
-          <RxCross1 size='15' title='장바구니' />
+          <RxCross1 size='15' title='delete' />
         </button>
       </div>
     </div>
