@@ -26,7 +26,7 @@ export default function CartPrice() {
       <div className={style.calcwrap}>
         <div className={style.orderprice}>
           <p className={style.title}>총 주문 금액</p>
-          <p className={style.price}>{totalPrice > 0 ? formatPrice(totalPrice) : 0}원</p>
+          <p className={style.price}>{totalPrice > 0 ? formatPrice(totalPrice) : 0} 원</p>
         </div>
         <div className={style.discount}>
           <p className={style.title}>할인 금액</p>
