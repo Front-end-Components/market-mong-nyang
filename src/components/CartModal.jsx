@@ -4,7 +4,7 @@ import style from './CartModal.module.scss'
 import { Link } from 'react-router-dom';
 import { BsFillCartCheckFill } from 'react-icons/bs';
 
-function Modal({ modal, setModal }) {
+function CartModal({ modal, setModal }) {
   return (
     <div className={style.cartmodal}>
       <BsFillCartCheckFill className={style.icon} size='30' title='cart' color='rgb(95, 0, 128)' />
@@ -23,4 +23,4 @@ function Modal({ modal, setModal }) {
   )
 }
 
-export default Modal
+export default CartModal
