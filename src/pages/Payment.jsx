@@ -141,6 +141,7 @@ export default function Payment() {
             alert('잔액이 부족합니다.');
           } finally {
             alert('결제가 완료되었습니다.');
+            navigate('/mypage/order', {state: state.count});
           }
         }} />
       </div>

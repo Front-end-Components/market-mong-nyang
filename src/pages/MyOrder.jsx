@@ -11,7 +11,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function MyOrder() {
-  const [details, setDetails] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -19,7 +18,6 @@ export default function MyOrder() {
   useEffect(() => {
     async function getData() {
       const data = await getListOrder();
-      setDetails(data);
       setSearch(data);
       setOrders(data);
     }
@@ -39,7 +37,27 @@ export default function MyOrder() {
       copy = copy.filter((item) => item.timePaid.slice(0, 10).replace(/-/g, '.') === selectDate.slice(0, 10));
     }
     setSearch(copy);
+    
   };
+
+  search.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
+
+  let countArray = [];
+  search.map(item => {
+    if(countArray.find(object => {
+      if(object.product.title === item.product.title && object.timePaid.substr(0, 10) === item.timePaid.substr(0, 10)) {
+        object.cnt++;
+        return true;
+      } else {
+        return false;
+      }
+    })) {
+    } else {
+      item.cnt = 1;
+      countArray.push(item);
+    }
+  })
+
 
   const handleDatePicker = (newDate) => {
     setDate(newDate);
@@ -53,17 +71,17 @@ export default function MyOrder() {
   
   return (
     <div className={style.myOrder}>
-    <MypageHeader name={'주문 내역 (썸네일 -> null)'} />
+    <MypageHeader name={'주문 내역'} />
 
-    <div className={styleDate.datePickerWrap}>
-      <DatePicker className={styleDate.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
+    <div className={style.datePickerWrap}>
+      <DatePicker className={style.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
     </div>
-    <button className={styleDate.searchReset} onClick={handleReset}>
-      <GrPowerReset color='rgb(95, 0, 128)' size='15' title='초기화' />
+    <button className={style.searchReset} onClick={handleReset}>
+      <GrPowerReset color='rgb(95, 0, 128)' size='13' title='초기화' />
     </button>
 
-    {Array.isArray(search) ? (
-    search.map((item) => {
+    {Array.isArray(countArray) ? (
+    countArray.map((item) => {
       return <Order item={item} />;
     })
   ) : (
