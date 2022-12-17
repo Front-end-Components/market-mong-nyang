@@ -14,21 +14,24 @@ import PaymentItem from '@/components/PaymentItem'
 export default function Payment() {
   const navigate = useNavigate();
   const [account, setAccounts] = useState([]);
+  const [accounts, setAccount] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
 
   let { state } = useLocation();
   const price = formatPrice(state.price);
   const totalPrice = formatPrice(state.price * state.count);
-  const productId = state.id;
 
   useEffect(() => {
     async function getData() {
       const data = await getListAccount();
       setAccounts(data);
-      console.log(data.accounts)
+      setAccount(data.accounts[0]);
     }
     getData();
   }, []);
+
+  const productId = state.id;
+  const accountId = accounts.id;
 
   useEffect(() => {
     async function postData() {
@@ -133,7 +136,7 @@ export default function Payment() {
         </div>
         <Button name={'결제하기'} isPurple={true} onClick={() => {
           try {
-            PaymentItem(productId);
+            PaymentItem(productId, accountId, state.count);
           } catch (error) {
             alert('잔액이 부족합니다.');
           } finally {
