@@ -25,6 +25,7 @@ export default function ProductDetail() {
     }
     getData();
   }, []);
+  console.log('test');
 
   return (
     <div className={style.detail}>
