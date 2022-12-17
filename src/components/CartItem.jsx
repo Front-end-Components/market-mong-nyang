@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './CartItem.module.scss';
-import { useState } from 'react';
+import { RxCross1 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
 import { useDispatch } from "react-redux";
@@ -41,11 +41,14 @@ export default function CartItem({ item }) {
           </div>
         </div>
         <div className={style.price}>{formatPrice(item.price * item.count)} 원</div>
-        <div><button
-        onClick={() => {
+          <button
+          className={style.delete}
+          onClick={() => {
           dispatch(deleteItem(item.id))
         }}
-        >X</button></div>
+        >
+          <RxCross1 size='15' title='장바구니' />
+        </button>
       </div>
     </div>
   );
