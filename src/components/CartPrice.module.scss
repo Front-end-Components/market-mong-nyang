@@ -1,0 +1,33 @@
+.cartprice {
+  width: 30%;
+  margin-left: 30px;
+  padding-top: 30px;
+  .calcwrap{
+    padding: 15px 0;
+    border: 1px solid $color-lightgray;
+    height: auto;
+    .orderprice, .discount, .shipping {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 10px 20px;
+    }
+  }
+  .total{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 20px;
+    background-color: $color-lightgray;
+    font-weight: 700;
+    .title {
+      font-size: 16px;
+    }
+    .price {
+      font-size: 20px;
+    }
+  }
+  Button {
+    margin-top: 20px;
+  }
+}
