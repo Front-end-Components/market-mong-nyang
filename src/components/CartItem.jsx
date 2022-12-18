@@ -2,7 +2,6 @@ import React from 'react';
 import style from './CartItem.module.scss';
 import DeleteModal from '@/components/DeleteModal';
 import { useState } from 'react';
-import Button from '@/components/Button';
 import { RxCross1 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
