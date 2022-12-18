@@ -1,14 +1,14 @@
 import { getProductDetail } from '@/api/requests';
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
+import CartModal from '@/components/CartModal';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import CartModal from '@/components/CartModal';
 
 export default function ProductDetail() {
   const [products, setProducts] = useState([]);
@@ -21,9 +21,16 @@ export default function ProductDetail() {
 
   useEffect(() => {
     async function getData() {
-      const data = await getProductDetail(id);
-      setProducts(data);
-      dispatch(hideLoading());
+      try {
+        dispatch(showLoading());
+        const data = await getProductDetail(id);
+        setProducts(data);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 상세 내용을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
     }
     getData();
   }, []);
