@@ -187,7 +187,13 @@ export default function Signup() {
           </article>
         </section>
         <section className={style.btn}>
-          <Button name="가입하기" form="signup" type="submit" isPurple={true} />
+          <Button
+            name="가입하기"
+            form="signup"
+            type="submit"
+            isPurple={true}
+            width="100%"
+          />
         </section>
       </form>
     </div>
