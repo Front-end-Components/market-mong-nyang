@@ -1,29 +1,22 @@
 .products {
-  margin: auto;
-  width: $width-inner;
-  height: auto;
+  color: $color-black;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 100px;
-  .title {
-    padding-top: 100px;
-    padding-bottom: 50px;
-    font-weight: 700;
-    font-size: 28px;
-    color: $color-black;
-  }
-  .swiper {
-    .slide {
-      display: flex;
+  padding-top: 50px;
+  padding-bottom: 150px;
+  .container {
+    width: $width-inner;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .row {
+      width: 100%;
+      min-height: 50vh;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 180px);
+      flex-wrap: wrap;
       justify-content: center;
-      box-sizing:border-box;
-      img {
-        display: block;
-        width: 280px;
-        border-radius: 30px;
-        margin-right: 20px;
-      }
+      gap: 20px;
     }
   }
 }

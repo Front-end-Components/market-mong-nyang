@@ -1,73 +1,46 @@
 import React from 'react';
 import style from './Products.module.scss';
-import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import { Pagination, Navigation, Autoplay } from "swiper";
-import "swiper/scss"; //basic
-import "swiper/scss/pagination";
-import "swiper/scss/navigation";
+import Product from '../components/Product.jsx'
+import ProductHeader from '../components/ProductHeader';
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { getListProductAdmin } from '@/api/requests';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
+export default function Products({tag1, tag2, category}) {
+  const [products, setProducts] = useState([]);
+  let dispatch = useDispatch();
+  
+  // 필터 적용
+  const filterItems = products.filter(item => item.tags === tag1 || item.tags === tag2)
+  console.log(filterItems);
 
-export default function Products() {
+  useEffect(() => {
+    async function getData() {
+      try {
+        dispatch(showLoading());
+        const data = await getListProductAdmin();
+        setProducts(data);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 목록을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <div className={style.products}>
-    <div className={style.title}>
-      <p>MD 추천 상품</p>
-    </div>
-    <Swiper
-      className={style.swiper}
-      modules = {[Pagination, Navigation, Autoplay]}
-      pagination={{ clickable : true }}
-      loop={true} // 루프 슬라이드
-      autoplay={{ delay: 4000 }} // 자동 슬라이드
-      spaceBetween={10} // 슬라이드간의 간격
-      slidesPerView={4} // 한 번에 보여지는 슬라이드 개수
-      navigation
-      style={{
-        "--swiper-navigation-color": "#404040",
-        "--swiper-navigation-size": "40px",
-        "--swiper-pagination-color": "#404040"
-      }}
-      breakpoints= {{
-        1800:{
-          slidesPerView:4,             
-          },
-        1320:{
-          slidesPerView:3,             
-          },
-        1024:{
-          slidesPerView:2,             
-          },
-        0:{
-          slidesPerView:1, 
-          }
-      }}
-    >
-    <SwiperSlide className={style.slide}>
-      <a href="/products/4DRGV6C2jyXXcTvWcYuI">
-      <img src="https://storage.googleapis.com/heropy-api/voUSpW7ZuKv093603.jpg" alt="" className={style.image}/>
-      </a>
-      </SwiperSlide>
-      <SwiperSlide className={style.slide}>
-      <a href="#">
-      <img src="https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg" alt="" className={style.image}/>
-      </a>
-      </SwiperSlide>
-      <SwiperSlide className={style.slide}>
-      <a href="#">
-      <img src="https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg" alt="" className={style.image}/>
-      </a>
-      </SwiperSlide>
-      <SwiperSlide className={style.slide}>
-      <a href="#">
-      <img src="https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg" alt="" className={style.image}/>
-      </a>
-      </SwiperSlide>
-      <SwiperSlide className={style.slide}>
-      <a href="#">
-      <img src="https://cdn-pro-web-241-106-godomall.spdycdn.net/bienbien3_godomall_com/data/goods/22/11/48/1000000897/1000000897_main_086.jpg" alt="" className={style.image}/>
-      </a>
-      </SwiperSlide>
-    </Swiper>
+      <div className={style.container}>
+        <ProductHeader name={category} />
+        <div className={style.row}>
+          {filterItems.map((products) => {
+              return <Product key={products.id} products={products} />
+            })}
+        </div>
+      </div>
     </div>
   );
 }
