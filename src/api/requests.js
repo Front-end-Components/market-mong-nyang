@@ -124,7 +124,9 @@ export const getProductDetail = (id) => {
 };
 
 // 제품 검색
-export const searchProduct = () => {};
+export const searchProduct = (data) => {
+  return requestPost(PATH.SEARCH, authInstance, data)
+};
 
 // 제품 거래 신청 (사용자)
 export const insertOrder = (data) => {

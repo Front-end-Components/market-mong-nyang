@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsCart2 } from 'react-icons/bs';
@@ -7,9 +7,19 @@ import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
+import { searchProduct } from '@/api/requests';
 
 export default function Header() {
   const list = useSelector((state) => state.cart);
+  const [value, setValue] = useState('');
+
+  const handleChange = e => {
+    setValue({
+      [e.target]: e.target.value,
+    })
+  }
+  console.log(value);
+  console.log(searchProduct('로우즈'))
 
   return (
     <header className={style.userHeader}>
@@ -22,12 +32,31 @@ export default function Header() {
           <img className={style.logo} src='/images/logo.png' alt='logo' />
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
-        <div className={style.inputWrap}>
-          <input className={style.searchInput} type='text' placeholder='검색어를 입력해 주세요' />
-          <button className={style.searchBtn} aria-label='submit'>
-            <BiSearch size='24' color='rgb(95, 0, 128)' />
-          </button>
-        </div>
+        <form className={style.inputWrap}>
+            <input
+            className={style.searchInput}
+            type='text'
+            placeholder='검색어를 입력해 주세요'
+            onChange={handleChange}
+            />
+            <button
+            type='submit'
+            className={style.searchBtn}
+            aria-label='submit'
+            onClick={() => {
+              searchProduct(value).then((res) => {
+                if (res) {
+                  alert('상품 검색 완료');
+                  console.log(res);
+                } else {
+                  alert('상품 검색 실패');
+                }
+              });
+            }}
+            >
+              <BiSearch size='24' color='rgb(95, 0, 128)' />
+            </button>
+        </form>
         <div className={style.links}>
           <Link to='/mypage/like'>
             <VscHeart size='30' title='찜목록' />
