@@ -3,62 +3,28 @@ import { setItem } from '@/utils/storage.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
 
 const requestPost = async (path, instance, data) => {
-  try {
-    return await instance.post(path, JSON.stringify(data)).then((res) => {
-      return res.data;
-    });
-  } catch (e) {
-    // TODO: 에러 처리 추가
-    console.log(e);
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-  }
+  return await instance.post(path, JSON.stringify(data)).then((res) => {
+    return res.data;
+  });
 };
 
 const requestGet = async (path, instance) => {
-  try {
-    return await instance.get(path).then((res) => {
-      console.log(res.data);
-      return res.data;
-    });
-  } catch (e) {
-    // TODO: 에러 처리 추가
-    console.log(e);
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-  }
+  return await instance.get(path).then((res) => {
+    return res.data;
+  });
 };
 
 const requestPut = async (path, instance, data) => {
-  try {
-    return await instance.put(path, JSON.stringify(data)).then((res) => {
-      return res.data;
-    });
-  } catch (e) {
-    // TODO: 에러 처리 추가
-    console.log(e);
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-  }
+  return await instance.put(path, JSON.stringify(data)).then((res) => {
+    return res.data;
+  });
 };
 
 const requestDelete = async (path, instance) => {
-  try {
-    return await instance.delete(path).then((res) => {
-      return res.data;
-    });
-  } catch (e) {
-    // TODO: 에러 처리 추가
-    console.log(e);
-    throw new Error('에러가 발생하였습니다.');
-  } finally {
-  }
+  return await instance.delete(path).then((res) => {
+    return res.data;
+  });
 };
-
-// 로그인 /auth/login, POST
-// 인증확인 /auth/me, POST
-// 로그아웃 /auth/logout, POST
-// 사용자 정보 수정 /auth/user, PUT
 
 // 회원가입
 export const signup = (data) => {
@@ -85,11 +51,6 @@ export const updateUserInfo = (data) => {
   return requestGet(PATH.AUTH_USER, authInstance, data);
 };
 
-// 선택 가능한 은행 목록 조회 /account/banks, GET
-// 계좌 목록 및 잔액 조회 /account, GET
-// 계좌 연결 /account, POST
-// 계좌 해지 /account, DELETE
-
 // 선택 가능한 은행 목록 조회 (사용자)
 export const getListBank = () => {
   return requestGet(PATH.BANKS, authInstance);
@@ -109,14 +70,6 @@ export const insertAccount = (data) => {
 export const deleteAccount = () => {
   return requestDelete(PATH.ACCOUNT, authInstance);
 };
-
-// 단일 제품 상세 조회 /products/:productId, GET
-// 제품 검색 /products/search, POST
-// 제품 거래 신청 /products/buy, POST
-// 제품 거래 취소 /products/cancel, POST
-// 제품 거래 확정 /products/ok, POST
-// 제품 전체 거래 내역 /products/transactions/details, GET
-// 단일 제품 상세 거래 내역 /products/transactions/detail, POST
 
 // 단일 제품 상세 조회 (공용)
 export const getProductDetail = (id) => {
@@ -151,21 +104,14 @@ export const selectOrder = (id) => {
   return requestPost(PATH.TRANSACTION_DETAIL, authInstance, id);
 };
 
-// 모든 제품 조회 /products, GET
-// 전체 거래 내역 /products/transactions/all, GET
-// 거래 내역 완료/취소 및 해제 /products/transactions/:detailId, PUT
-// 제품 추가 /products, POST
-// 제품 수정 /products/:productId, PUT
-// 제품 삭제 /products/:productId, DELETE
-
 // 모든 제품 조회 (관리자)
 export const getListProductAdmin = () => {
-  return requestGet(PATH.PRODUCT, adminInstance);
+  return requestGet(PATH.PRODUCT + '1', adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
 export const getListOrderAdmin = () => {
-  return requestGet(PATH.TRANSACTION_ALL, adminInstance);
+  return requestGet(PATH.TRANSACTION_ALL + '1', adminInstance);
 };
 
 // 거래 내역 완료/완료 해제, 취소/취소 해제 (관리자)
