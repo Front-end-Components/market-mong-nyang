@@ -2,7 +2,6 @@ import React from 'react';
 import CartItem from '../components/CartItem';
 import style from './CartList.module.scss';
 import { useSelector } from 'react-redux';
-import { formatPrice } from '@/utils/formats';
 
 export default function CartList() {
   let list = useSelector((state) => state.cart);
