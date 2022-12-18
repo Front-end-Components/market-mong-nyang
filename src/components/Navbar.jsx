@@ -8,7 +8,7 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
 import { searchProduct } from '@/api/requests';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { requestLogout } from '@/api/userAPI';
 import { setUserInit } from '@/store/userSlice';
 
