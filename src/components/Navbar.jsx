@@ -15,11 +15,23 @@ export default function Header() {
 
   const handleChange = e => {
     setValue({
+      ...value,
       [e.target]: e.target.value,
     })
   }
   console.log(value);
-  console.log(searchProduct('로우즈'))
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+      searchProduct(value).then((res) => {
+        if (res) {
+          alert('상품 검색 완료');
+          console.log(res);
+        } else {
+          alert('상품 검색 실패');
+        }
+      });
+    };
 
   return (
     <header className={style.userHeader}>
@@ -32,7 +44,8 @@ export default function Header() {
           <img className={style.logo} src='/images/logo.png' alt='logo' />
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
-        <form className={style.inputWrap}>
+        <div className={style.inputWrap}>
+          <form onSubmit={handleSubmit}>
             <input
             className={style.searchInput}
             type='text'
@@ -43,20 +56,11 @@ export default function Header() {
             type='submit'
             className={style.searchBtn}
             aria-label='submit'
-            onClick={() => {
-              searchProduct(value).then((res) => {
-                if (res) {
-                  alert('상품 검색 완료');
-                  console.log(res);
-                } else {
-                  alert('상품 검색 실패');
-                }
-              });
-            }}
-            >
+            onClick={() => searchProduct(value)}>
               <BiSearch size='24' color='rgb(95, 0, 128)' />
             </button>
-        </form>
+          </form>
+        </div>
         <div className={style.links}>
           <Link to='/mypage/like'>
             <VscHeart size='30' title='찜목록' />
