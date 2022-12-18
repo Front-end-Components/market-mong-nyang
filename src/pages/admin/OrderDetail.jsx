@@ -57,24 +57,38 @@ export default function OrderDetail() {
   };
 
   return (
-    <div>
-      <img src="" alt="thumbnail" />
-      <p>구매자 이메일 : {user.email}</p>
-      <p>구매자 닉네임 : {user.displayName}</p>
-      <p>프로필 이미지 : {user.profileImg}</p>
-      <p>은행명 : {account.bankName}</p>
-      <p>은행코드 : {account.bankCode}</p>
-      <p>계좌번호 : {account.accountNumber}</p>
-      <p>상품 ID : {product.productId}</p>
-      <p>상품명 : {product.title}</p>
-      <p>상품가격 : {formatPrice(product.price)}</p>
-      <p>상품설명 : {product.description}</p>
-      <p>상품 카테고리 : {product.tags}</p>
-      <p>상품 썸네일 : {product.thumbnail}</p>
-      <p>거래 일시 : {formatDate(timePaid)}</p>
-      <p>취소여부 : {cancled ? 'Y' : 'N'}</p>
-      <p>완료 여부 : {finished ? 'Y' : 'N'}</p>
-      <img src="" alt="photo" />
+    <div className={style.orderDetail}>
+      <div className={style.info}>
+        <h1>거래 내역 상세</h1>
+        <div
+          className={style.product}
+          onClick={() => navigate(`/admin/product/${product.productId}`)}
+        >
+          <img src={product.thumbnail} alt="thumbnail" />
+          <div className={style.productInfo}>
+            <p>카테고리 : {product.tags}</p>
+            <p>상품명 : {product.title}</p>
+            <p>가격 : {`${formatPrice(product.price)} 원`}</p>
+          </div>
+        </div>
+        <div className={style.group}>
+          <h2>구매자 정보</h2>
+          <p>구매자 이메일 : {user.email}</p>
+          <p>구매자 닉네임 : {user.displayName}</p>
+        </div>
+        <div className={style.group}>
+          <h2>계좌 정보</h2>
+          <p>은행명 : {account.bankName}</p>
+          <p>은행코드 : {account.bankCode}</p>
+          <p>계좌번호 : {account.accountNumber}</p>
+        </div>
+        <div className={style.group}>
+          <h2>거래 정보</h2>
+          <p>거래 일시 : {formatDate(timePaid)}</p>
+          <p>취소여부 : {cancled ? 'Y' : 'N'}</p>
+          <p>완료여부 : {finished ? 'Y' : 'N'}</p>
+        </div>
+      </div>
       <div className={style.buttons}>
         {cancled ? (
           <Button name={'거래 취소 해제'} onClick={handleChangeCancle} />

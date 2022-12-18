@@ -49,6 +49,7 @@ export default function ProductDetail() {
 
   return (
     <div className={style.productDetail}>
+      <h1>상품 상세</h1>
       <div className={style.container}>
         <img src={product.thumbnail} alt="thumbnail" />
         <div className={style.info}>
