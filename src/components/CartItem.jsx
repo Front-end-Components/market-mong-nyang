@@ -1,16 +1,22 @@
 import React from 'react';
 import style from './CartItem.module.scss';
+import DeleteModal from '@/components/DeleteModal';
 import { useState } from 'react';
+import { RxCross1 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
 import { useDispatch } from "react-redux";
-import { increaseCount, decreaseCount, deleteItem, checkedChange } from '@/store/cartSlice';
+import { increaseCount, decreaseCount, checkedChange } from '@/store/cartSlice';
 
 export default function CartItem({ item }) {  
   let dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
 
   return (
     <div className={style.cartitem}>
+      {
+        modal === true ? <DeleteModal item={item} modal={modal} setModal={setModal} /> : null
+      }
       <div className={style.infoarea}>
         <div className={style.checkbox}>
           <input
@@ -32,7 +38,7 @@ export default function CartItem({ item }) {
         <div className={style.countwrap}>
         <div className={style.count}>
               <button onClick={() => {
-                dispatch(decreaseCount(item.id))
+                {item.count === 1 ? item.count = 1 : dispatch(decreaseCount(item.id))}
               }}>-</button>
               <p>{item.count}</p>
               <button onClick={() => {
@@ -41,11 +47,15 @@ export default function CartItem({ item }) {
           </div>
         </div>
         <div className={style.price}>{formatPrice(item.price * item.count)} 원</div>
-        <div><button
-        onClick={() => {
-          dispatch(deleteItem(item.id))
+          <button
+          className={style.delete}
+          onClick={() => {
+          setModal(true);
+          // dispatch(deleteItem(item.id))
         }}
-        >X</button></div>
+        >
+          <RxCross1 size='15' title='delete' />
+        </button>
       </div>
     </div>
   );

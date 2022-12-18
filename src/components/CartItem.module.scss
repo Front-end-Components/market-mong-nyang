@@ -53,5 +53,11 @@
     .price {
       font-weight: 700;
     }
+    .delete {
+      border: none;
+      color: $color-black;
+      border-radius: 50px;
+      background-color: transparent;
+    }
   }
 }
