@@ -49,9 +49,11 @@ export default function ProductForm() {
       <div className={style.header}>
         <h1>상품 등록</h1>
       </div>
-      <form onSubmit={handleSubmit}>
-        <div className={style.inputWrap}>
-          <span>제품명 *</span>
+      <div className={style.inputWrap}>
+        <div className={style.group}>
+          <p>
+            제품명 <span className={style.required}>*</span>
+          </p>
           <input
             type="text"
             name="title"
@@ -61,8 +63,10 @@ export default function ProductForm() {
             onChange={handleChange}
           />
         </div>
-        <div className={style.inputWrap}>
-          <span>가격 *</span>
+        <div className={style.group}>
+          <p>
+            가격 <span className={style.required}>*</span>
+          </p>
           <input
             type="number"
             name="price"
@@ -72,9 +76,11 @@ export default function ProductForm() {
             onChange={handleChange}
           />
         </div>
-        <div className={style.inputWrap}>
+        <div className={style.group}>
           <div className={style.textWrap}>
-            <span>제품 상세 설명 *</span>
+            <p>
+              제품 상세 설명 <span className={style.required}>*</span>
+            </p>
           </div>
           <textarea
             type="text"
@@ -85,8 +91,10 @@ export default function ProductForm() {
             onChange={handleChange}
           />
         </div>
-        <div className={style.inputWrap}>
-          <span>카테고리 *</span>
+        <div className={style.group}>
+          <p>
+            카테고리 <span className={style.required}>*</span>
+          </p>
           <select name="tags" onChange={handleChange} required>
             <option value="">선택</option>
             <option value="주식">주식</option>
@@ -99,19 +107,19 @@ export default function ProductForm() {
             <option value="위생">위생</option>
           </select>
         </div>
-        <div className={style.inputWrap}>
-          <span>썸네일 이미지</span>
+        <div className={style.group}>
+          <p>썸네일 이미지</p>
           <input type="file" accept="image/*" name="thumbnailBase64" onChange={handleChange} />
         </div>
-        <div className={style.inputWrap}>
-          <span>상품 상세 이미지</span>
+        <div className={style.group}>
+          <p>상품 상세 이미지</p>
           <input type="file" accept="image/*" name="photoBase64" onChange={handleChange} />
         </div>
-        <div className={style.buttons}>
-          <Button name={'등록'} isPurple={true} />
-          <Button name={'취소'} onClick={() => navigate(-1)} />
-        </div>
-      </form>
+      </div>
+      <div className={style.buttons}>
+        <Button name={'등록'} isPurple={true} onClick={handleSubmit} />
+        <Button name={'취소'} onClick={() => navigate(-1)} />
+      </div>
     </div>
   );
 }
