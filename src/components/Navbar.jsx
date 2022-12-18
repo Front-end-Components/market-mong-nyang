@@ -6,21 +6,50 @@ import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLogout } from '@/api/userAPI';
+import { setUserInit } from '@/store/userSlice';
 
-export default function Header() {
+export default function Header({ isLogin }) {
+  const displayName = useSelector((state) => state.user.displayName);
+  const dispatch = useDispatch();
+
+  const handleClickLogoutBtn = async () => {
+    const isLogout = await requestLogout();
+    if (isLogout) {
+      localStorage.removeItem('token');
+      dispatch(setUserInit());
+      window.location.reload();
+    }
+  };
   return (
     <header className={style.userHeader}>
-      <div className={style.service}>
-        <Link to='/signup'>회원가입</Link>
-        <Link to='/login'>로그인</Link>
-      </div>
+      {isLogin ? (
+        <section className={style.service}>
+          <p>
+            <strong>{displayName}</strong>님, 안녕하세요.
+          </p>
+          <button type='button' onClick={handleClickLogoutBtn}>
+            로그아웃
+          </button>
+        </section>
+      ) : (
+        <section className={style.service}>
+          <Link to='/signup'>회원가입</Link>
+          <Link to='/login'>로그인</Link>
+        </section>
+      )}
       <div className={style.search}>
         <Link to='/'>
           <img className={style.logo} src='/images/logo.png' alt='logo' />
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <input className={style.searchInput} type='text' placeholder='검색어를 입력해 주세요' />
+          <input
+            className={style.searchInput}
+            type='text'
+            placeholder='검색어를 입력해 주세요'
+          />
           <button className={style.searchBtn} aria-label='submit'>
             <BiSearch size='24' color='rgb(95, 0, 128)' />
           </button>
@@ -33,7 +62,11 @@ export default function Header() {
             <BsCart2 size='30' title='장바구니' />
           </Link>
           <Link to='/mypage/order'>
-            <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />
+            <BsFillPersonFill
+              size='30'
+              title='마이페이지'
+              color='rgb(95, 0, 128)'
+            />
           </Link>
         </div>
       </div>
