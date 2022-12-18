@@ -10,30 +10,52 @@ import "swiper/scss/pagination";
 import style from './Payment.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PaymentItem from '@/components/PaymentItem'
+import { showLoading, hideLoading } from '@/store/loadingSlice';
+import { useDispatch } from 'react-redux';
 
 export default function Payment() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [account, setAccounts] = useState([]);
+  const [accounts, setAccount] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
 
   let { state } = useLocation();
   const price = formatPrice(state.price);
   const totalPrice = formatPrice(state.price * state.count);
-  const productId = state.id;
 
   useEffect(() => {
     async function getData() {
-      const data = await getListAccount();
-      setAccounts(data);
-      console.log(data.accounts)
+      try{
+        dispatch(showLoading());
+        const data = await getListAccount();
+        setAccounts(data);
+        setAccount(data.accounts[0]);
+      } catch {
+        alert('등록된 계좌가 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     getData();
   }, []);
 
+  const productId = state.id;
+  const accountId = accounts.id;
+
   useEffect(() => {
     async function postData() {
-      const payData = await checkAuth();
-      setPayAuth(payData);
+      try {
+        dispatch(showLoading());
+        const payData = await checkAuth();
+        setPayAuth(payData);
+      } catch {
+        alert('등록된 정보가 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     postData();
   }, []);
@@ -133,11 +155,12 @@ export default function Payment() {
         </div>
         <Button name={'결제하기'} isPurple={true} onClick={() => {
           try {
-            PaymentItem(productId);
+            PaymentItem(productId, accountId, state.count);
           } catch (error) {
             alert('잔액이 부족합니다.');
           } finally {
             alert('결제가 완료되었습니다.');
+            navigate('/mypage/order', {state: state.count});
           }
         }} />
       </div>

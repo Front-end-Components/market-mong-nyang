@@ -36,6 +36,13 @@ export default function Orders() {
     getData();
   }, []);
 
+  useEffect(() => {
+    if (date === '') {
+      document.querySelector('.order-search').value = '';
+      handleSearch();
+    }
+  }, [date]);
+
   const CustomInput = ({ value, onClick }) => (
     <button className={style.customInput} onClick={onClick}>
       {value ? value : `거래일자 선택`}
@@ -65,9 +72,7 @@ export default function Orders() {
   };
 
   const handleReset = () => {
-    setDate();
-    document.querySelector('.order-search').value = '';
-    handleSearch();
+    setDate('');
   };
 
   return (
