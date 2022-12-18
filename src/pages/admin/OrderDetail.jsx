@@ -66,6 +66,7 @@ export default function OrderDetail() {
         >
           <img src={product.thumbnail} alt="thumbnail" />
           <div className={style.productInfo}>
+            <h2>상품 정보</h2>
             <p>카테고리 : {product.tags}</p>
             <p>상품명 : {product.title}</p>
             <p>가격 : {`${formatPrice(product.price)} 원`}</p>
