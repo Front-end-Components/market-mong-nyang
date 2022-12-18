@@ -25,9 +25,8 @@ export default function ProductDetail() {
         dispatch(showLoading());
         const data = await getProductDetail(id);
         setProducts(data);
-        dispatch(hideLoading());
       } catch {
-        alert('상품 상세 내용을 조회하지 못했습니다.');
+        alert('상품이 존재하지 않습니다.');
       } finally {
         dispatch(hideLoading());
       }

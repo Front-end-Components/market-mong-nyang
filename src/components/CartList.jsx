@@ -18,8 +18,8 @@ export default function CartList() {
         {
         list.map((item) => {
           return <CartItem key={item.id} item={item} />;
-        })
-        }
+        })}
+      </div>
     </div>
   );
 }
