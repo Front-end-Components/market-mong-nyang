@@ -11,8 +11,8 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage, // 저장 공간
-  whitelist: ['cart'], // 유지하고 싶은 값
-  blacklist: ['loading', 'like'], // 유지하지 않을 내용
+  whitelist: ['cart', 'user'], // 유지하고 싶은 값
+  blacklist: ['stock', 'loading', 'like'], // 유지하지 않을 내용
 };
 
 const reducer = combineReducers({

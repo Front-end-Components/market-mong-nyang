@@ -64,8 +64,13 @@ export default function Products() {
   };
 
   const handleDelete = async () => {
+    if (checkId.length === 0) {
+      alert('선택된 상품이 없습니다.');
+      return;
+    }
     if (window.confirm('선택한 상품을 삭제하시겠습니까?')) {
       try {
+        dispatch(showLoading());
         for (let id of checkId) {
           await deleteProduct(id);
         }
@@ -78,6 +83,8 @@ export default function Products() {
         alert('삭제가 완료되었습니다.');
       } catch {
         alert('삭제가 완료되지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
       }
     }
   };

@@ -6,8 +6,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
@@ -146,11 +146,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
+  </Provider>
 );
