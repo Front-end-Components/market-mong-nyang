@@ -11,6 +11,7 @@ import { requestLogout } from '@/api/userAPI';
 import { setUserInit } from '@/store/userSlice';
 
 export default function Header({ isLogin }) {
+  const list = useSelector((state) => state.cart);
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
 
@@ -22,6 +23,7 @@ export default function Header({ isLogin }) {
       window.location.reload();
     }
   };
+
   return (
     <header className={style.userHeader}>
       {isLogin ? (
@@ -58,8 +60,11 @@ export default function Header({ isLogin }) {
           <Link to='/mypage/like'>
             <VscHeart size='30' title='찜목록' />
           </Link>
-          <Link to='/cart'>
+          <Link to='/cart' className={style.cart}>
             <BsCart2 size='30' title='장바구니' />
+            {
+              list.length > 0 ? <p className={style.count}>{list.length}</p> : null
+            }
           </Link>
           <Link to='/mypage/order'>
             <BsFillPersonFill

@@ -39,7 +39,10 @@ export default function Order({ item }) {
         <div className={style.textContent}>
             <p className={style.productName} onClick={() => {
               navigate(`/mypage/order/${item.detailId}`, {
-                state: item.detailId });
+                state: {
+                  id: item.detailId,
+                  count: item.cnt,
+                }});
             }}>{item.product.title}</p>
           <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>

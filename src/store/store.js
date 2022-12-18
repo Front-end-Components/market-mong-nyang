@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cart from './cartSlice.js';
-import stock from './stockSlice.js';
 import user from './userSlice.js';
 import loading from './loadingSlice.js';
 import like from './likeSlice.js';
@@ -19,7 +18,6 @@ const persistConfig = {
 const reducer = combineReducers({
   cart: cart.reducer,
   user: user.reducer,
-  stock: stock.reducer,
   loading: loading.reducer,
   like: like.reducer,
 });

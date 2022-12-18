@@ -4,23 +4,34 @@ import MypageHeader from '@/components/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function MyOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([]);
   const [orderProduct, setOrderProduct] = useState([]);
   const [orderAccount, setOrderAccount] = useState([]);
-  const location = useLocation();
+  const { state } = useLocation();
+  const dispatch = useDispatch();
 
   const detailID = {
-    'detailId': location.state
+    'detailId': state.id
   };
 
   useEffect(() => {
     async function postData() {
-      const data = await selectOrder(detailID);
-      setOrderDetail(data);
-      setOrderProduct(data.product);
-      setOrderAccount(data.account);
+      try {
+        dispatch(showLoading());
+        const data = await selectOrder(detailID);
+        setOrderDetail(data);
+        setOrderProduct(data.product);
+        setOrderAccount(data.account);
+      } catch {
+        alert('상품이 존재하지 않습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     postData();
   }, []);
@@ -35,8 +46,8 @@ export default function MyOrderDetail() {
 
   let date = String(orderDetail.timePaid).substring(0, 10);
   const orderPrice = formatPrice(orderProduct.price);
+  const totalPrice = formatPrice(orderProduct.price * state.count);
   const thumbnailSrc = `${orderProduct.thumbnail}`;
-
   return (
     <div className={style.MyOrderDetail}>
       <MypageHeader name={'주문 상세정보 (개수+결제금액 수정하기!!!)'} />
@@ -50,7 +61,7 @@ export default function MyOrderDetail() {
           <img src={thumbnailSrc} className={style.thumbnailImg}></img>
           <div className={style.productText}>
             <p className={style.productTitle}>{orderProduct.title}</p>
-            <p className={style.productPrice}>{orderPrice}원 <span className={style.productCount}>개수</span></p>
+            <p className={style.productPrice}>{orderPrice}원 <span className={style.productCount}>( {state.count}개 )</span></p>
           </div>
           <div className={style.productState}>
             <p>{stateText}</p>
@@ -66,7 +77,7 @@ export default function MyOrderDetail() {
             </div>
             <div className={style.priceContent}>
               <p className={style.priceTitle}>결제 금액</p>
-              <p className={style.accountPrice}>{orderPrice} * 개수 원</p>
+              <p className={style.accountPrice}>{totalPrice} 원</p>
             </div>
           </div>
       </div>

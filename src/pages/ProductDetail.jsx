@@ -8,26 +8,37 @@ import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
+import CartModal from '@/components/CartModal';
 
 export default function ProductDetail() {
   const [products, setProducts] = useState([]);
-  const {id} = useParams();
   const [count, setCount] = useState(1);
+  const [modal, setModal] = useState(false);
+  const {id} = useParams();
   const price = products.price;
   let dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
-      const data = await getProductDetail(id);
-      setProducts(data);
-      dispatch(hideLoading());
+      try {
+        dispatch(showLoading());
+        const data = await getProductDetail(id);
+        setProducts(data);
+      } catch {
+        alert('상품이 존재하지 않습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
     }
     getData();
   }, []);
 
   return (
     <div className={style.detail}>
+      {
+        modal === true ? <CartModal modal={modal} setModal={setModal} /> : null
+      }
       <div className={style.container}>
         {/* 이미지 영역 */}
         <div className={style.imgarea}>
@@ -72,7 +83,10 @@ export default function ProductDetail() {
             </div>
             : 
             <div className={style.button}>
-            <Button name={'장바구니'} className={style.sale} onClick={() => {
+            <Button
+            name={'장바구니'}
+            className={style.sale}
+            onClick={() => {
               dispatch(insertItem({
                 id: products.id,
                 isSoldOut: false,
@@ -82,6 +96,8 @@ export default function ProductDetail() {
                 count: count,
                 checked: true,
               }));
+              // alert('장바구니에 추가되었습니다.');
+              setModal(true);
             }} />
             <Button name={'구매하기'} isPurple={true} onClick={() => {
                 navigate('/payment', {
