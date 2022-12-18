@@ -106,6 +106,7 @@ export default function ProductDetail() {
                     id: products.id,
                     count: count,
                     price: products.price,
+                    totalPrice: price * count,
                   }});
               }} />
           </div>

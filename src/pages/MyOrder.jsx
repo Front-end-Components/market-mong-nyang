@@ -20,17 +20,9 @@ export default function MyOrder() {
 
   useEffect(() => {
     async function getData() {
-      try {
-        dispatch(showLoading());
-        const data = await getListOrder();
-        setSearch(data);
-        setOrders(data);
-      } catch {
-        alert('구매하신 상품이 없습니다.');
-      } finally {
-        dispatch(hideLoading());
-      }
-      
+      const data = await getListOrder();
+      setSearch(data);
+      setOrders(data);
     }
     getData();
   }, []);
