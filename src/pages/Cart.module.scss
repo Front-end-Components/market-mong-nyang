@@ -1,4 +1,11 @@
 .cart {
   padding-top: 80px;
   padding-bottom: 150px;
+  .container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: $width-inner;
+    position: relative;
+  }
 }
