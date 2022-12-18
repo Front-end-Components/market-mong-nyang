@@ -63,21 +63,21 @@ export default function Products() {
     }
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (window.confirm('선택한 상품을 삭제하시겠습니까?')) {
-      for (let id of checkId) {
-        try {
-          deleteProduct(id);
-          alert('삭제가 완료되었습니다.');
-          async function getData() {
-            const data = await getListProductAdmin();
-            setProducts(data);
-            setSearch(data);
-          }
-          getData();
-        } catch {
-          alert('삭제가 완료되지 못했습니다.');
+      try {
+        for (let id of checkId) {
+          await deleteProduct(id);
         }
+        async function getData() {
+          const data = await getListProductAdmin();
+          setProducts(data);
+          setSearch(data);
+        }
+        getData();
+        alert('삭제가 완료되었습니다.');
+      } catch {
+        alert('삭제가 완료되지 못했습니다.');
       }
     }
   };
