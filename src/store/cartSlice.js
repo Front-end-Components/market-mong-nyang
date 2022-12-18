@@ -36,11 +36,7 @@ let cart = createSlice({
       let num = state.findIndex((obj) => {
         return obj.id === action.payload;
       });
-      if (state[num].count === 1) {
-        state.splice(num, 1);
-      } else {
-        state[num].count -= 1;
-      }
+      state.splice(num, 1);
     },
     checkedChange(state, action) {
       let num = state.findIndex((obj) => {
