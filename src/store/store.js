@@ -1,28 +1,28 @@
-import { configureStore } from '@reduxjs/toolkit';
-import cart from './cartSlice.js';
-import stock from './stockSlice.js';
-import user from './userSlice.js';
-import loading from './loadingSlice.js';
-import like from './likeSlice.js';
-import storage from 'redux-persist/lib/storage';
-import { combineReducers } from 'redux';
-import { persistReducer } from 'redux-persist';
+import { configureStore } from "@reduxjs/toolkit";
+import cart from "./cartSlice.js";
+import stock from "./stockSlice.js";
+import user from "./userSlice.js";
+import loading from "./loadingSlice.js";
+import like from "./likeSlice.js";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   version: 1,
   storage, // 저장 공간
-  whitelist: ['cart'], // 유지하고 싶은 값
-  blacklist: ['stock', 'loading', 'like'] // 유지하지 않을 내용
+  whitelist: ["cart", "user"], // 유지하고 싶은 값
+  blacklist: ["stock", "loading", "like"], // 유지하지 않을 내용
 };
 
 const reducer = combineReducers({
-    cart : cart.reducer,
-    user: user.reducer,
-    stock: stock.reducer,
-    loading: loading.reducer,
-    like: like.reducer,
-  })
+  cart: cart.reducer,
+  user: user.reducer,
+  stock: stock.reducer,
+  loading: loading.reducer,
+  like: like.reducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 
@@ -30,7 +30,7 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 // 컴포넌트 간 공유가 필요하지 않은 경우 useState() 만 써도 됨
 const store = configureStore({
   // state 를 여기에 등록해야 사용 가능
-  reducer: persistedReducer,
+  reducer: { user: user.reducer, persistedReducer },
 });
 
 export default store;
