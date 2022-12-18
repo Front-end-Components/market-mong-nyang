@@ -30,7 +30,14 @@ const persistedReducer = persistReducer(persistConfig, reducer);
 // 컴포넌트 간 공유가 필요하지 않은 경우 useState() 만 써도 됨
 const store = configureStore({
   // state 를 여기에 등록해야 사용 가능
-  reducer: { user: user.reducer, persistedReducer },
+  reducer: {
+    user: user.reducer,
+    stock: stock.reducer,
+    cart: cart.reducer,
+    loading: loading.reducer,
+    like: like.reducer,
+    persistedReducer,
+  },
 });
 
 export default store;
