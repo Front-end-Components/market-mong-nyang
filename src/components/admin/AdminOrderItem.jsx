@@ -8,11 +8,12 @@ export default function AdminOrderItem({ item, idx }) {
 
   return (
     <li key={item.id} className={style.container}>
-      <input type='checkbox' name='' id='' />
       <div
         onClick={(event) => {
           if (event.target.type !== 'checkbox') {
-            navigate(`/admin/order/${item.detailId}`, { state: { item } });
+            navigate(`/admin/order/${item.detailId}`, {
+              state: { item },
+            });
           }
         }}
       >

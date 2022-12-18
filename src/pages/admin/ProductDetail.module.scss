@@ -1,5 +1,38 @@
-.buttons {
-  margin-top: 5rem;
+.productDetail {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+  .container {
+    display: flex;
+    margin-bottom: 2rem;
+    img {
+      width: 20vw;
+      height: 50vh;
+    }
+    .info {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-left: 2rem;
+      .desc {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .photo {
+    border-top: 1px solid $color-gray;
+    padding-top: 2rem;
+  }
 }

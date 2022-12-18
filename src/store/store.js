@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import cart from './cartSlice.js';
-import stock from './stockSlice.js';
 import user from './userSlice.js';
 import loading from './loadingSlice.js';
 import like from './likeSlice.js';
@@ -13,16 +12,15 @@ const persistConfig = {
   version: 1,
   storage, // 저장 공간
   whitelist: ['cart'], // 유지하고 싶은 값
-  blacklist: ['stock', 'loading', 'like'] // 유지하지 않을 내용
+  blacklist: ['loading', 'like'], // 유지하지 않을 내용
 };
 
 const reducer = combineReducers({
-    cart : cart.reducer,
-    user: user.reducer,
-    stock: stock.reducer,
-    loading: loading.reducer,
-    like: like.reducer,
-  })
+  cart: cart.reducer,
+  user: user.reducer,
+  loading: loading.reducer,
+  like: like.reducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, reducer);
 

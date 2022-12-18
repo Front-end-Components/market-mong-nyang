@@ -6,8 +6,11 @@ import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
+import { useSelector } from 'react-redux';
 
 export default function Header() {
+  const list = useSelector((state) => state.cart);
+
   return (
     <header className={style.userHeader}>
       <div className={style.service}>
@@ -29,8 +32,11 @@ export default function Header() {
           <Link to='/mypage/like'>
             <VscHeart size='30' title='찜목록' />
           </Link>
-          <Link to='/cart'>
+          <Link to='/cart' className={style.cart}>
             <BsCart2 size='30' title='장바구니' />
+            {
+              list.length > 0 ? <p className={style.count}>{list.length}</p> : null
+            }
           </Link>
           <Link to='/mypage/order'>
             <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />

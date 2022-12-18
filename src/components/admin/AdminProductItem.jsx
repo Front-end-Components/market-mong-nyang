@@ -3,12 +3,17 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './AdminProductItem.module.scss';
 
-export default function AdminProductItem({ item, idx }) {
+export default function AdminProductItem({ item, idx, handleCheck, checkId }) {
   const navigate = useNavigate();
 
   return (
-    <li key={item.id} className={style.container}>
-      <input type='checkbox' name='' id='' />
+    <li className={style.container}>
+      <input
+        type="checkbox"
+        className="check"
+        onChange={(e) => handleCheck(e.target.checked, item.id)}
+        checked={checkId.includes(item.id) ? true : false}
+      />
       <div
         onClick={(event) => {
           if (event.target.type !== 'checkbox') {
