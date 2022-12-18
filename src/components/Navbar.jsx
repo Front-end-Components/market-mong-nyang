@@ -83,8 +83,7 @@ export default function Header({ isLogin }) {
             <button
             type='submit'
             className={style.searchBtn}
-            aria-label='submit'
-            onClick={() => searchProduct(value)}>
+            aria-label='submit'>
               <BiSearch size='24' color='rgb(95, 0, 128)' />
             </button>
           </form>
