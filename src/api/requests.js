@@ -106,12 +106,12 @@ export const selectOrder = (id) => {
 
 // 모든 제품 조회 (관리자)
 export const getListProductAdmin = () => {
-  return requestGet(PATH.PRODUCT + '1', adminInstance);
+  return requestGet(PATH.PRODUCT, adminInstance);
 };
 
 // 전체 거래 내역 조회 (관리자)
 export const getListOrderAdmin = () => {
-  return requestGet(PATH.TRANSACTION_ALL + '1', adminInstance);
+  return requestGet(PATH.TRANSACTION_ALL, adminInstance);
 };
 
 // 거래 내역 완료/완료 해제, 취소/취소 해제 (관리자)
