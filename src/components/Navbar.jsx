@@ -8,8 +8,12 @@ import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
 import { searchProduct } from '@/api/requests';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLogout } from '@/api/userAPI';
+import { setUserInit } from '@/store/userSlice';
 
-export default function Header() {
+
+export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
   const [value, setValue] = useState('');
 
@@ -32,13 +36,37 @@ export default function Header() {
         }
       });
     };
+    
+  const displayName = useSelector((state) => state.user.displayName);
+  const dispatch = useDispatch();
+
+  const handleClickLogoutBtn = async () => {
+    const isLogout = await requestLogout();
+    if (isLogout) {
+      localStorage.removeItem('token');
+      dispatch(setUserInit());
+      window.location.reload();
+    }
+  };
+
 
   return (
     <header className={style.userHeader}>
-      <div className={style.service}>
-        <Link to='/signup'>회원가입</Link>
-        <Link to='/login'>로그인</Link>
-      </div>
+      {isLogin ? (
+        <section className={style.service}>
+          <p>
+            <strong>{displayName}</strong>님, 안녕하세요.
+          </p>
+          <button type='button' onClick={handleClickLogoutBtn}>
+            로그아웃
+          </button>
+        </section>
+      ) : (
+        <section className={style.service}>
+          <Link to='/signup'>회원가입</Link>
+          <Link to='/login'>로그인</Link>
+        </section>
+      )}
       <div className={style.search}>
         <Link to='/'>
           <img className={style.logo} src='/images/logo.png' alt='logo' />
@@ -72,7 +100,11 @@ export default function Header() {
             }
           </Link>
           <Link to='/mypage/order'>
-            <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />
+            <BsFillPersonFill
+              size='30'
+              title='마이페이지'
+              color='rgb(95, 0, 128)'
+            />
           </Link>
         </div>
       </div>

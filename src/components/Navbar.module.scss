@@ -13,7 +13,8 @@
     gap: 1rem;
     height: 2.6rem;
     font-size: 12px;
-    a {
+    a,
+    p {
       &:first-child {
         color: $color-purple;
         &::after {
@@ -27,6 +28,16 @@
       }
       color: $color-black;
       font-weight: 600;
+    }
+    button {
+      font-family: 'Noto Sans KR', dotum, sans-serif;
+      background-color: #fff;
+      cursor: pointer;
+      border-style: none;
+      color: $color-black;
+      font-weight: 600;
+      font-size: 12px;
+      padding: 0;
     }
   }
   .search {
