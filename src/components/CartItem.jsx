@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './CartItem.module.scss';
 import { useState } from 'react';
+import Button from '@/components/Button';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
 import { useDispatch } from "react-redux";

@@ -19,9 +19,15 @@ export default function ProductDetail() {
 
   useEffect(() => {
     async function getData() {
-      const data = await getProductDetail(id);
-      setProducts(data);
-      dispatch(hideLoading());
+      try {
+        dispatch(showLoading());
+        const data = await getProductDetail(id);
+        setProducts(data);
+      } catch {
+        alert('상품이 존재하지 않습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
     }
     getData();
   }, []);

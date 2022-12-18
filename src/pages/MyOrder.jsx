@@ -8,18 +8,29 @@ import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-datepicker';
 import { formatDate } from '@/utils/formats';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 
 export default function MyOrder() {
+  const dispatch = useDispatch;
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     async function getData() {
-      const data = await getListOrder();
-      setSearch(data);
-      setOrders(data);
+      try {
+        dispatch(showLoading());
+        const data = await getListOrder();
+        setSearch(data);
+        setOrders(data);
+      } catch {
+        alert('구매하신 상품이 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     getData();
   }, []);

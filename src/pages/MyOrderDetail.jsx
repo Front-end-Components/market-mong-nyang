@@ -4,12 +4,15 @@ import MypageHeader from '@/components/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
+import { useDispatch } from 'react-redux';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function MyOrderDetail() {
   const [orderDetail, setOrderDetail] = useState([]);
   const [orderProduct, setOrderProduct] = useState([]);
   const [orderAccount, setOrderAccount] = useState([]);
   const { state } = useLocation();
+  const dispatch = useDispatch();
 
   const detailID = {
     'detailId': state.id
@@ -17,10 +20,18 @@ export default function MyOrderDetail() {
 
   useEffect(() => {
     async function postData() {
-      const data = await selectOrder(detailID);
-      setOrderDetail(data);
-      setOrderProduct(data.product);
-      setOrderAccount(data.account);
+      try {
+        dispatch(showLoading());
+        const data = await selectOrder(detailID);
+        setOrderDetail(data);
+        setOrderProduct(data.product);
+        setOrderAccount(data.account);
+      } catch {
+        alert('상품이 존재하지 않습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     postData();
   }, []);
