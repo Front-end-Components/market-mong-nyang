@@ -20,6 +20,7 @@ export default function CartPrice() {
     }
   });
   console.log('totalPrice :', totalPrice);
+  console.log('test');
 
   return (
     <div className={style.cartprice}>

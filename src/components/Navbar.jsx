@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsCart2 } from 'react-icons/bs';
@@ -6,12 +6,37 @@ import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
+import { useSelector } from 'react-redux';
+import { searchProduct } from '@/api/requests';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLogout } from '@/api/userAPI';
 import { setUserInit } from '@/store/userSlice';
 
+
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
+  const [value, setValue] = useState('');
+
+  const handleChange = e => {
+    setValue({
+      ...value,
+      [e.target]: e.target.value,
+    })
+  }
+  console.log(value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+      searchProduct(value).then((res) => {
+        if (res) {
+          alert('상품 검색 완료');
+          console.log(res);
+        } else {
+          alert('상품 검색 실패');
+        }
+      });
+    };
+    
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
 
@@ -23,6 +48,7 @@ export default function Header({ isLogin }) {
       window.location.reload();
     }
   };
+
 
   return (
     <header className={style.userHeader}>
@@ -47,14 +73,21 @@ export default function Header({ isLogin }) {
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <input
+          <form onSubmit={handleSubmit}>
+            <input
             className={style.searchInput}
             type='text'
             placeholder='검색어를 입력해 주세요'
-          />
-          <button className={style.searchBtn} aria-label='submit'>
-            <BiSearch size='24' color='rgb(95, 0, 128)' />
-          </button>
+            onChange={handleChange}
+            />
+            <button
+            type='submit'
+            className={style.searchBtn}
+            aria-label='submit'
+            onClick={() => searchProduct(value)}>
+              <BiSearch size='24' color='rgb(95, 0, 128)' />
+            </button>
+          </form>
         </div>
         <div className={style.links}>
           <Link to='/mypage/like'>

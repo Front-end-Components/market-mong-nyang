@@ -1,14 +1,14 @@
 import { getProductDetail } from '@/api/requests';
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
+import CartModal from '@/components/CartModal';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import CartModal from '@/components/CartModal';
 
 export default function ProductDetail() {
   const [products, setProducts] = useState([]);
