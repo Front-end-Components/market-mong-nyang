@@ -3,10 +3,12 @@ import React from 'react';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
 import CartModal from '@/components/CartModal';
+import Like from '@/components/Like';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
+import { insertLike } from '@/store/likeSlice';
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 
@@ -18,6 +20,7 @@ export default function ProductDetail() {
   const price = products.price;
   let dispatch = useDispatch();
   const navigate = useNavigate();
+  const [like, setLike] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -54,6 +57,23 @@ export default function ProductDetail() {
               <h4 className={style.title}>{products.title}</h4>
               <p className={style.price}>{formatPrice(price)}원</p>
               {/* <p className={style.tags}>{products.tags}</p> */}
+              <span
+                className={style.like}
+                onClick={()=> {
+                  setLike(!like);
+                  dispatch(insertLike({
+                    id: products.id,
+                    isSoldOut: false,
+                    price: products.price,
+                    thumbnail: products.thumbnail,
+                    title: products.title,
+                    count: count,
+                    checked: true,
+                  }));
+                }}
+              >
+                <Like like={like} setLike={setLike} />
+              </span>
             </div>
             <div className={style.total}>
               <div className={style.countwrap}>
