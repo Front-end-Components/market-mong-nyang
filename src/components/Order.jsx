@@ -53,7 +53,9 @@ export default function Order({ item }) {
         <div className={style.btnContent}>
           <Button display={item.done || item.isCanceled} name={'주문 취소'} onClick={() => {
             try {
-              updateOrderCancel(detailID);
+              for(let i = 0; i < item.cnt; i++) {
+                updateOrderCancel(detailID);
+              }
             } finally {
               window.location.replace('/mypage/order');
               alert('주문이 취소 되었습니다.');
