@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import PaymentItem from '@/components/PaymentItem'
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
+import { deleteItem } from '@/store/cartSlice';
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ export default function Payment() {
     getData();
   }, []);
 
-  const productId = state.id;
   const accountId = accounts.id;
 
   useEffect(() => {
@@ -183,6 +183,9 @@ export default function Payment() {
         <Button name={'결제하기'} isPurple={true} onClick={() => {
           try {
             PaymentItem(state, accountId);
+            state.map((item) => {
+              dispatch(deleteItem(item.id))
+            })
           } catch (error) {
             alert('잔액이 부족합니다.');
           } finally {

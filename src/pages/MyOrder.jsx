@@ -13,16 +13,25 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 
 export default function MyOrder() {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
+  const [detail, setDetail] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     async function getData() {
-      const data = await getListOrder();
-      setSearch(data);
-      setOrders(data);
+      try {
+        dispatch(showLoading());
+        const data = await getListOrder();
+        setDetail(data)
+        setSearch(data);
+        setOrders(data);
+      } catch {
+        alert('구매하신 상품이 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
     }
     getData();
   }, []);
