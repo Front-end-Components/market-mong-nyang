@@ -5,11 +5,12 @@ import MypageHeader from '../components/MypageHeader';
 import { getListOrder } from '@/api/requests';
 import Order from '@/components/Order';
 import { GrPowerReset } from 'react-icons/gr';
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-multi-date-picker"
 import { formatDate } from '@/utils/formats';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
+import "react-multi-date-picker/styles/colors/purple.css";
 
 
 export default function MyOrder() {
@@ -37,7 +38,7 @@ export default function MyOrder() {
   }, []);
 
   const CustomInput = ({ value, onClick }) => (
-    <button className={styleDate.customInput} onClick={onClick}>
+    <button className={style.customInput} onClick={onClick}>
       {value ? value : `거래일자 선택`}
     </button>
   );
@@ -77,19 +78,24 @@ export default function MyOrder() {
   };
 
   const handleReset = () => {
-    setDate();
-    handleSearch();
+    setDate('');
   };
-  
+
+  useEffect(() => {
+    if (date === '') {
+      handleSearch();
+    }
+  }, [date]);
+
   return (
     <div className={style.myOrder}>
     <MypageHeader name={'주문 내역'} />
 
     <div className={style.datePickerWrap}>
-      <DatePicker className={style.datePicker} selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
+      <DatePicker className='purple' selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
     </div>
     <button className={style.searchReset} onClick={handleReset}>
-      <GrPowerReset color='rgb(95, 0, 128)' size='13' title='초기화' />
+      <GrPowerReset color='#5f0080' size='15' title='초기화' />
     </button>
 
     {Array.isArray(countArray) ? (
