@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { deleteLike } from '@/store/likeSlice';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
