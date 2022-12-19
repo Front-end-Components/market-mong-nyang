@@ -16,27 +16,27 @@ import { setUserInit } from '@/store/userSlice';
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
   const [value, setValue] = useState('');
+  const [search, setSearch] = useState([]);
 
   const handleChange = e => {
-    setValue({
-      ...value,
-      [e.target]: e.target.value,
-    })
+    setValue(e.target.value)
   }
   console.log(value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-      searchProduct(value).then((res) => {
-        if (res) {
-          alert('상품 검색 완료');
-          console.log(res);
-        } else {
-          alert('상품 검색 실패');
-        }
-      });
-    };
-    
+    searchProduct(value).then((res) => {
+      if (res) {
+        alert('상품 검색 완료');
+        setSearch(res);
+        console.log(res);
+      } else {
+        alert('상품 검색 실패');
+      }
+    });
+  };
+  console.log(search);  
+
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
 
@@ -73,12 +73,14 @@ export default function Header({ isLogin }) {
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => {handleSubmit(e)}}>
             <input
+            id='search-input'
             className={style.searchInput}
             type='text'
+            value={value}
             placeholder='검색어를 입력해 주세요'
-            onChange={handleChange}
+            onChange={(e) => handleChange(e)}
             />
             <button
             type='submit'
