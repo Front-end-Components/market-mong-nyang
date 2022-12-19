@@ -39,7 +39,7 @@ export const login = async (data) => {
 };
 
 // 로그아웃
-export const logout = () => { };
+export const logout = () => {};
 
 // 인증확인
 export const checkAuth = () => {
@@ -78,7 +78,7 @@ export const getProductDetail = (id) => {
 
 // 제품 검색
 export const searchProduct = (data) => {
-  return requestPost(PATH.SEARCH, authInstance, data)
+  return requestPost(PATH.SEARCH, defaultInstance, data);
 };
 
 // 제품 거래 신청 (사용자)
