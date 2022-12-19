@@ -8,6 +8,7 @@ import { getListBank, getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
 const cx = classNames.bind(style);
 
@@ -24,7 +25,8 @@ export default function MyAccount() {
         // 로딩 보여주기
         dispatch(showLoading());
         const data = await getListAccount();
-        setAccounts(data);
+        let copy = [...data];
+        setAccounts(copy);
       } catch {
         alert('계좌정보 불러오기 실패');
       } finally {
@@ -40,7 +42,8 @@ export default function MyAccount() {
         // 로딩 보여주기
         dispatch(showLoading());
         const data = await getListBank();
-        setBanks(data);
+        let copy = [...data];
+        setBanks(copy);
       } catch {
         alert('은행 불러오기 실패');
       } finally {
@@ -63,12 +66,13 @@ export default function MyAccount() {
         })
       ) : (
         <div className={style.noList}>
+          <RiErrorWarningLine color='lightgray' size='50' title='닫기' />
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
       {
         //banks.map((item, index) => item.disabled && <p key={index}>{item.name}</p>)
-        !banks.disabled === true ? null : <button onClick={() => {setAccoutForm(true)}} className={style.button}>계좌 추가</button>
+        !banks.disabled === true ? null : <button onClick={() => {setAccoutForm(true); document.body.style.overflow = 'hidden';}} className={style.button}>계좌 추가</button>
       }
       {
         accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} /> : null

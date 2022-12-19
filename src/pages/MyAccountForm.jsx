@@ -16,9 +16,11 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
     try {
       dispatch(showLoading());  // 로딩
       const data = await insertAccount(body);
-      setBanks(data);
+      let copy = [...data];
+      setBanks(copy);
       alert("계좌가 등록됐습니다.");
       setAccoutForm(false);
+      document.body.style.overflow = 'auto';
       // 초기화
       setBankCode('');
       setAccountNumber('');
@@ -69,7 +71,9 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
     <div className={style.accountAddForm}>
       <div  className={style.container}>
       <h2>계좌 추가</h2>
-      <span className={style.closeBtn} onClick={() => {setAccoutForm(false)}}><GrClose size='25' title='닫기' /></span>
+      <span className={style.closeBtn} onClick={() => {setAccoutForm(false); document.body.style.overflow = 'auto';}}>
+        <GrClose size='25' title='닫기' />
+      </span>
       <form onSubmit={submitHandler}>
         <ul>
           {banks.map((item, idx) => (

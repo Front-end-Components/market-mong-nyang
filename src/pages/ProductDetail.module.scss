@@ -34,6 +34,7 @@
         top: 100px;
         color: $color-black;
         .info {
+          position: relative;
           .title {
             width: 100%;
             font-size: 24px;
@@ -45,7 +46,14 @@
             width: 100%;
             font-size: 20px;
             font-weight: 700;
-            padding-bottom: 30px;
+            padding-bottom: 18px;
+          }
+          .like {
+            display: flex;
+            position: absolute;
+            right: 0;
+            bottom: 15px;
+            cursor: pointer;
           }
           .tags {
             color: $color-purple;
