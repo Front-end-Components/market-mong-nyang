@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { useDispatch } from 'react-redux';
 import MypageHeader from '../components/MypageHeader';
 import Account from '@/components/Account';
 import MyAccountForm from './MyAccountForm';
-import { getListAccount } from '@/api/requests';
+import { getListBank, getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
@@ -10,15 +12,43 @@ import classNames from 'classnames/bind';
 const cx = classNames.bind(style);
 
 export default function MyAccount() {
+  const dispatch = useDispatch();
   const [account, setAccounts] = useState([]);
-  const [accoutFrom, setAccoutFrom] = useState(false);
+  const [banks, setBanks] = useState([]);
+  const [accoutForm, setAccoutForm] = useState(false);
 
   useEffect(() => {
-    async function getData() {
-      const data = await getListAccount();
-      setAccounts(data);
+    // 등록된 계좌 조회
+    async function getAccountData() {
+      try {
+        // 로딩 보여주기
+        dispatch(showLoading());
+        const data = await getListAccount();
+        setAccounts(data);
+      } catch {
+        alert('계좌정보 불러오기 실패');
+      } finally {
+        // 로딩 숨기기
+        dispatch(hideLoading());
+      }
     }
-    getData();
+    getAccountData();
+
+    // 사용 가능한 은행 조회
+    async function getBankData() {
+      try {
+        // 로딩 보여주기
+        dispatch(showLoading());
+        const data = await getListBank();
+        setBanks(data);
+      } catch {
+        alert('은행 불러오기 실패');
+      } finally {
+        // 로딩 숨기기
+        dispatch(hideLoading());
+      }
+    }
+    getBankData();
   }, []);
 
   return (
@@ -29,16 +59,19 @@ export default function MyAccount() {
       }
       {Array.isArray(account.accounts) ? (
         account.accounts.map((item, idx) => {
-          return  <Account pageClass={cx('myAccount')} item={item} key={idx} />
+          return  <Account pageClass={cx('myAccount')} item={item} key={idx} setAccounts={setAccounts} />
         })
       ) : (
         <div className={style.noList}>
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
-      <button onClick={() => {setAccoutFrom(true)}} className={style.button}>계좌 추가</button>
       {
-        accoutFrom === true ? <MyAccountForm/> : null
+        //banks.map((item, index) => item.disabled && <p key={index}>{item.name}</p>)
+        !banks.disabled === true ? null : <button onClick={() => {setAccoutForm(true)}} className={style.button}>계좌 추가</button>
+      }
+      {
+        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} /> : null
       }
     </div>
   )

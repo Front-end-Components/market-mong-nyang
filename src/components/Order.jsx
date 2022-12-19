@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Button from '@/components/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/MyOrder.module.scss';
@@ -39,7 +39,10 @@ export default function Order({ item }) {
         <div className={style.textContent}>
             <p className={style.productName} onClick={() => {
               navigate(`/mypage/order/${item.detailId}`, {
-                state: item.detailId });
+                state: {
+                  id: item.detailId,
+                  count: item.cnt,
+                }});
             }}>{item.product.title}</p>
           <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>
@@ -49,10 +52,23 @@ export default function Order({ item }) {
         </div>
         <div className={style.btnContent}>
           <Button display={item.done || item.isCanceled} name={'주문 취소'} onClick={() => {
-            updateOrderCancel(detailID);
+            try {
+              for(let i = 0; i < item.cnt; i++) {
+                updateOrderCancel(detailID);
+              }
+            } finally {
+              window.location.replace('/mypage/order');
+              alert('주문이 취소 되었습니다.');
+            }
           }} />
           <Button display={item.done || item.isCanceled} name={'구매 확정'} isPurple={true} onClick={() => {
-            updateOrderOk(detailID);
+            try {
+              updateOrderOk(detailID);
+            } finally {
+              window.location.replace('/mypage/order');
+              alert('구매가 확정 되었습니다.');
+            }
+            
           }} />
         </div>
       </div>

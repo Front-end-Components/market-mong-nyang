@@ -10,30 +10,60 @@ import "swiper/scss/pagination";
 import style from './Payment.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PaymentItem from '@/components/PaymentItem'
+import { showLoading, hideLoading } from '@/store/loadingSlice';
+import { useDispatch } from 'react-redux';
+import { deleteItem } from '@/store/cartSlice';
 
 export default function Payment() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [account, setAccounts] = useState([]);
+  const [accounts, setAccount] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
 
   let { state } = useLocation();
-  const price = formatPrice(state.price);
-  const totalPrice = formatPrice(state.price * state.count);
-  const productId = state.id;
+
+  let totalPrice = 0;
+  if(state.length) {
+    state.map((item) => {
+      totalPrice += item.price * item.count;
+    });
+  } else {
+    state = [state];
+    totalPrice = state[0].price * state[0].count;
+  }
 
   useEffect(() => {
     async function getData() {
-      const data = await getListAccount();
-      setAccounts(data);
-      console.log(data.accounts)
+      try{
+        dispatch(showLoading());
+        const data = await getListAccount();
+        setAccounts(data);
+        setAccount(data.accounts[0]);
+      } catch {
+        alert('등록된 계좌가 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     getData();
   }, []);
 
+  const accountId = accounts.id;
+
   useEffect(() => {
     async function postData() {
-      const payData = await checkAuth();
-      setPayAuth(payData);
+      try {
+        dispatch(showLoading());
+        const payData = await checkAuth();
+        setPayAuth(payData);
+      } catch {
+        alert('등록된 정보가 없습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+      
     }
     postData();
   }, []);
@@ -44,16 +74,35 @@ export default function Payment() {
     <div className={style.orderForm}>
       <h3>주문 상품</h3>
       <div className={style.inner}>
-        <div className={style.left}>
-          <span className={style.txt}>상품 이름</span>
-          <span className={style.txt}>상품 가격</span>
-          <span className={style.txt}>상품 개수</span>
-        </div>
-        <div className={style.right}>
-        <span className={style.txt}>{state.title}</span>
-        <span className={style.txt}>{price}원</span>
-        <span className={style.txt}>{state.count}개</span>
-        </div>
+      <Swiper
+        modules = {[Pagination]}
+        pagination={{ clickable : true }}
+        loop={false} // 루프 슬라이드
+        spaceBetween={10} // 슬라이드간의 간격
+        slidesPerView={1} // 한 번에 보여지는 슬라이드 개수
+        style={{
+          "--swiper-pagination-color": "#43007c"
+          }}
+        >
+        {(
+          state.map((item) => {
+            return <SwiperSlide style={{
+              'display': 'flex'
+              }}>
+                    <div className={style.left}>
+                      <span className={style.txt}>상품 이름</span>
+                      <span className={style.txt}>상품 가격</span>
+                      <span className={style.txt}>상품 개수</span>
+                    </div>
+                    <div className={style.right}>
+                      <span className={style.txt}>{item.title}</span>
+                      <span className={style.txt}>{formatPrice(item.price)}원</span>
+                      <span className={style.txt}>{item.count}개</span>
+                    </div>
+                        </SwiperSlide>
+                })
+              )}
+            </Swiper>
       </div>
     </div>
 
@@ -124,20 +173,24 @@ export default function Payment() {
             <span className={style.txt}>최종결제금액</span>
           </div>
           <div className={style.right}>
-            <span className={style.txt}>{totalPrice} 원</span>
+            <span className={style.txt}>{formatPrice(totalPrice)} 원</span>
             <span className={style.txt}>무료</span>
             <span className={style.txt}>0 원</span>
-            <span className={style.txt}><p>{totalPrice}</p>원</span>
+            <span className={style.txt}><p>{formatPrice(totalPrice)}</p>원</span>
           </div>
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
         <Button name={'결제하기'} isPurple={true} onClick={() => {
           try {
-            PaymentItem(productId);
+            PaymentItem(state, accountId);
+            state.map((item) => {
+              dispatch(deleteItem(item.id))
+            })
           } catch (error) {
             alert('잔액이 부족합니다.');
           } finally {
             alert('결제가 완료되었습니다.');
+            navigate('/mypage/order', {state: state.count});
           }
         }} />
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsCart2 } from 'react-icons/bs';
@@ -7,26 +7,86 @@ import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
+import { searchProduct } from '@/api/requests';
+import { useDispatch } from 'react-redux';
+import { requestLogout } from '@/api/userAPI';
+import { setUserInit } from '@/store/userSlice';
 
-export default function Header() {
+
+export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
+  const [value, setValue] = useState('');
+
+  const handleChange = e => {
+    setValue({
+      ...value,
+      [e.target]: e.target.value,
+    })
+  }
+  console.log(value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+      searchProduct(value).then((res) => {
+        if (res) {
+          alert('상품 검색 완료');
+          console.log(res);
+        } else {
+          alert('상품 검색 실패');
+        }
+      });
+    };
+    
+  const displayName = useSelector((state) => state.user.displayName);
+  const dispatch = useDispatch();
+
+  const handleClickLogoutBtn = async () => {
+    const isLogout = await requestLogout();
+    if (isLogout) {
+      localStorage.removeItem('token');
+      dispatch(setUserInit());
+      window.location.reload();
+    }
+  };
+
 
   return (
     <header className={style.userHeader}>
-      <div className={style.service}>
-        <Link to='/signup'>회원가입</Link>
-        <Link to='/login'>로그인</Link>
-      </div>
+      {isLogin ? (
+        <section className={style.service}>
+          <p>
+            <strong>{displayName}</strong>님, 안녕하세요.
+          </p>
+          <button type='button' onClick={handleClickLogoutBtn}>
+            로그아웃
+          </button>
+        </section>
+      ) : (
+        <section className={style.service}>
+          <Link to='/signup'>회원가입</Link>
+          <Link to='/login'>로그인</Link>
+        </section>
+      )}
       <div className={style.search}>
         <Link to='/'>
           <img className={style.logo} src='/images/logo.png' alt='logo' />
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <input className={style.searchInput} type='text' placeholder='검색어를 입력해 주세요' />
-          <button className={style.searchBtn} aria-label='submit'>
-            <BiSearch size='24' color='rgb(95, 0, 128)' />
-          </button>
+          <form onSubmit={handleSubmit}>
+            <input
+            className={style.searchInput}
+            type='text'
+            placeholder='검색어를 입력해 주세요'
+            onChange={handleChange}
+            />
+            <button
+            type='submit'
+            className={style.searchBtn}
+            aria-label='submit'>
+              <BiSearch size='24' color='rgb(95, 0, 128)' />
+            </button>
+          </form>
         </div>
         <div className={style.links}>
           <Link to='/mypage/like'>
@@ -39,7 +99,11 @@ export default function Header() {
             }
           </Link>
           <Link to='/mypage/order'>
-            <BsFillPersonFill size='30' title='마이페이지' color='rgb(95, 0, 128)' />
+            <BsFillPersonFill
+              size='30'
+              title='마이페이지'
+              color='rgb(95, 0, 128)'
+            />
           </Link>
         </div>
       </div>
@@ -50,16 +114,16 @@ export default function Header() {
             <Link to=''>카테고리</Link>
           </div> */}
           <li>
-            <Link to=''>주식 / 간식</Link>
+            <Link to='/products-food'>주식 / 간식</Link>
           </li>
           <li>
-            <Link to=''>건강 / 케어</Link>
+            <Link to='/products-care'>건강 / 케어</Link>
           </li>
           <li>
-            <Link to=''>의류 / 리빙</Link>
+            <Link to='/products-living'>의류 / 리빙</Link>
           </li>
           <li>
-            <Link to=''>외출 / 위생</Link>
+            <Link to='/products-hygiene'>외출 / 위생</Link>
           </li>
           <li>
             <Link to='/admin'>관리자(임시)</Link>
