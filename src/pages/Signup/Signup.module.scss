@@ -19,6 +19,24 @@
     }
   }
 
+  .profile {
+    display: flex;
+    padding: 10px 20px;
+    label {
+      width: 140px;
+    }
+    &_inputContainer {
+      input {
+        margin-bottom: 10px;
+      }
+      &_img {
+        border: 1px solid #cccccc;
+        width: 150px;
+        height: 150px;
+      }
+    }
+  }
+
   .btn {
     padding: 40px 200px;
   }

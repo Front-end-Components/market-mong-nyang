@@ -67,8 +67,8 @@ export const insertAccount = (data) => {
 };
 
 // 계좌 해지
-export const deleteAccount = () => {
-  return requestDelete(PATH.ACCOUNT, authInstance);
+export const deleteAccount = (data) => {
+  return requestDelete(PATH.ACCOUNT, authInstance, data);
 };
 
 // 단일 제품 상세 조회 (공용)
@@ -77,7 +77,9 @@ export const getProductDetail = (id) => {
 };
 
 // 제품 검색
-export const searchProduct = () => {};
+export const searchProduct = (data) => {
+  return requestPost(PATH.SEARCH, defaultInstance, data);
+};
 
 // 제품 거래 신청 (사용자)
 export const insertOrder = (data) => {

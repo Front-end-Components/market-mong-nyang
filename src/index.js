@@ -6,11 +6,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
+import Login from './pages/Login/Login';
+import Signup from './pages/Signup/Signup';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
+import ProductsFood from './pages/ProductsFood';
+import ProductsCare from './pages/ProductsCare';
+import ProductsLiving from './pages/ProductsLiving';
+import ProductsHygiene from './pages/ProductsHygiene';
 import ProductDetail from './pages/ProductDetail';
 import Mypage from './pages/Mypage';
 import MyOrder from './pages/MyOrder';
@@ -49,6 +53,10 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       { path: '/products', element: <Products /> },
+      { path: '/products-food', element: <ProductsFood /> },
+      { path: '/products-care', element: <ProductsCare /> },
+      { path: '/products-living', element: <ProductsLiving /> },
+      { path: '/products-hygiene', element: <ProductsHygiene /> },
       {
         path: '/products/:id',
         element: <ProductDetail />,
@@ -110,35 +118,58 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          // <ProtectedRoute requireAdmin>
-          // <Dashboard />
-          <AdminProducts />
-          // </ProtectedRoute>
+          <ProtectedRoute requireAdmin>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       {
         path: '/admin/order',
-        element: <AdminOrders />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrders />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/order/:id',
-        element: <AdminOrderDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrderDetail />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products',
-        element: <AdminProducts />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProducts />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/add',
-        element: <AdminProductAddForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductAddForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/modify/:id',
-        element: <AdminProductEditForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductEditForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/product/:id',
-        element: <AdminProductDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductDetail />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
@@ -146,11 +177,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <RouterProvider router={router} />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
+  </Provider>
 );

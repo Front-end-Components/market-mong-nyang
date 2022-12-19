@@ -56,7 +56,7 @@ export default function ProductDetail() {
           <div className={style.desc}>
             <p>카테고리 : {product.tags}</p>
             <p>상품명 : {product.title}</p>
-            <p>가격 : {formatPrice(product.price)}</p>
+            <p>가격 : {`${formatPrice(product.price)} 원`}</p>
             <p>품절 여부 : {product.isSoldOut ? 'Y' : 'N'}</p>
             <p>상품 설명 : {product.description}</p>
           </div>

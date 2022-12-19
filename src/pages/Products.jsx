@@ -1,18 +1,29 @@
-import { getListProductAdmin } from '@/api/requests';
 import React from 'react';
-import { useEffect, useState } from 'react';
 import style from './Products.module.scss';
 import Product from '../components/Product.jsx'
 import ProductHeader from '../components/ProductHeader';
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from 'react';
+import { getListProductAdmin } from '@/api/requests';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
+  let dispatch = useDispatch();
   console.log(products);
 
   useEffect(() => {
     async function getData() {
-      const data = await getListProductAdmin();
-      setProducts(data);
+      try {
+        dispatch(showLoading());
+        const data = await getListProductAdmin();
+        setProducts(data);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 목록을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
     }
     getData();
   }, []);

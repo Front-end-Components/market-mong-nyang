@@ -22,7 +22,7 @@ export default function CartItem({ item }) {
           <input
           type='checkbox'
           checked={item.checked}
-          onClick={() => dispatch(checkedChange(item.id))}
+          onChange={() => dispatch(checkedChange(item.id))}
           />
         </div>
         <Link to={"/products/" + item.id}>
@@ -51,7 +51,6 @@ export default function CartItem({ item }) {
           className={style.delete}
           onClick={() => {
           setModal(true);
-          // dispatch(deleteItem(item.id))
         }}
         >
           <RxCross1 size='15' title='delete' />
