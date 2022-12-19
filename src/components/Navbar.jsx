@@ -15,13 +15,12 @@ import { setIsAdmin, setUserInit } from '@/store/userSlice';
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
   const [value, setValue] = useState('');
+  const [search, setSearch] = useState([]);
 
-  const handleChange = (e) => {
-    setValue({
-      ...value,
-      [e.target]: e.target.value,
-    });
-  };
+
+  const handleChange = e => {
+    setValue(e.target.value)
+  }
   console.log(value);
 
   const handleSubmit = (e) => {
@@ -29,12 +28,15 @@ export default function Header({ isLogin }) {
     searchProduct(value).then((res) => {
       if (res) {
         alert('상품 검색 완료');
+        setSearch(res);
         console.log(res);
       } else {
         alert('상품 검색 실패');
       }
     });
   };
+
+  console.log(search);  
 
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
@@ -71,12 +73,14 @@ export default function Header({ isLogin }) {
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={(e) => {handleSubmit(e)}}>
             <input
-              className={style.searchInput}
-              type="text"
-              placeholder="검색어를 입력해 주세요"
-              onChange={handleChange}
+            id='search-input'
+            className={style.searchInput}
+            type='text'
+            value={value}
+            placeholder='검색어를 입력해 주세요'
+            onChange={(e) => handleChange(e)}
             />
             <button type="submit" className={style.searchBtn} aria-label="submit">
               <BiSearch size="24" color="rgb(95, 0, 128)" />
