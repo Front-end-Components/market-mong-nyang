@@ -8,13 +8,10 @@ import { useNavigate } from 'react-router-dom';
 export default function CartPrice() {
   const navigate = useNavigate();
   let list = useSelector((state) => state.cart);
-  console.log(list);
 
   // 체크 된 항목 찾기
   const checkedList = list.filter(item => item.checked === true);
-  console.log('checkedList :', checkedList);
   
-
   // 체크 된 아이템의 총 가격
   let totalPrice = 0;
   list.filter(item => {
@@ -22,8 +19,6 @@ export default function CartPrice() {
     totalPrice += item.price * item.count;
     }
   });
-  console.log('totalPrice :', totalPrice);
-  console.log('test');
 
   return (
     <div className={style.cartprice}>
