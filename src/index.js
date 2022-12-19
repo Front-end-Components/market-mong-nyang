@@ -118,35 +118,58 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          // <ProtectedRoute requireAdmin>
-          // <Dashboard />
-          <AdminProducts />
-          // </ProtectedRoute>
+          <ProtectedRoute requireAdmin>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       {
         path: '/admin/order',
-        element: <AdminOrders />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrders />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/order/:id',
-        element: <AdminOrderDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrderDetail />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products',
-        element: <AdminProducts />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProducts />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/add',
-        element: <AdminProductAddForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductAddForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/modify/:id',
-        element: <AdminProductEditForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductEditForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/product/:id',
-        element: <AdminProductDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductDetail />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

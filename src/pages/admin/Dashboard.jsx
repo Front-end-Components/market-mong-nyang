@@ -134,7 +134,11 @@ export default function Dashboard() {
         .reduce((acc, cur) => acc + Number(cur.product.price), 0)
     );
     const arr = [];
-    const data = orders.map((item) => item.product.tags);
+    const data = orders
+      .map((item) => item.product.tags)
+      .forEach((item) => {
+        arr.push({ item: 1 });
+      });
     console.log(data);
     setCategory();
   }, [orders]);
