@@ -43,10 +43,20 @@ let cart = createSlice({
         return obj.id === action.payload;
       });
       state[num].checked = !state[num].checked;
+    },
+    allCheckedTrue(state, action) {
+      state.forEach((obj) => {
+        obj.checked = true;
+      })
+    },
+    allCheckedFalse(state, action) {
+      state.forEach((obj) => {
+        obj.checked = false;
+      })
     }
   },
 });
 
-export let { increaseCount, decreaseCount, insertItem, deleteItem, checkedChange } = cart.actions;
+export let { increaseCount, decreaseCount, insertItem, deleteItem, checkedChange, allCheckedTrue, allCheckedFalse } = cart.actions;
 
 export default cart;

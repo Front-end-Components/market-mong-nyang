@@ -1,16 +1,16 @@
 import { getProductDetail } from '@/api/requests';
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
 import Button from '../components/Button';
+import CartModal from '@/components/CartModal';
+import Like from '@/components/Like';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
 import { insertLike } from '@/store/likeSlice';
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import CartModal from '@/components/CartModal';
-import Like from '@/components/Like';
 
 export default function ProductDetail() {
   const [products, setProducts] = useState([]);
@@ -126,6 +126,7 @@ export default function ProductDetail() {
                     id: products.id,
                     count: count,
                     price: products.price,
+                    totalPrice: price * count,
                   }});
               }} />
           </div>

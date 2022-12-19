@@ -13,7 +13,8 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 
 export default function MyOrder() {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
+  const [detail, setDetail] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -23,6 +24,7 @@ export default function MyOrder() {
       try {
         dispatch(showLoading());
         const data = await getListOrder();
+        setDetail(data)
         setSearch(data);
         setOrders(data);
       } catch {
@@ -30,7 +32,6 @@ export default function MyOrder() {
       } finally {
         dispatch(hideLoading());
       }
-      
     }
     getData();
   }, []);

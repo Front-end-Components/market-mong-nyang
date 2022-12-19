@@ -1,15 +1,20 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Loading from "./components/Loading";
-import Footer from "./components/Footer";
-import { useDispatch, useSelector } from "react-redux";
-import style from "./App.module.scss";
-import AdminNavbar from "./components/admin/AdminNavbar";
-import { testIsAdmin } from "./store/userSlice";
-import AdminHeader from "./components/admin/AdminHeader";
-import { useEffect, useState } from "react";
+import { Outlet, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Loading from './components/Loading';
+import Footer from './components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import style from './App.module.scss';
+import AdminNavbar from './components/admin/AdminNavbar';
+import { setUserInfo, testIsAdmin } from './store/userSlice';
+import AdminHeader from './components/admin/AdminHeader';
+import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { requestUserConfirm } from './api/userAPI';
 
 function App() {
+  let location = useLocation();
+  const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
   let loading = useSelector((state) => {
     return state.loading.isLoading;
   });
@@ -22,6 +27,23 @@ function App() {
   // TEST
   // let dispatch = useDispatch();
   // dispatch(testIsAdmin());
+  const requestLoginConfirm = useCallback(async () => {
+    const userInfo = await requestUserConfirm();
+    if (userInfo) {
+      setIsLogin(true);
+      dispatch(
+        setUserInfo({
+          email: userInfo.email,
+          displayName: userInfo.displayName,
+          profileImg: userInfo.profileImg,
+        })
+      );
+    }
+  }, [location]);
+
+  useEffect(() => {
+    requestLoginConfirm();
+  }, [requestLoginConfirm]);
 
   return (
     <div>
@@ -41,7 +63,7 @@ function App() {
         </div>
       ) : (
         <div>
-          <Navbar />
+          <Navbar isLogin={isLogin} />
           <div className={style.outlet}>
             <Outlet />
           </div>
