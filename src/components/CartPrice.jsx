@@ -2,13 +2,14 @@ import React from 'react'
 import style from './CartPrice.module.scss'
 import Button from '../components/Button';
 import { formatPrice } from '@/utils/formats'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+
 
 export default function CartPrice() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let list = useSelector((state) => state.cart);
-  console.log(list);
 
   // 체크 된 항목 찾기
   const checkedList = list.filter(item => item.checked === true);
