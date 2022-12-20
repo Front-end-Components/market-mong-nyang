@@ -45,7 +45,7 @@ export const login = async (data) => {
 };
 
 // 로그아웃
-export const logout = () => { };
+export const logout = () => {};
 
 // 인증확인
 export const checkAuth = () => {
@@ -129,12 +129,18 @@ export const updateOrderAdmin = (id, data) => {
 
 // 제품 추가 (관리자)
 export const insertProduct = (data) => {
-  return requestPost(PATH.PRODUCT, adminInstance, data);
+  return requestPost(PATH.PRODUCT, adminInstance, {
+    ...data,
+    price: Number(data.price.replace(/,/g, '')),
+  });
 };
 
 // 제품 수정 (관리자)
 export const updateProduct = (id, data) => {
-  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, data);
+  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, {
+    ...data,
+    price: Number(data.price.replace(/,/g, '')),
+  });
 };
 
 // 제품 삭제 (관리자)
