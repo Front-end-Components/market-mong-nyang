@@ -17,8 +17,8 @@ export default function Banner() {
       autoplay={{ delay: 4000 }} // 자동 슬라이드
       spaceBetween={0} // 슬라이드간의 간격
       slidesPerView={1} // 한 번에 보여지는 슬라이드 개수
-      onSlideChange={() => console.log('slide change')}
-      onSwiper={(swiper) => console.log(swiper)}
+      // onSlideChange={() => console.log('slide change')}
+      // onSwiper={(swiper) => console.log(swiper)}
       style={{
         "--swiper-navigation-color": "#43007c",
         "--swiper-pagination-color": "#43007c",
