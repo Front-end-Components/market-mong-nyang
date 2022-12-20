@@ -11,10 +11,12 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import "react-multi-date-picker/styles/colors/purple.css";
 import Pagination from '@/components/Pagination';
+import MyOrderModal from '@/components/myOrderModal';
 
 export default function MyOrder() {
   const dispatch = useDispatch();
   const [pageDisplay, setPageDisplay] = useState(true);
+  const [modal, setModal] = useState(false);
   const [detail, setDetail] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
@@ -22,6 +24,7 @@ export default function MyOrder() {
   const [page, setPage] = useState(1);
   const limit = 10;
   const offset = (page - 1) * limit;
+
 
   useEffect(() => {
     async function getData() {
@@ -31,10 +34,11 @@ export default function MyOrder() {
         setDetail(data);
         setSearch(data);
         setOrders(data);
-      } catch {
-        alert('구매하신 상품이 없습니다.');
-      } finally {
         setPageDisplay(false);
+      } catch {
+        setModal(true);
+      } finally {
+        
         dispatch(hideLoading());
       }
     }
@@ -94,7 +98,9 @@ export default function MyOrder() {
   return (
     <div className={style.myOrder}>
     <MypageHeader name={'주문 내역'} />
-
+    {
+        modal ? <MyOrderModal modal={modal} setModal={setModal} /> : null
+      }
     <div className={style.datePickerWrap}>
       <DatePicker className='purple' selected={date} onChange={handleDatePicker} dateFormat='yyyy.MM.dd' customInput={<CustomInput />} />
     </div>
@@ -108,7 +114,7 @@ export default function MyOrder() {
     })
   ) : (
     <p>구매하신 상품이 없습니다.</p>
-  )}
+  )} 
   <div className={pageDisplay ? style.pagenationNone : style.pagenationBlock}>
         {Array.isArray(countArray) ? (
           <Pagination total={countArray.length} limit={limit} page={page} setPage={setPage} />
