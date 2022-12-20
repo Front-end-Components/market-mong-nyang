@@ -30,9 +30,6 @@ export default function BannerMedium() {
         1800:{
           slidesPerView:4,             
           },
-        1350:{
-          slidesPerView:4,             
-          },
         1320:{
           slidesPerView:3,             
           },

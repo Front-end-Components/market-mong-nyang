@@ -1,10 +1,9 @@
 import React from 'react';
 import style from './BannerMain.module.scss';
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import { Pagination, Navigation, Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
-// import "swiper/scss/navigation";
 
 
 export default function BannerMain() {
