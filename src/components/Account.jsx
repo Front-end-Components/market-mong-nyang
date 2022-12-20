@@ -8,20 +8,17 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(style);
 
-export default function Account({ item, idx, pageClass, setAccounts }) {
+export default function Account({ item, idx, pageClass, getAccountData, getBankData }) {
   const dispatch = useDispatch();
   const [componentClass, setComponentClass] = useState(null);
-  const [deleteBank, setDeleteBank] = useState('');
 
   // 계좌 삭제
   async function deleteData(body) {
-    // const data = await deleteAccount(body);
-    // setAccounts(data);
     try {
       dispatch(showLoading());  // 로딩
       const data = await deleteAccount(body);
-      setAccounts(data);
-      console.log(data);
+      getAccountData();
+      getBankData();
       alert("계좌가 삭제됐습니다.");
     } catch {
       alert("계좌 삭제가 실패했습니다.");
@@ -37,17 +34,13 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
     setComponentClass(classResult);
   }, [pageClass]);
 
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    setDeleteBank(e.target.value);
-
-     // state에 저장한 데이터 넘기기
-    let body = {
-      accountId: deleteBank,
+  const deleteHandler = (id) => {
+    let data = {
+      accountId: id,
       signature: true,
-    }
-    deleteData(body);
-  }
+    };
+    deleteData(data);
+  };
 
   return (
     <div className={componentClass}>
@@ -55,7 +48,7 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
       <h4>{item.bankName}</h4>
       <p>{item.accountNumber}</p>
       <span>{formatPrice(item.balance)}</span>
-      <button value={item.id} onClick={(e) => deleteHandler(e)}>삭제</button>
+      <button value={item.id} onClick={(e) => {deleteHandler(e.target.value)}}>삭제</button>
     </div>
     </div>
   )

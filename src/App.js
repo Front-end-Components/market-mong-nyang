@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './App.module.scss';
 import AdminNavbar from './components/admin/AdminNavbar';
-import { setUserInfo, testIsAdmin } from './store/userSlice';
+import { setUserInfo } from './store/userSlice';
 import AdminHeader from './components/admin/AdminHeader';
 import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
@@ -18,15 +18,14 @@ function App() {
   let loading = useSelector((state) => {
     return state.loading.isLoading;
   });
-  // let isAdmin = useSelector((state) => {
-  //   return state.user.isAdmin;
-  // });
+  let isAdmin = useSelector((state) => {
+    return state.user.isAdmin;
+  });
 
-  let isAdmin = false;
+  useEffect(() => {
+    document.title = '마켓멍냥';
+  }, []);
 
-  // TEST
-  // let dispatch = useDispatch();
-  // dispatch(testIsAdmin());
   const requestLoginConfirm = useCallback(async () => {
     const userInfo = await requestUserConfirm();
     if (userInfo) {
@@ -58,7 +57,6 @@ function App() {
                 <Outlet />
               </div>
             </div>
-            <div className={style.footer}>{/* <Footer /> */}</div>
           </div>
         </div>
       ) : (

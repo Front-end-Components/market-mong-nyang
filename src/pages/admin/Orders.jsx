@@ -12,19 +12,21 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { formatDate } from '@/utils/formats';
 
 export default function Orders() {
+  const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
   const [search, setSearch] = useState([]);
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
   const limit = 10;
   const offset = (page - 1) * limit;
-  const dispatch = useDispatch();
   const [date, setDate] = useState();
 
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
-        const data = await getListOrderAdmin();
+        let data = await getListOrderAdmin();
+        data = data.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
         setOrders(data);
         setSearch(data);
       } catch {
@@ -38,7 +40,6 @@ export default function Orders() {
 
   useEffect(() => {
     if (date === '') {
-      document.querySelector('.order-search').value = '';
       handleSearch();
     }
   }, [date]);
@@ -50,20 +51,26 @@ export default function Orders() {
   );
 
   const handleSearch = (newDate) => {
-    const search = document.querySelector('.order-search').value;
     const selectDate = newDate ? formatDate(newDate) : date ? formatDate(date) : '';
     let copy = [...orders];
-    copy = copy.filter((item) => item.user.displayName.includes(search));
+    copy = copy.filter((item) => item.user.displayName.includes(keyword));
     if (selectDate) {
       copy = copy.filter(
         (item) => item.timePaid.slice(0, 10).replace(/-/g, '.') === selectDate.slice(0, 10)
       );
     }
     setSearch(copy);
+    setPage(1);
   };
 
   const handleKeyup = (event) => {
-    if (event.key === 'Enter') handleSearch();
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleChange = (event) => {
+    setKeyword(event.target.value);
   };
 
   const handleDatePicker = (newDate) => {
@@ -72,6 +79,7 @@ export default function Orders() {
   };
 
   const handleReset = () => {
+    setKeyword('');
     setDate('');
   };
 
@@ -86,6 +94,8 @@ export default function Orders() {
               type="text"
               placeholder="거래자명을 입력해 주세요."
               onKeyUp={handleKeyup}
+              onChange={handleChange}
+              value={keyword}
             />
             <button className={style.searchBtn} onClick={() => handleSearch()}>
               <BiSearch size="24" color="rgb(95, 0, 128)" title="검색" />

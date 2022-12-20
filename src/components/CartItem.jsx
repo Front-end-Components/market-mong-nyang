@@ -2,7 +2,6 @@ import React from 'react';
 import style from './CartItem.module.scss';
 import DeleteModal from '@/components/DeleteModal';
 import { useState } from 'react';
-import Button from '@/components/Button';
 import { RxCross1 } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats';
@@ -23,7 +22,7 @@ export default function CartItem({ item }) {
           <input
           type='checkbox'
           checked={item.checked}
-          onClick={() => dispatch(checkedChange(item.id))}
+          onChange={() => dispatch(checkedChange(item.id))}
           />
         </div>
         <Link to={"/products/" + item.id}>
@@ -52,7 +51,6 @@ export default function CartItem({ item }) {
           className={style.delete}
           onClick={() => {
           setModal(true);
-          // dispatch(deleteItem(item.id))
         }}
         >
           <RxCross1 size='15' title='delete' />
