@@ -20,10 +20,16 @@ const requestPut = async (path, instance, data) => {
   });
 };
 
-const requestDelete = async (path, instance) => {
-  return await instance.delete(path).then((res) => {
-    return res.data;
-  });
+const requestDelete = async (path, instance, data) => {
+  if (data) {
+    return await instance.delete(path, JSON.stringify(data)).then((res) => {
+      return res.data;
+    });
+  } else {
+    return await instance.delete(path).then((res) => {
+      return res.data;
+    });
+  }
 };
 
 // 회원가입
@@ -123,12 +129,18 @@ export const updateOrderAdmin = (id, data) => {
 
 // 제품 추가 (관리자)
 export const insertProduct = (data) => {
-  return requestPost(PATH.PRODUCT, adminInstance, data);
+  return requestPost(PATH.PRODUCT, adminInstance, {
+    ...data,
+    price: Number(data.price.replace(/,/g, '')),
+  });
 };
 
 // 제품 수정 (관리자)
 export const updateProduct = (id, data) => {
-  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, data);
+  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, {
+    ...data,
+    price: Number(data.price.replace(/,/g, '')),
+  });
 };
 
 // 제품 삭제 (관리자)

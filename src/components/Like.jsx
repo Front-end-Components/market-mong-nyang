@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi';
 
-export default function Like({ like }){
+export default function Like({ like, setLike, heartOn }){
+  useEffect(() => {
+    if(heartOn === true){ setLike(true) }
+    if(heartOn === false){ setLike(false) }
+  });
+
   return (
     <>
       {

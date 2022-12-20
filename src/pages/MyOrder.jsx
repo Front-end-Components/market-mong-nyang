@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import style from './MyOrder.module.scss';
-import styleDate from '@/pages/admin/Orders.module.scss';
 import MypageHeader from '../components/MypageHeader';
 import { getListOrder } from '@/api/requests';
 import Order from '@/components/Order';
@@ -11,26 +10,31 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import "react-multi-date-picker/styles/colors/purple.css";
-
+import Pagination from '@/components/Pagination';
 
 export default function MyOrder() {
   const dispatch = useDispatch();
+  const [pageDisplay, setPageDisplay] = useState(true);
   const [detail, setDetail] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const offset = (page - 1) * limit;
 
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
         const data = await getListOrder();
-        setDetail(data)
+        setDetail(data);
         setSearch(data);
         setOrders(data);
       } catch {
         alert('구매하신 상품이 없습니다.');
       } finally {
+        setPageDisplay(false);
         dispatch(hideLoading());
       }
     }
@@ -99,12 +103,17 @@ export default function MyOrder() {
     </button>
 
     {Array.isArray(countArray) ? (
-    countArray.map((item) => {
+    countArray.slice(offset, offset + limit).map((item) => {
       return <Order item={item} />;
     })
   ) : (
     <p>구매하신 상품이 없습니다.</p>
   )}
+  <div className={pageDisplay ? style.pagenationNone : style.pagenationBlock}>
+        {Array.isArray(countArray) ? (
+          <Pagination total={countArray.length} limit={limit} page={page} setPage={setPage} />
+        ) : null}
+      </div>
     </div>
   );
 }

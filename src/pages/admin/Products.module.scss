@@ -14,7 +14,7 @@
       position: relative;
       input {
         width: 20rem;
-        font-size: 14px;
+        font-size: 15px;
         outline: none;
         border: 1px solid $color-gray;
         border-radius: 6px;
@@ -45,7 +45,7 @@
     border-bottom: 1px solid $color-lightgray;
     height: 5.5vh;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 15px;
     &:hover {
       background-color: rgb(250, 250, 250);
       color: $color-purple;

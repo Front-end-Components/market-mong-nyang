@@ -22,16 +22,13 @@ export default function MyAccount() {
     // 등록된 계좌 조회
     async function getAccountData() {
       try {
-        // 로딩 보여주기
-        dispatch(showLoading());
+        dispatch(showLoading());  // 로딩
         const data = await getListAccount();
-        let copy = [...data];
-        setAccounts(copy);
+        setAccounts(data);
       } catch {
         alert('계좌정보 불러오기 실패');
       } finally {
-        // 로딩 숨기기
-        dispatch(hideLoading());
+        dispatch(hideLoading());  // 로딩
       }
     }
     getAccountData();
@@ -42,8 +39,7 @@ export default function MyAccount() {
         // 로딩 보여주기
         dispatch(showLoading());
         const data = await getListBank();
-        let copy = [...data];
-        setBanks(copy);
+        setBanks(data);
       } catch {
         alert('은행 불러오기 실패');
       } finally {

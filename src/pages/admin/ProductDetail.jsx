@@ -54,11 +54,16 @@ export default function ProductDetail() {
         <img src={product.thumbnail} alt="thumbnail" />
         <div className={style.info}>
           <div className={style.desc}>
-            <p>카테고리 : {product.tags}</p>
-            <p>상품명 : {product.title}</p>
-            <p>가격 : {`${formatPrice(product.price)} 원`}</p>
-            <p>품절 여부 : {product.isSoldOut ? 'Y' : 'N'}</p>
-            <p>상품 설명 : {product.description}</p>
+            <h2>카테고리</h2>
+            <p>{product.tags}</p>
+            <h2>상품명</h2>
+            <p>{product.title}</p>
+            <h2>가격</h2>
+            <p>{`${formatPrice(product.price)} 원`}</p>
+            <h2>품절 여부</h2>
+            <p>{product.isSoldOut ? 'Y' : 'N'}</p>
+            <h2>상품 설명</h2>
+            <p>{product.description}</p>
           </div>
           <div className={style.buttons}>
             <Button name={'수정'} isPurple={true} onClick={handleClickUpdate} />
