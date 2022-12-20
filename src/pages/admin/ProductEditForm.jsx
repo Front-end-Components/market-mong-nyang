@@ -58,7 +58,7 @@ export default function ProductEditForm() {
     } else if (name === 'price') {
       value = formatPrice(Number(value.replace(/,/g, '')));
     } else if (name === 'isSoldOut') {
-      value = Boolean(value);
+      value = JSON.parse(value);
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
