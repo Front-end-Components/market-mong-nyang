@@ -19,7 +19,6 @@ function MyOrderModal({ modal, setModal }) {
   )
 }
 
-
 function AccountModal({ modal, setModal }) {
   return (
     <div className={style.cartmodal}>
