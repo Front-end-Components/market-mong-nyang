@@ -2,8 +2,8 @@
   position: absolute;
   left: 50vw;
   top: 25vh;
+  z-index: 10000;
 }
-
 .ajaxLoader {
   transform-origin: 50% 50%;
   transform: rotate(90deg) translate(-50%, 0%);
