@@ -35,6 +35,7 @@ import AdminOrderDetail from './pages/admin/OrderDetail';
 import MyLike from './pages/MyLike';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import Search from './pages/Search';
 
 let persistor = persistStore(store);
 const router = createBrowserRouter([
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
       { path: '/products-care', element: <ProductsCare /> },
       { path: '/products-living', element: <ProductsLiving /> },
       { path: '/products-hygiene', element: <ProductsHygiene /> },
+      { path: '/search/:value', element: <Search /> },
       {
         path: '/products/:id',
         element: <ProductDetail />,
