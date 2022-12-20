@@ -1,9 +1,16 @@
-.loading {
+.container {
   position: absolute;
-  left: 50vw;
-  top: 25vh;
-  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-white;
+  z-index: 100;
+  .loading {
+    position: absolute;
+    left: 50vw;
+    top: 25vh;
+  }
 }
+
 .ajaxLoader {
   transform-origin: 50% 50%;
   transform: rotate(90deg) translate(-50%, 0%);
