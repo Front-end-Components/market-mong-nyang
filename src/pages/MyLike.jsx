@@ -20,7 +20,6 @@ export default function MyLike() {
   const limit = 10;
   const offset = (page - 1) * limit;
   let list = useSelector((state) => state.like);
-  console.log(list);
 
   return (
     <div className={style.myLike}>
