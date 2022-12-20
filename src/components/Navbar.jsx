@@ -155,10 +155,6 @@ export default function Header({ isLogin }) {
       </div>
       <nav>
         <ul>
-          {/* <div className={style.hamberger}>
-            <RxHamburgerMenu title='카테고리' />
-            <Link to=''>카테고리</Link>
-          </div> */}
           <li>
             <Link to="/products-food">주식 / 간식</Link>
           </li>
@@ -170,9 +166,6 @@ export default function Header({ isLogin }) {
           </li>
           <li>
             <Link to="/products-hygiene">외출 / 위생</Link>
-          </li>
-          <li>
-            <Link to="/admin">관리자(임시)</Link>
           </li>
         </ul>
       </nav>

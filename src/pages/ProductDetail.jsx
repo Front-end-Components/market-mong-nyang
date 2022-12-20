@@ -28,6 +28,7 @@ export default function ProductDetail() {
         dispatch(showLoading());
         const data = await getProductDetail(id);
         setProducts(data);
+        console.log(data);
       } catch {
         alert('상품이 존재하지 않습니다.');
       } finally {
@@ -63,7 +64,7 @@ export default function ProductDetail() {
                   setLike(!like);
                   dispatch(insertLike({
                     id: products.id,
-                    isSoldOut: false,
+                    isSoldOut: products.isSoldOut,
                     price: products.price,
                     thumbnail: products.thumbnail,
                     title: products.title,
