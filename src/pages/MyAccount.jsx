@@ -9,11 +9,13 @@ import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import {AccountModal} from '@/components/Modal';
 
 const cx = classNames.bind(style);
 
 export default function MyAccount() {
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
   const [account, setAccounts] = useState([]);
   const [banks, setBanks] = useState([]);
   const [accoutForm, setAccoutForm] = useState(false);
@@ -55,6 +57,9 @@ export default function MyAccount() {
 
   return (
     <div className={style.container}>
+      {
+        modal ? <AccountModal modal={modal} setModal={setModal} /> : null
+      }
       <MypageHeader name={'계좌 관리'} />
       {
         Array.isArray(account.accounts) ? <p className={style.totalBalance}>총 계좌 잔액: <span>{formatPrice(account.totalBalance)}</span></p> : null
