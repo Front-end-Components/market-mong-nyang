@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BsCart2 } from 'react-icons/bs';
 import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
@@ -12,7 +12,6 @@ import { setUserInit } from '@/store/userSlice';
 
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
-  const [searchParams, setSearchParams] = useSearchParams();
 
   // 검색 값
   const [value, setValue] = useState('');
@@ -59,7 +58,6 @@ export default function Header({ isLogin }) {
           <form
           onSubmit={(e) => {
             e.preventDefault();
-            // setSearchParams({ search : value })
           }}
           >
             <input
@@ -70,7 +68,7 @@ export default function Header({ isLogin }) {
             placeholder='검색어를 입력해 주세요'
             onChange={(e) => handleChange(e)}
             />
-          <Link to={"/search/" + value}>
+          <Link to={value !== '' ? "/search/" + value : null}>
             <button className={style.searchBtn} aria-label="submit">
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>

@@ -58,8 +58,8 @@ export default function ProductDetail() {
           <div className={style.fixed}>
             <div className={style.info}>
               <h4 className={style.title}>{products.title}</h4>
-              <p className={style.price}>{formatPrice(price)}원</p>
-              {/* <p className={style.tags}>{products.tags}</p> */}
+            <div className={style.wrap}>
+            <p className={style.price}>{formatPrice(price)}원</p>
               <span
                 className={style.like}
                 onClick={()=> {
@@ -80,6 +80,8 @@ export default function ProductDetail() {
               >
                 <Like heartOn={heartOn} like={like} setLike={setLike} />
               </span>
+            </div>
+            <p className={style.desc}>{products.description}</p>
             </div>
             <div className={style.total}>
               <div className={style.countwrap}>
