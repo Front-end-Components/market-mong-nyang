@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { insertOrder } from '@/api/requests';
 
 export default function PaymentItem (item, accountId) {
