@@ -7,6 +7,8 @@ import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
 import { formatPrice } from '@/utils/formats';
 
+const MAX_FILE_SIZE = 1024 ** 2 * 5;
+
 export default function ProductForm() {
   const [product, setProduct] = useState({});
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ export default function ProductForm() {
 
     if (files) {
       const file = files[0];
+      if (file.size > MAX_FILE_SIZE) {
+        alert('파일 크기는 최대 5MB 입니다.');
+        return;
+      }
       const reader = new FileReader();
       reader.readAsDataURL(file);
 

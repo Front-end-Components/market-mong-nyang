@@ -7,6 +7,8 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
 import { formatPrice } from '@/utils/formats';
 
+const MAX_FILE_SIZE = 1024 ** 2 * 5;
+
 export default function ProductEditForm() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -34,6 +36,10 @@ export default function ProductEditForm() {
     let { name, value, files } = event.target;
     if (files) {
       const file = files[0];
+      if (file.size > MAX_FILE_SIZE) {
+        alert('파일 크기는 최대 5MB 입니다.');
+        return;
+      }
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
