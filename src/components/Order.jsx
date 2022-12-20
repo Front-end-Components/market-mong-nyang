@@ -52,23 +52,26 @@ export default function Order({ item }) {
         </div>
         <div className={style.btnContent}>
           <Button display={item.done || item.isCanceled} name={'주문 취소'} onClick={() => {
-            try {
-              for(let i = 0; i < item.cnt; i++) {
-                updateOrderCancel(detailID);
+            if(window.confirm('주문을 취소 하시겠습니까?')) {
+              try {
+                for(let i = 0; i < item.cnt; i++) {
+                  updateOrderCancel(detailID);
+                }
+              } finally {
+                window.location.replace('/mypage/order');
+                alert('주문이 취소 되었습니다.');
               }
-            } finally {
-              window.location.replace('/mypage/order');
-              alert('주문이 취소 되었습니다.');
             }
           }} />
           <Button display={item.done || item.isCanceled} name={'구매 확정'} isPurple={true} onClick={() => {
-            try {
-              updateOrderOk(detailID);
-            } finally {
-              window.location.replace('/mypage/order');
-              alert('구매가 확정 되었습니다.');
+            if(window.confirm('구매를 확정 하시겠습니까?')) {
+              try {
+                updateOrderOk(detailID);
+              } finally {
+                window.location.replace('/mypage/order');
+                alert('구매가 확정 되었습니다.');
+              }
             }
-            
           }} />
         </div>
       </div>
