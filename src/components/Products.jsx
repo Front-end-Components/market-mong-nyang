@@ -17,7 +17,6 @@ export default function Products({tag1, tag2, category}) {
   
   // 필터 적용
   const filterItems = products.filter(item => item.tags === tag1 || item.tags === tag2)
-  console.log(filterItems);
 
   useEffect(() => {
     async function getData() {
