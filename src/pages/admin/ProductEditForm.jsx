@@ -14,31 +14,38 @@ export default function ProductEditForm() {
   const { state } = useLocation();
   const thumbInput = useRef();
   const photoInput = useRef();
+  const [thumbName, setThumbName] = useState('');
+  const [photoName, setPhotoName] = useState('');
   const [thumb, setThumb] = useState('');
   const [photo, setPhoto] = useState('');
 
   useEffect(() => {
     setProduct(state.product);
-    const thumb = state.product.thumbnail.split('/');
-    const photo = state.product.photo.split('/');
-    setThumb(thumb[thumb.length - 1]);
-    setPhoto(photo[photo.length - 1]);
+    const thumbName = state.product.thumbnail.split('/');
+    const photoName = state.product.photo.split('/');
+    setThumbName(thumbName[thumbName.length - 1]);
+    setPhotoName(photoName[photoName.length - 1]);
+    setThumb(state.product.thumbnail);
+    setPhoto(state.product.photo);
   }, []);
 
   const handleChange = (event) => {
     let { name, value, files } = event.target;
     if (files) {
       const file = files[0];
-      if (name === 'thumbnailBase64') {
-        setThumb(files[0].name);
-      } else if (name === 'photoBase64') {
-        setPhoto(files[0].name);
-      }
       const reader = new FileReader();
       reader.readAsDataURL(file);
+
       reader.addEventListener('load', (e) => {
         value = e.target.result;
         setProduct((product) => ({ ...product, [name]: value }));
+        if (name === 'thumbnailBase64') {
+          setThumbName(files[0].name);
+          setThumb(value);
+        } else if (name === 'photoBase64') {
+          setPhotoName(files[0].name);
+          setPhoto(value);
+        }
         return;
       });
     } else if (name === 'price') {
@@ -162,17 +169,24 @@ export default function ProductEditForm() {
             <p>
               썸네일 이미지 <span className={style.required}>*</span>
             </p>
-            {thumb ? (
-              <Button
-                name={'파일 변경'}
-                isPurple={true}
-                onClick={handleThumbnail}
-                width={'100px'}
-              />
-            ) : (
-              <Button name={'파일 선택'} onClick={handleThumbnail} width={'100px'} />
-            )}
-            <span className={style.fileName}>{thumb}</span>
+            <div className={style.imgContainer}>
+              <div className={style.imgContent}>
+                <img alt="썸네일 이미지" src={thumb} />
+              </div>
+              <div className={style.btnContent}>
+                {thumbName ? (
+                  <Button
+                    name={'파일 변경'}
+                    isPurple={true}
+                    onClick={handleThumbnail}
+                    width={'100px'}
+                  />
+                ) : (
+                  <Button name={'파일 선택'} onClick={handleThumbnail} width={'100px'} />
+                )}
+                <p className={style.fileName}>{thumbName}</p>
+              </div>
+            </div>
             <input
               className={style.file}
               type="file"
@@ -186,12 +200,24 @@ export default function ProductEditForm() {
             <p>
               상품 상세 이미지 <span className={style.required}>*</span>
             </p>
-            {photo ? (
-              <Button name={'파일 변경'} isPurple={true} onClick={handlePhoto} width={'100px'} />
-            ) : (
-              <Button name={'파일 선택'} onClick={handlePhoto} width={'100px'} />
-            )}
-            <span className={style.fileName}>{photo}</span>
+            <div className={style.imgContainer}>
+              <div className={style.imgContent}>
+                {photo && <img alt="상세 이미지" src={photo} />}
+              </div>
+              <div className={style.btnContent}>
+                {photoName ? (
+                  <Button
+                    name={'파일 변경'}
+                    isPurple={true}
+                    onClick={handlePhoto}
+                    width={'100px'}
+                  />
+                ) : (
+                  <Button name={'파일 선택'} onClick={handlePhoto} width={'100px'} />
+                )}
+                <p className={style.fileName}>{photoName}</p>
+              </div>
+            </div>
             <input
               className={style.file}
               type="file"
