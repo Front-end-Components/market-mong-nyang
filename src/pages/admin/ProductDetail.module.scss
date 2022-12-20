@@ -10,8 +10,8 @@
     display: flex;
     margin-bottom: 2rem;
     img {
-      width: 20vw;
-      height: 50vh;
+      width: 24vw;
+      height: 60vh;
     }
     .info {
       display: flex;
@@ -19,12 +19,14 @@
       flex-direction: column;
       justify-content: space-between;
       padding-left: 2rem;
+      padding-top: 1rem;
       .desc {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         p {
           margin-bottom: 1rem;
+          line-height: 1.2;
         }
         h2 {
           font-weight: 600;

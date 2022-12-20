@@ -106,6 +106,22 @@ export default function ProductEditForm() {
         <div className={style.inputWrap}>
           <div className={style.group}>
             <p>
+              카테고리 <span className={style.required}>*</span>
+            </p>
+            <select name="tags" onChange={handleChange} value={product.tags} required>
+              <option value="">선택</option>
+              <option value="주식">주식</option>
+              <option value="간식">간식</option>
+              <option value="건강">건강</option>
+              <option value="케어">케어</option>
+              <option value="의류">의류</option>
+              <option value="리빙">리빙</option>
+              <option value="외출">외출</option>
+              <option value="위생">위생</option>
+            </select>
+          </div>
+          <div className={style.group}>
+            <p>
               제품명 <span className={style.required}>*</span>
             </p>
             <input
@@ -145,22 +161,7 @@ export default function ProductEditForm() {
               onChange={handleChange}
             />
           </div>
-          <div className={style.group}>
-            <p>
-              카테고리 <span className={style.required}>*</span>
-            </p>
-            <select name="tags" onChange={handleChange} value={product.tags} required>
-              <option value="">선택</option>
-              <option value="주식">주식</option>
-              <option value="간식">간식</option>
-              <option value="건강">건강</option>
-              <option value="케어">케어</option>
-              <option value="의류">의류</option>
-              <option value="리빙">리빙</option>
-              <option value="외출">외출</option>
-              <option value="위생">위생</option>
-            </select>
-          </div>
+
           <div className={style.group}>
             <p>
               품절 여부 <span className={style.required}>*</span>
