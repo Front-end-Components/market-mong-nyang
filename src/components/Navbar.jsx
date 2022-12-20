@@ -69,7 +69,7 @@ export default function Header({ isLogin }) {
             onChange={(e) => handleChange(e)}
             />
           <Link to={value !== '' ? "/search/" + value : null}>
-            <button className={style.searchBtn} aria-label="submit">
+            <button className={style.searchBtn} aria-label="submit" onClick={() => setValue('')}>
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>
           </Link>
