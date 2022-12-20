@@ -4,6 +4,8 @@
   align-items: center;
   border-bottom: 1px solid lightgray;
   box-shadow: $box-shadow;
+  position: relative;
+  z-index: 300;
   .service {
     width: $width-inner;
     display: flex;

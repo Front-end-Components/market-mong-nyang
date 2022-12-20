@@ -8,17 +8,17 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(style);
 
-export default function Account({ item, idx, pageClass, setAccounts }) {
+export default function Account({ item, idx, pageClass, getAccountData, getBankData }) {
   const dispatch = useDispatch();
   const [componentClass, setComponentClass] = useState(null);
-  const [deleteBank, setDeleteBank] = useState('');
 
   // 계좌 삭제
   async function deleteData(body) {
     try {
       dispatch(showLoading());  // 로딩
       const data = await deleteAccount(body);
-      setAccounts(data);
+      getAccountData();
+      getBankData();
       alert("계좌가 삭제됐습니다.");
     } catch {
       alert("계좌 삭제가 실패했습니다.");
@@ -35,15 +35,12 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
   }, [pageClass]);
 
   const deleteHandler = (id) => {
-    setDeleteBank(id);
-
-    // state에 저장한 데이터 넘기기
-    let body = {
-      accountId: deleteBank,
+    let data = {
+      accountId: id,
       signature: true,
-    }
-    deleteData(body);
-  }
+    };
+    deleteData(data);
+  };
 
   return (
     <div className={componentClass}>

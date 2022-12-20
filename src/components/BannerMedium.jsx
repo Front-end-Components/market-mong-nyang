@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './BannerMedium.module.scss';
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import { Pagination, Navigation, Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import "swiper/scss/navigation";
@@ -16,19 +16,20 @@ export default function BannerMedium() {
     </div>
     <Swiper
       className={style.swiper}
-      modules = {[Pagination, Navigation, Autoplay]}
+      modules = {[Pagination, Autoplay]}
+      pagination={{ clickable : true }}
       loop={true} // 루프 슬라이드
       autoplay={{ delay: 4000 }} // 자동 슬라이드
       spaceBetween={10} // 슬라이드간의 간격
       slidesPerView={4} // 한 번에 보여지는 슬라이드 개수
       style={{
-        "--swiper-navigation-color": "#404040",
+        "--swiper-navigation-color": "#43007c",
         "--swiper-navigation-size": "40px",
-        "--swiper-pagination-color": "#404040"
+        "--swiper-pagination-color": "#43007c"
       }}
       breakpoints= {{
         1800:{
-          slidesPerView:4,             
+          slidesPerView:5,             
           },
         1320:{
           slidesPerView:3,             
