@@ -5,6 +5,7 @@ import { insertProduct } from '@/api/requests';
 import Button from '@/components/Button';
 import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
+import { formatPrice } from '@/utils/formats';
 
 export default function ProductForm() {
   const [product, setProduct] = useState({});
@@ -38,7 +39,7 @@ export default function ProductForm() {
         return;
       });
     } else if (name === 'price') {
-      value = Number(value);
+      value = formatPrice(Number(value.replace(/,/g, '')));
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
@@ -102,7 +103,7 @@ export default function ProductForm() {
               가격 <span className={style.required}>*</span>
             </p>
             <input
-              type="number"
+              type="text"
               name="price"
               value={product.price ?? ''}
               placeholder="가격"
