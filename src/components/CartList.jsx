@@ -5,12 +5,15 @@ import { useSelector } from 'react-redux';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { BsCart2 } from 'react-icons/bs';
-import { deleteItem, allCheckedTrue, allCheckedFalse } from '../store/cartSlice';
+import { allCheckedTrue, allCheckedFalse } from '../store/cartSlice';
 import { useDispatch } from "react-redux";
+import SelectDeleteModal from '@/components/SelectDeleteModal';
+import { useState } from 'react';
 
 
 export default function CartList() {
   let list = useSelector((state) => state.cart);
+  const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   let dispatch = useDispatch();
 
@@ -29,6 +32,9 @@ export default function CartList() {
   
   return (
     <div className={style.cartlist}>
+      {
+        modal === true ? <SelectDeleteModal checkedList={checkedList} modal={modal} setModal={setModal} /> : null
+      }
       {/* 장바구니 리스트 */}
       { list.length > 0 ? 
         list.map((item) => {
@@ -60,9 +66,8 @@ export default function CartList() {
             <button
             className={style.checkDel}
             onClick={() => {
-              checkedList.forEach((item) => {
-                dispatch(deleteItem(item.id))
-            })}}>선택 삭제</button>
+              setModal(true);
+              }}>선택 삭제</button>
           </div>
         : null
       }
