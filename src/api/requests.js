@@ -22,7 +22,8 @@ const requestPut = async (path, instance, data) => {
 
 const requestDelete = async (path, instance, data) => {
   if (data) {
-    return await instance.delete(path, JSON.stringify(data)).then((res) => {
+    return await instance.delete(path, { data }).then((res) => {
+      console.log(res);
       return res.data;
     });
   } else {
