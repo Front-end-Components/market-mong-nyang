@@ -1,0 +1,11 @@
+.banner {
+  width: 100vw;
+  height: 370px;
+}
+.banner .slide .image {
+  width: 100%;
+  min-width: 1050px;
+  height: 370px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=BannerMain.module.css.map */

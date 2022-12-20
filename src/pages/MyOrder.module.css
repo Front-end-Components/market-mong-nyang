@@ -1,0 +1,125 @@
+.myOrder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 100px;
+  position: relative;
+}
+.myOrder .datePickerWrap {
+  position: absolute;
+  top: 50px;
+  right: 5%;
+}
+.myOrder .datePickerWrap input {
+  border: 1px solid #5f0080;
+}
+.myOrder .searchReset {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 1px solid #5f0080;
+  padding: 6px 5px 4px;
+}
+.myOrder .content {
+  width: 100%;
+  margin-top: 15px;
+  position: relative;
+}
+.myOrder .content .orderContent {
+  display: table;
+  width: 100%;
+  padding: 5px 0;
+  min-height: 150px;
+  border: 1px solid #f5f5f5;
+}
+.myOrder .content .orderContent .imgContent {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  margin-top: -50px;
+}
+.myOrder .content .orderContent .imgContent .orderImg {
+  width: 80px;
+  height: 100px;
+}
+.myOrder .content .orderContent .textContent {
+  padding-left: 130px;
+  position: relative;
+  width: 65%;
+  float: left;
+  margin-top: 3%;
+}
+.myOrder .content .orderContent .textContent p {
+  margin-bottom: 7px;
+}
+.myOrder .content .orderContent .textContent .productName {
+  font-size: 20px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 350px;
+  height: 25px;
+}
+.myOrder .content .orderContent .textContent .orderPrice {
+  display: inline-block;
+  font-size: 15px;
+  position: relative;
+  margin-right: 20px;
+}
+.myOrder .content .orderContent .textContent .orderDate {
+  display: inline-block;
+  font-size: 15px;
+  color: #999;
+  position: relative;
+}
+.myOrder .content .orderContent .textContent .orderDate::before {
+  content: "";
+  width: 1px;
+  height: 15px;
+  background-color: #bababc;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -10px;
+  margin: auto;
+}
+.myOrder .content .orderContent .textContent .orderState {
+  color: #999;
+  border-bottom: 1px solid #f3f3f3;
+  width: 95%;
+  padding-bottom: 15px;
+  font-size: 13px;
+}
+.myOrder .content .orderContent .textContent .orderGuide {
+  color: #333;
+  font-size: 13px;
+  margin-bottom: 3px;
+}
+.myOrder .content .orderContent .displayNone {
+  display: none;
+}
+.myOrder .content .orderContent .btnContent {
+  display: table-cell;
+  vertical-align: middle;
+  width: 15%;
+}
+.myOrder .content .orderContent .btnContent :first-child {
+  margin-bottom: 10px;
+}
+.myOrder .content .orderContent .btnContent Button {
+  width: 80%;
+  height: 30px;
+  padding: 7px;
+}
+.myOrder .content .orderContent .btnContent Button span {
+  font-size: 13px;
+}
+.myOrder .pagenationNone {
+  display: none;
+}
+.myOrder .pagenationBlock {
+  display: block;
+}/*# sourceMappingURL=MyOrder.module.css.map */
