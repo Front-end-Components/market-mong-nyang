@@ -5,6 +5,7 @@ import Button from '@/components/Button';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
+import { formatPrice } from '@/utils/formats';
 
 export default function ProductEditForm() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function ProductEditForm() {
         return;
       });
     } else if (name === 'price') {
-      value = Number(value);
+      value = formatPrice(Number(value.replace(/,/g, '')));
     } else if (name === 'isSoldOut') {
       value = Boolean(value);
     }
@@ -115,9 +116,9 @@ export default function ProductEditForm() {
               가격 <span className={style.required}>*</span>
             </p>
             <input
-              type="number"
+              type="text"
               name="price"
-              value={product.price ?? ''}
+              value={formatPrice(product.price) ?? ''}
               placeholder="가격"
               required
               onChange={handleChange}
