@@ -11,32 +11,85 @@ import { searchProduct } from '@/api/requests';
 import { useDispatch } from 'react-redux';
 import { requestLogout } from '@/api/userAPI';
 import { setIsAdmin, setUserInit } from '@/store/userSlice';
+import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
+  const tags = ['주식', '간식', '건강', '케어', '의류', '리빙', '외출', '위생'];
+
+  // 단어 검색어
+  const [searchText, setSearchText] = useState('');
+  // 태그 검색어
+  const [searchTag, setSearchTag] = useState('');
+  // 검색 값
   const [value, setValue] = useState('');
+  // 검색 결과
   const [search, setSearch] = useState([]);
 
-
-  const handleChange = e => {
-    setValue(e.target.value)
+  const handleChange = (event) => {
+    let { value } = event.target;
+    setValue(value);
+    const valArr = value.split(' ');
+    console.log(valArr);
+    // 검색어가 하나일 경우
+    if (valArr.length === 1 && tags.indexOf(value) !== -1) {
+      const tagsIndex = tags.indexOf(value)
+      console.log(value + '태그를 가지고 있다!')
+      setSearchTag(tags[tagsIndex]);
+      setSearchText('');
+    } else if (valArr.length === 1 && tags.indexOf(value) === -1) {
+      setSearchText(value);
+      setSearchTag('');
+    }
   }
-  console.log(value);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchProduct(value).then((res) => {
-      if (res) {
-        alert('상품 검색 완료');
-        setSearch(res);
-        console.log(res);
-      } else {
-        alert('상품 검색 실패');
+  console.log(value)
+  
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    if(searchText === '' && searchTag !== '') {
+      try {
+        dispatch(showLoading());
+        const data = await searchProduct({ "searchTags": [searchTag] });
+        alert('검색 완료')
+        setSearch(data);
+        console.log(data);
+        console.log(search);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 목록을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
       }
-    });
-  };
-
-  console.log(search);  
+    } else if(searchText !== '' && searchTag === '') {
+      try {
+        dispatch(showLoading());
+        const data = await searchProduct({ "searchText": searchText });
+        alert('검색 완료')
+        setSearch(data);
+        console.log(data);
+        console.log(search);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 목록을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+    } else if( searchText!== '' && searchTag!== '') {
+      try {
+        dispatch(showLoading());
+        const data = await searchProduct({ "searchText": searchText, "searchTags": [searchTag] });
+        alert('검색 완료')
+        setSearch(data);
+        console.log(data);
+        console.log(search);
+        dispatch(hideLoading());
+      } catch {
+        alert('상품 목록을 조회하지 못했습니다.');
+      } finally {
+        dispatch(hideLoading());
+      }
+    }
+  }
 
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
@@ -73,7 +126,7 @@ export default function Header({ isLogin }) {
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <form onSubmit={(e) => {handleSubmit(e)}}>
+          <form onSubmit={handleSubmit}>
             <input
             id='search-input'
             className={style.searchInput}
@@ -82,7 +135,7 @@ export default function Header({ isLogin }) {
             placeholder='검색어를 입력해 주세요'
             onChange={(e) => handleChange(e)}
             />
-            <button type="submit" className={style.searchBtn} aria-label="submit">
+            <button className={style.searchBtn} aria-label="submit">
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>
           </form>
