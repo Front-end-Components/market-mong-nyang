@@ -1,9 +1,6 @@
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../api/requests";
 import Button from "../../components/Button";
 import style from "./Login.module.scss";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "@/store/userSlice";
 import { requestLogin } from "@/api/userAPI";
@@ -30,12 +27,12 @@ export default function Login() {
     } else alert("잘못된 아이디 혹은 비밀번호입니다.");
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     alert("잘못된 접근입니다.");
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      alert("잘못된 접근입니다.");
+      navigate("/");
+    }
+  }, []);
 
   return (
     <section className={style.login}>
