@@ -20,7 +20,6 @@ export default function Search() {
     const getProducts = async () => {
       try {
         dispatch(showLoading());
-        console.log('value :::', value);
         const data = await searchProduct({ "searchText": value, });
         setProducts(data);
         dispatch(hideLoading());
