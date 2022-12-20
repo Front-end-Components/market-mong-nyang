@@ -12,6 +12,10 @@
     font-size: 16px;
     font-weight: 600;
   }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .white {

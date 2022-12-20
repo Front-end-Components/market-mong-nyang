@@ -39,3 +39,13 @@ export const requestUserConfirm = async (token) => {
   if (res.status === 200) return res.data;
   else return false;
 };
+
+export const requestUpdateProfile = async (updateData) => {
+  const res = await request({
+    method: 'PUT',
+    url: '/auth/user',
+    reqData: updateData,
+  });
+  if (res.status === 200) return res.data;
+  else return false;
+}
