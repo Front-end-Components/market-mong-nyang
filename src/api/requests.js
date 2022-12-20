@@ -20,10 +20,16 @@ const requestPut = async (path, instance, data) => {
   });
 };
 
-const requestDelete = async (path, instance) => {
-  return await instance.delete(path).then((res) => {
-    return res.data;
-  });
+const requestDelete = async (path, instance, data) => {
+  if (data) {
+    return await instance.delete(path, JSON.stringify(data)).then((res) => {
+      return res.data;
+    });
+  } else {
+    return await instance.delete(path).then((res) => {
+      return res.data;
+    });
+  }
 };
 
 // 회원가입
@@ -39,7 +45,7 @@ export const login = async (data) => {
 };
 
 // 로그아웃
-export const logout = () => {};
+export const logout = () => { };
 
 // 인증확인
 export const checkAuth = () => {
