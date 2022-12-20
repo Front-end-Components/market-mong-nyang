@@ -10,7 +10,6 @@ import { hideLoading, showLoading } from '@/store/loadingSlice';
 export default function AllProducts() {
   const [products, setProducts] = useState([]);
   let dispatch = useDispatch();
-  console.log(products);
 
   useEffect(() => {
     async function getData() {

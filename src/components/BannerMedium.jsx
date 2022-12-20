@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './BannerMedium.module.scss';
 import { Swiper, SwiperSlide } from "swiper/react"; // basic
-import { Pagination, Navigation, Autoplay } from "swiper";
+import { Pagination, Autoplay } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import "swiper/scss/navigation";
@@ -16,7 +16,7 @@ export default function BannerMedium() {
     </div>
     <Swiper
       className={style.swiper}
-      modules = {[Pagination, Navigation, Autoplay]}
+      modules = {[Pagination, Autoplay]}
       pagination={{ clickable : true }}
       loop={true} // 루프 슬라이드
       autoplay={{ delay: 4000 }} // 자동 슬라이드

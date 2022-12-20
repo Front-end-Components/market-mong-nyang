@@ -14,7 +14,6 @@ export default function Search() {
 
   // 검색 결과
   const [products, setProducts] = useState([]);
-  console.log(value)
 
   useEffect(() => {
     const getProducts = async () => {
