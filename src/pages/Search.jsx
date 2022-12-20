@@ -1,21 +1,25 @@
 import React from 'react';
-import style from './Products.module.scss';
-import Product from '../components/Product.jsx'
-import ProductHeader from '../components/ProductHeader';
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from 'react';
-import { getListProductAdmin } from '@/api/requests';
+import style from './Search.module.scss';
+import { useParams } from 'react-router-dom';
+import Product from '../components/Product';
+import ProductHeader from '@/components/ProductHeader';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
+import { useDispatch } from 'react-redux';
+import { searchProduct } from '@/api/requests';
 
-export default function AllProducts() {
+export default function Search() {
+  const dispatch = useDispatch();
+  const { value } = useParams();
+
+  // 검색 결과
   const [products, setProducts] = useState([]);
-  let dispatch = useDispatch();
 
   useEffect(() => {
-    async function getData() {
+    const getProducts = async () => {
       try {
         dispatch(showLoading());
-        const data = await getListProductAdmin();
+        const data = await searchProduct({ "searchText": value, });
         setProducts(data);
         dispatch(hideLoading());
       } catch {
@@ -24,13 +28,13 @@ export default function AllProducts() {
         dispatch(hideLoading());
       }
     }
-    getData();
-  }, []);
+    getProducts();
+  }, [value]) 
 
   return (
-    <div className={style.products}>
+    <div className={style.search}>
       <div className={style.container}>
-        <ProductHeader name={'전체 상품'} />
+        <ProductHeader name={value + '에 대한 검색 결과입니다.'} />
         <div className={style.row}>
           { products.map((products) => {
               return <Product key={products.id} products={products} />

@@ -6,13 +6,20 @@
   position: relative;
   .datePickerWrap {
     position: absolute;
-    top: 55px;
+    top: 50px;
     right: 5%;
+    input {
+      border: 1px solid #5f0080;
+    }
   }
   .searchReset {
     position: absolute;
-    top: 55px;
+    top: 50px;
     right: 0;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #5f0080;
+    padding: 6px 5px 4px;
   }
 
   .content {
@@ -109,5 +116,23 @@
         }
       }
     }
+  }
+  .noList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    height: 450px;
+    h4 {
+      color: $color-lightgray;
+    }
+  }
+  .pagenationNone {
+    display: none;
+  }
+  .pagenationBlock {
+    display: block;
   }
 }

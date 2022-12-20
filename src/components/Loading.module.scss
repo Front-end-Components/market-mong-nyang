@@ -1,7 +1,14 @@
-.loading {
+.container {
   position: absolute;
-  left: 50vw;
-  top: 25vh;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-white;
+  z-index: 100;
+  .loading {
+    position: absolute;
+    left: 50vw;
+    top: 25vh;
+  }
 }
 
 .ajaxLoader {

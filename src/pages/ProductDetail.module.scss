@@ -34,6 +34,7 @@
         top: 100px;
         color: $color-black;
         .info {
+          position: relative;
           .title {
             width: 100%;
             font-size: 24px;
@@ -41,11 +42,24 @@
             line-height: 1.3;
             padding-bottom: 20px;
           }
-          .price {
-            width: 100%;
-            font-size: 20px;
-            font-weight: 700;
+          .wrap {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             padding-bottom: 30px;
+            .price {
+              width: 100%;
+              font-size: 20px;
+              font-weight: 700;
+            }
+            .like {
+              margin-top: -5px;
+              display: flex;
+              cursor: pointer;
+            }
+          }
+          .desc {
+            line-height: 1.3;
           }
           .tags {
             color: $color-purple;

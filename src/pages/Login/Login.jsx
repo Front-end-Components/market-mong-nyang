@@ -1,17 +1,18 @@
-import { useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
-import style from "./Login.module.scss";
-import { useDispatch } from "react-redux";
-import { setUserInfo } from "@/store/userSlice";
-import { requestLogin } from "@/api/userAPI";
-import { useEffect } from "react";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Button';
+import style from './Login.module.scss';
+import { useDispatch } from 'react-redux';
+import { setIsAdmin, setUserInfo } from '@/store/userSlice';
+import { requestLogin } from '@/api/userAPI';
+import { useEffect } from 'react';
 
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const goToSignUp = () => {
-    navigate("/signup");
+    navigate('/signup');
   };
 
   const handleSubmitLogin = async (event) => {
@@ -22,15 +23,27 @@ export default function Login() {
       password: event.target.password.value,
     });
     if (loginData) {
+      if (loginData.email === process.env.REACT_APP_ADMIN_EMAIL) {
+        dispatch(setIsAdmin({ isAdmin: true }));
+        navigate('/admin');
+        return;
+      }
       dispatch(setUserInfo({ displayName: loginData.displayName }));
-      navigate("/");
-    } else alert("잘못된 아이디 혹은 비밀번호입니다.");
+      navigate('/');
+    } else alert('잘못된 아이디 혹은 비밀번호입니다.');
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      alert("잘못된 접근입니다.");
-      navigate("/");
+    if (localStorage.getItem('token')) {
+      alert('잘못된 접근입니다.');
+      navigate('/');
+    } else alert('잘못된 아이디 혹은 비밀번호입니다.');
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      alert('잘못된 접근입니다.');
+      navigate('/');
     }
   }, []);
 
@@ -38,11 +51,7 @@ export default function Login() {
     <section className={style.login}>
       <h1>로그인</h1>
       <section className={style.login_container}>
-        <form
-          id="login"
-          onSubmit={handleSubmitLogin}
-          className={style.login_container_inputForm}
-        >
+        <form id="login" onSubmit={handleSubmitLogin} className={style.login_container_inputForm}>
           <input
             type="text"
             name="email"

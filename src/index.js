@@ -11,6 +11,10 @@ import Signup from './pages/Signup/Signup';
 import Cart from './pages/Cart';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
+import ProductsFood from './pages/ProductsFood';
+import ProductsCare from './pages/ProductsCare';
+import ProductsLiving from './pages/ProductsLiving';
+import ProductsHygiene from './pages/ProductsHygiene';
 import ProductDetail from './pages/ProductDetail';
 import Mypage from './pages/Mypage';
 import MyOrder from './pages/MyOrder';
@@ -31,6 +35,7 @@ import AdminOrderDetail from './pages/admin/OrderDetail';
 import MyLike from './pages/MyLike';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import Search from './pages/Search';
 
 let persistor = persistStore(store);
 const router = createBrowserRouter([
@@ -49,6 +54,11 @@ const router = createBrowserRouter([
         element: <Signup />,
       },
       { path: '/products', element: <Products /> },
+      { path: '/products-food', element: <ProductsFood /> },
+      { path: '/products-care', element: <ProductsCare /> },
+      { path: '/products-living', element: <ProductsLiving /> },
+      { path: '/products-hygiene', element: <ProductsHygiene /> },
+      { path: '/search/:value', element: <Search /> },
       {
         path: '/products/:id',
         element: <ProductDetail />,
@@ -110,35 +120,58 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          // <ProtectedRoute requireAdmin>
-          // <Dashboard />
-          <AdminProducts />
-          // </ProtectedRoute>
+          <ProtectedRoute requireAdmin>
+            <Dashboard />
+          </ProtectedRoute>
         ),
       },
       {
         path: '/admin/order',
-        element: <AdminOrders />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrders />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/order/:id',
-        element: <AdminOrderDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminOrderDetail />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products',
-        element: <AdminProducts />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProducts />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/add',
-        element: <AdminProductAddForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductAddForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/products/modify/:id',
-        element: <AdminProductEditForm />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductEditForm />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/admin/product/:id',
-        element: <AdminProductDetail />,
+        element: (
+          <ProtectedRoute requireAdmin>
+            <AdminProductDetail />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

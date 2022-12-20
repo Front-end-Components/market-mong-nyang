@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { insertOrder } from '@/api/requests';
 
-export default function PaymentItem (productId, accountId, count) {
-  const data = {
-    productId: productId,
-    accountId: accountId
-  }
-  
-  if(count > 1) {
-    for(let i = 0; i < count; i++) {
+export default function PaymentItem (item, accountId) {
+  item.map((item) => {
+    const data = {
+      productId: item.id,
+      accountId: accountId
+    }
+    if(item.count > 1) {
+      for(let i = 0; i < item.count; i++) {
+        insertOrder(data);
+      }
+    } else {
       insertOrder(data);
     }
-  } else {
-    insertOrder(data);
-  }
+    });
 }
