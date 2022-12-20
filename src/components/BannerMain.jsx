@@ -4,7 +4,6 @@ import { Swiper, SwiperSlide } from "swiper/react"; // basic
 import { Pagination, Autoplay } from "swiper";
 import "swiper/scss"; //basic
 import "swiper/scss/pagination";
-// import "swiper/scss/navigation";
 
 
 export default function BannerMain() {

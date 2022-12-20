@@ -1,0 +1,26 @@
+.mainProduct {
+  padding-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .container {
+    width: $width-inner;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .row {
+      width: 90%;
+      display: flex;
+      gap: 5em;
+      justify-content: center;
+    }
+  }
+}
+.swiper {
+  padding-left: 20px;
+}
