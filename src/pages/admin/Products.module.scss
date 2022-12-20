@@ -10,6 +10,16 @@
   .search {
     display: flex;
     justify-content: center;
+    gap: 1rem;
+    .selectBox {
+      width: 120px;
+      font-size: 15px;
+      outline: none;
+      border: 1px solid $color-gray;
+      border-radius: 6px;
+      padding: 10px;
+      cursor: pointer;
+    }
     .inputWrap {
       position: relative;
       input {

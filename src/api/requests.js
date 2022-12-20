@@ -33,19 +33,19 @@ const requestDelete = async (path, instance, data) => {
 };
 
 // 회원가입
-export const signup = (data) => {
-  return requestPost(PATH.SIGNUP, defaultInstance, data);
-};
+// export const signup = (data) => {
+//   return requestPost(PATH.SIGNUP, defaultInstance, data);
+// };
 
 // 로그인
-export const login = async (data) => {
-  const res = await requestPost(PATH.LOGIN, defaultInstance, data);
-  setItem('token', res.accessToken);
-  return;
-};
+// export const login = async (data) => {
+//   const res = await requestPost(PATH.LOGIN, defaultInstance, data);
+//   setItem('token', res.accessToken);
+//   return;
+// };
 
 // 로그아웃
-export const logout = () => {};
+// export const logout = () => {};rrkar
 
 // 인증확인
 export const checkAuth = () => {
@@ -137,10 +137,13 @@ export const insertProduct = (data) => {
 
 // 제품 수정 (관리자)
 export const updateProduct = (id, data) => {
-  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, {
-    ...data,
-    price: Number(data.price.replace(/,/g, '')),
-  });
+  if (typeof data.price === 'string') {
+    data = {
+      ...data,
+      price: Number(data.price.replace(/,/g, '')),
+    };
+  }
+  return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, data);
 };
 
 // 제품 삭제 (관리자)

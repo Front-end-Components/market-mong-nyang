@@ -10,13 +10,14 @@ import Pagination from '@/components/Pagination';
 import { BiSearch } from 'react-icons/bi';
 
 export default function Products() {
+  const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState([]);
   const [checkId, setCheckId] = useState([]);
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
   const limit = 10;
   const offset = (page - 1) * limit;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     async function getData() {
@@ -35,14 +36,18 @@ export default function Products() {
   }, []);
 
   const handleSearch = () => {
-    const search = document.querySelector('.product-search').value;
     let copy = [...products];
-    copy = copy.filter((item) => item.title.includes(search));
+    copy = copy.filter((item) => item.title.includes(keyword));
     setSearch(copy);
+    setPage(1);
   };
 
   const handleKeyup = (event) => {
-    if (event.key === 'Enter') handleSearch();
+    if (event.key === 'Enter') {
+      handleSearch();
+    } else {
+      setKeyword(event.target.value);
+    }
   };
 
   const handleCheck = (checked, id) => {
@@ -89,11 +94,42 @@ export default function Products() {
     }
   };
 
+  const handleChange = (event) => {
+    if (!event.target.value) {
+      setSearch(products);
+      return;
+    }
+    let copy = [...products];
+    if (event.target.name === 'tags') {
+      copy = copy.filter((item) => item.tags === event.target.value);
+    } else if (event.target.name === 'soldout') {
+      copy = copy.filter((item) => String(item.isSoldOut) === event.target.value);
+    }
+    setSearch(copy);
+    setPage(1);
+  };
+
   return (
     <div>
       <div className={style.searchWrap}>
         <h1>상품 관리</h1>
         <div className={style.search}>
+          <select className={style.selectBox} name="tags" onChange={handleChange}>
+            <option value="">카테고리</option>
+            <option value="주식">주식</option>
+            <option value="간식">간식</option>
+            <option value="건강">건강</option>
+            <option value="케어">케어</option>
+            <option value="의류">의류</option>
+            <option value="리빙">리빙</option>
+            <option value="외출">외출</option>
+            <option value="위생">위생</option>
+          </select>
+          <select className={style.selectBox} name="soldout" onChange={handleChange}>
+            <option value="">품절여부</option>
+            <option value={true}>Y</option>
+            <option value={false}>N</option>
+          </select>
           <div className={style.inputWrap}>
             <input
               className="product-search"
