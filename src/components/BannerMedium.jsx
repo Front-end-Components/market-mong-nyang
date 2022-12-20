@@ -17,18 +17,19 @@ export default function BannerMedium() {
     <Swiper
       className={style.swiper}
       modules = {[Pagination, Navigation, Autoplay]}
+      pagination={{ clickable : true }}
       loop={true} // 루프 슬라이드
       autoplay={{ delay: 4000 }} // 자동 슬라이드
       spaceBetween={10} // 슬라이드간의 간격
       slidesPerView={4} // 한 번에 보여지는 슬라이드 개수
       style={{
-        "--swiper-navigation-color": "#404040",
+        "--swiper-navigation-color": "#43007c",
         "--swiper-navigation-size": "40px",
-        "--swiper-pagination-color": "#404040"
+        "--swiper-pagination-color": "#43007c"
       }}
       breakpoints= {{
         1800:{
-          slidesPerView:4,             
+          slidesPerView:5,             
           },
         1350:{
           slidesPerView:4,             
