@@ -14,19 +14,11 @@ export default function Dashboard() {
   const [orders, setOrders] = useState([]);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const [sales, setSales] = useState({});
   const date = new Date();
+  const year = String(date.getFullYear());
   const month = String(date.getMonth() + 1).padStart(2, 0);
   const today = String(date.getDate()).padStart(2, 0);
-
-  const sales = {
-    6: 144440000,
-    7: 194080000,
-    8: 227210000,
-    9: 199720000,
-    10: 209070000,
-    11: 261950000,
-    12: 245950000,
-  };
 
   useEffect(() => {
     const chartEl = document.querySelector('#pie-chart');
@@ -71,7 +63,7 @@ export default function Dashboard() {
       xAxis: {
         data: Object.keys(sales),
         axisLabel: {
-          formatter: (value) => `${value}월`,
+          formatter: (value) => `${value} 일`,
         },
       },
       yAxis: {
@@ -79,6 +71,7 @@ export default function Dashboard() {
       },
       series: [
         {
+          name: '이번 주 거래 금액',
           type: 'bar',
           data: Object.values(sales),
           itemStyle: {
@@ -94,7 +87,7 @@ export default function Dashboard() {
         },
       ],
     });
-  }, []);
+  }, [sales]);
 
   useEffect(() => {
     async function getDatas() {
@@ -114,7 +107,6 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    console.log(orders);
     document.querySelector('.monthOrder').innerHTML = orders.filter(
       (item) => item.timePaid.substr(5, 2) === month
     ).length;
@@ -142,11 +134,24 @@ export default function Dashboard() {
     }
     setCategory(arr);
 
-    const dateAmount = [];
+    let dateAmount = [];
     for (let i = 0; i < 7; i++) {
-      dateAmount.push(orders.filter((item) => item.timePaid.substr(8, 2) === today));
+      dateAmount.push(
+        orders.filter(
+          (item) =>
+            item.timePaid.substr(0, 4) === String(year) &&
+            item.timePaid.substr(5, 2) === String(month) &&
+            item.timePaid.substr(8, 2) === String(today - i)
+        )
+      );
     }
-    console.log(dateAmount);
+    dateAmount = dateAmount.map((arr) => arr.map((el) => el.product.price));
+    dateAmount = dateAmount.map((arr) => arr.reduce((acc, cur) => acc + cur, 0));
+    const weekAmount = {};
+    for (let i = 0; i < 7; i++) {
+      weekAmount[new Date(date.setDate(today - i)).getDate()] = dateAmount[i];
+    }
+    setSales(weekAmount);
   }, [orders]);
 
   useEffect(() => {
