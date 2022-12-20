@@ -16,8 +16,7 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
     try {
       dispatch(showLoading());  // 로딩
       const data = await insertAccount(body);
-      let copy = [...data];
-      setBanks(copy);
+      setBanks(data);
       alert("계좌가 등록됐습니다.");
       setAccoutForm(false);
       document.body.style.overflow = 'auto';
