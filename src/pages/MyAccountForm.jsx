@@ -5,7 +5,7 @@ import { insertAccount } from '@/api/requests';
 import style from './MyAccountForm.module.scss';
 import { GrClose } from 'react-icons/gr';
 
-export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
+export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccountData }) {
   const dispatch = useDispatch();
   const [bankCode, setBankCode] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
@@ -19,11 +19,11 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
       setBanks(data);
       alert("계좌가 등록됐습니다.");
       setAccoutForm(false);
-      document.body.style.overflow = 'auto';
       // 초기화
       setBankCode('');
       setAccountNumber('');
       setPhoneNumber('');
+      getAccountData();
     } catch {
       alert("계좌 등록이 실패했습니다.");
       // 초기화
@@ -70,7 +70,7 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
     <div className={style.accountAddForm}>
       <div  className={style.container}>
       <h2>계좌 추가</h2>
-      <span className={style.closeBtn} onClick={() => {setAccoutForm(false); document.body.style.overflow = 'auto';}}>
+      <span className={style.closeBtn} onClick={() => {setAccoutForm(false)}}>
         <GrClose size='25' title='닫기' />
       </span>
       <form onSubmit={submitHandler}>
@@ -92,13 +92,13 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm }) {
         </div>
         <div className={style.textForm}>
           <span>계좌번호</span>
-          <input type="text" placeholder="연결할 계좌번호를 입력해주세요." accountNumber={accountNumber} value={accountNumber}
+          <input type="text" placeholder="연결할 계좌번호를 입력해주세요." value={accountNumber}
             onChange={(e) => accountNumberhandle(e)}
           />
         </div>
         <div className={style.textForm}>
           <span>전화번호</span>
-          <input type="text" placeholder="사용자 전화번호를 입력해주세요." phoneNumber={phoneNumber} value={phoneNumber}
+          <input type="text" placeholder="사용자 전화번호를 입력해주세요." value={phoneNumber}
             onChange={(e) => phoneNumberhandle(e)}
           />
         </div>

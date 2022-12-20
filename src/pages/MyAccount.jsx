@@ -20,22 +20,39 @@ export default function MyAccount() {
   const [banks, setBanks] = useState([]);
   const [accoutForm, setAccoutForm] = useState(false);
 
+  // 등록된 계좌 조회
+  async function getAccountData() {
+    try {
+      dispatch(showLoading());  // 로딩
+      const data = await getListAccount();
+      setAccounts(data);
+    } catch {
+      alert('계좌정보 불러오기 실패');
+    } finally {
+      dispatch(hideLoading());  // 로딩
+    }
+  }
+
+  // 사용 가능한 은행 조회
+  async function getBankData() {
+    try {
+      // 로딩 보여주기
+      dispatch(showLoading());
+      const data = await getListBank();
+      setBanks(data);
+    } catch {
+      alert('은행 불러오기 실패');
+    } finally {
+      // 로딩 숨기기
+      dispatch(hideLoading());
+    }
+  }
+
   useEffect(() => {
     // 등록된 계좌 조회
-    async function getAccountData() {
-      try {
-        dispatch(showLoading());  // 로딩
-        const dataA = await getListAccount();
-        const dataB = await getListBank();
-        setAccounts(dataA);
-        setBanks(dataB);
-      } catch {
-        setModal(true);
-      } finally {
-        dispatch(hideLoading());  // 로딩
-      }
-    }
     getAccountData();
+    // 사용 가능한 은행 조회
+    getBankData();
   }, []);
 
   return (
@@ -49,7 +66,7 @@ export default function MyAccount() {
       }
       {Array.isArray(account.accounts) ? (
         account.accounts.map((item, idx) => {
-          return  <Account pageClass={cx('myAccount')} item={item} key={idx} setAccounts={setAccounts} />
+          return  <Account pageClass={cx('myAccount')} item={item} key={idx} getAccountData={getAccountData} getBankData={getBankData} />
         })
       ) : (
         <div className={style.noList}>
@@ -57,12 +74,21 @@ export default function MyAccount() {
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
+      <button 
+        onClick={() => {
+          getBankData();
+          if(banks.map((item => item.disabled)).find((x) => x === false) === undefined){
+            alert('등록할 계좌가 없습니다.');
+            return
+          }
+          setAccoutForm(true);
+        }}
+        className={style.button}
+      >
+        계좌 추가
+      </button>
       {
-        //banks.map((item, index) => item.disabled && <p key={index}>{item.name}</p>)
-        !banks.disabled === true ? null : <button onClick={() => {setAccoutForm(true); document.body.style.overflow = 'hidden';}} className={style.button}>계좌 추가</button>
-      }
-      {
-        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} /> : null
+        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} getAccountData={getAccountData} /> : null
       }
     </div>
   )
