@@ -1,42 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RxHamburgerMenu } from 'react-icons/rx';
 import { BsCart2 } from 'react-icons/bs';
 import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillPersonFill } from 'react-icons/bs';
 import style from './Navbar.module.scss';
 import { useSelector } from 'react-redux';
-import { searchProduct } from '@/api/requests';
 import { useDispatch } from 'react-redux';
 import { requestLogout } from '@/api/userAPI';
-import { setIsAdmin, setUserInit } from '@/store/userSlice';
+import { setUserInit } from '@/store/userSlice';
 
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
+
+  // 검색 값
   const [value, setValue] = useState('');
-  const [search, setSearch] = useState([]);
-
-
-  const handleChange = e => {
-    setValue(e.target.value)
+  const handleChange = (event) => {
+    let { value } = event.target;
+    setValue(value);
   }
-  console.log(value);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    searchProduct(value).then((res) => {
-      if (res) {
-        alert('상품 검색 완료');
-        setSearch(res);
-        console.log(res);
-      } else {
-        alert('상품 검색 실패');
-      }
-    });
-  };
-
-  console.log(search);  
 
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
@@ -73,7 +55,11 @@ export default function Header({ isLogin }) {
           <h1 className={style.title}>마켓멍냥</h1>
         </Link>
         <div className={style.inputWrap}>
-          <form onSubmit={(e) => {handleSubmit(e)}}>
+          <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+          >
             <input
             id='search-input'
             className={style.searchInput}
@@ -82,9 +68,11 @@ export default function Header({ isLogin }) {
             placeholder='검색어를 입력해 주세요'
             onChange={(e) => handleChange(e)}
             />
-            <button type="submit" className={style.searchBtn} aria-label="submit">
+          <Link to={value !== '' ? "/search/" + value : null}>
+            <button className={style.searchBtn} aria-label="submit">
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>
+          </Link>
           </form>
         </div>
         <div className={style.links}>

@@ -20,26 +20,33 @@ const requestPut = async (path, instance, data) => {
   });
 };
 
-const requestDelete = async (path, instance) => {
-  return await instance.delete(path).then((res) => {
-    return res.data;
-  });
+const requestDelete = async (path, instance, data) => {
+  if (data) {
+    return await instance.delete(path, { data }).then((res) => {
+      console.log(res);
+      return res.data;
+    });
+  } else {
+    return await instance.delete(path).then((res) => {
+      return res.data;
+    });
+  }
 };
 
 // 회원가입
-export const signup = (data) => {
-  return requestPost(PATH.SIGNUP, defaultInstance, data);
-};
+// export const signup = (data) => {
+//   return requestPost(PATH.SIGNUP, defaultInstance, data);
+// };
 
 // 로그인
-export const login = async (data) => {
-  const res = await requestPost(PATH.LOGIN, defaultInstance, data);
-  setItem('token', res.accessToken);
-  return;
-};
+// export const login = async (data) => {
+//   const res = await requestPost(PATH.LOGIN, defaultInstance, data);
+//   setItem('token', res.accessToken);
+//   return;
+// };
 
 // 로그아웃
-export const logout = () => {};
+// export const logout = () => {};rrkar
 
 // 인증확인
 export const checkAuth = () => {
@@ -123,11 +130,20 @@ export const updateOrderAdmin = (id, data) => {
 
 // 제품 추가 (관리자)
 export const insertProduct = (data) => {
-  return requestPost(PATH.PRODUCT, adminInstance, data);
+  return requestPost(PATH.PRODUCT, adminInstance, {
+    ...data,
+    price: Number(data.price.replace(/,/g, '')),
+  });
 };
 
 // 제품 수정 (관리자)
 export const updateProduct = (id, data) => {
+  if (typeof data.price === 'string') {
+    data = {
+      ...data,
+      price: Number(data.price.replace(/,/g, '')),
+    };
+  }
   return requestPut(`${PATH.PRODUCT}/${id}`, adminInstance, data);
 };
 

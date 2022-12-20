@@ -7,9 +7,10 @@
   box-sizing: border-box;
   border-right: 1px solid $color-gray;
   background-color: $color-white;
+  z-index: 200;
   ul {
     li {
-      font-size: 0.9rem;
+      font-size: 16px;
       border-bottom: 1px solid $color-lightgray;
       a {
         padding: 1.5rem;

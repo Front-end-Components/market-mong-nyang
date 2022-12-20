@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { insertOrder } from '@/api/requests';
 
 export default function PaymentItem (item, accountId) {
-  console.log(item);
   item.map((item) => {
     const data = {
       productId: item.id,

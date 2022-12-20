@@ -50,7 +50,7 @@ export default function MyOrderDetail() {
   const thumbnailSrc = `${orderProduct.thumbnail}`;
   return (
     <div className={style.MyOrderDetail}>
-      <MypageHeader name={'주문 상세정보 (개수+결제금액 수정하기!!!)'} />
+      <MypageHeader name={'주문 상세정보'} />
       <div className={style.content}>
         <div className={style.orderDateNum}>
           <span className={style.orderDate}>주문 날짜 : <b>{date}</b></span>

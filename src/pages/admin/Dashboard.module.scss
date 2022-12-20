@@ -10,17 +10,26 @@
     .content {
       display: flex;
       flex-direction: column;
-      gap: 1.4rem;
+      gap: 1.6rem;
       width: 50%;
       h1 {
         display: flex;
-        font-size: 22px;
+        font-size: 20px;
         text-align: left;
         font-weight: 600;
         margin-bottom: 1rem;
       }
-      svg {
-        margin-right: 8px;
+      .card {
+        display: flex;
+        h2 {
+          display: flex;
+          svg {
+            margin-right: 8px;
+          }
+        }
+        p {
+          margin-left: 1rem;
+        }
       }
       .chart {
         width: 100%;

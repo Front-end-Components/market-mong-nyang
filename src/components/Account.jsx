@@ -15,13 +15,10 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
 
   // 계좌 삭제
   async function deleteData(body) {
-    // const data = await deleteAccount(body);
-    // setAccounts(data);
     try {
       dispatch(showLoading());  // 로딩
       const data = await deleteAccount(body);
       setAccounts(data);
-      console.log(data);
       alert("계좌가 삭제됐습니다.");
     } catch {
       alert("계좌 삭제가 실패했습니다.");
@@ -37,11 +34,10 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
     setComponentClass(classResult);
   }, [pageClass]);
 
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    setDeleteBank(e.target.value);
+  const deleteHandler = (id) => {
+    setDeleteBank(id);
 
-     // state에 저장한 데이터 넘기기
+    // state에 저장한 데이터 넘기기
     let body = {
       accountId: deleteBank,
       signature: true,
@@ -55,7 +51,7 @@ export default function Account({ item, idx, pageClass, setAccounts }) {
       <h4>{item.bankName}</h4>
       <p>{item.accountNumber}</p>
       <span>{formatPrice(item.balance)}</span>
-      <button value={item.id} onClick={(e) => deleteHandler(e)}>삭제</button>
+      <button value={item.id} onClick={(e) => {deleteHandler(e.target.value)}}>삭제</button>
     </div>
     </div>
   )

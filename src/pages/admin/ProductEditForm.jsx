@@ -5,6 +5,9 @@ import Button from '@/components/Button';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
+import { formatPrice } from '@/utils/formats';
+
+const MAX_FILE_SIZE = 1024 ** 2 * 5;
 
 export default function ProductEditForm() {
   const navigate = useNavigate();
@@ -14,37 +17,48 @@ export default function ProductEditForm() {
   const { state } = useLocation();
   const thumbInput = useRef();
   const photoInput = useRef();
+  const [thumbName, setThumbName] = useState('');
+  const [photoName, setPhotoName] = useState('');
   const [thumb, setThumb] = useState('');
   const [photo, setPhoto] = useState('');
 
   useEffect(() => {
     setProduct(state.product);
-    const thumb = state.product.thumbnail.split('/');
-    const photo = state.product.photo.split('/');
-    setThumb(thumb[thumb.length - 1]);
-    setPhoto(photo[photo.length - 1]);
+    const thumbName = state.product.thumbnail.split('/');
+    const photoName = state.product.photo.split('/');
+    setThumbName(thumbName[thumbName.length - 1]);
+    setPhotoName(photoName[photoName.length - 1]);
+    setThumb(state.product.thumbnail);
+    setPhoto(state.product.photo);
   }, []);
 
   const handleChange = (event) => {
     let { name, value, files } = event.target;
     if (files) {
       const file = files[0];
-      if (name === 'thumbnailBase64') {
-        setThumb(files[0].name);
-      } else if (name === 'photoBase64') {
-        setPhoto(files[0].name);
+      if (file.size > MAX_FILE_SIZE) {
+        alert('파일 크기는 최대 5MB 입니다.');
+        return;
       }
       const reader = new FileReader();
       reader.readAsDataURL(file);
+
       reader.addEventListener('load', (e) => {
         value = e.target.result;
         setProduct((product) => ({ ...product, [name]: value }));
+        if (name === 'thumbnailBase64') {
+          setThumbName(files[0].name);
+          setThumb(value);
+        } else if (name === 'photoBase64') {
+          setPhotoName(files[0].name);
+          setPhoto(value);
+        }
         return;
       });
     } else if (name === 'price') {
-      value = Number(value);
+      value = formatPrice(Number(value.replace(/,/g, '')));
     } else if (name === 'isSoldOut') {
-      value = Boolean(value);
+      value = JSON.parse(value);
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
@@ -92,6 +106,22 @@ export default function ProductEditForm() {
         <div className={style.inputWrap}>
           <div className={style.group}>
             <p>
+              카테고리 <span className={style.required}>*</span>
+            </p>
+            <select name="tags" onChange={handleChange} value={product.tags} required>
+              <option value="">선택</option>
+              <option value="주식">주식</option>
+              <option value="간식">간식</option>
+              <option value="건강">건강</option>
+              <option value="케어">케어</option>
+              <option value="의류">의류</option>
+              <option value="리빙">리빙</option>
+              <option value="외출">외출</option>
+              <option value="위생">위생</option>
+            </select>
+          </div>
+          <div className={style.group}>
+            <p>
               제품명 <span className={style.required}>*</span>
             </p>
             <input
@@ -108,9 +138,9 @@ export default function ProductEditForm() {
               가격 <span className={style.required}>*</span>
             </p>
             <input
-              type="number"
+              type="text"
               name="price"
-              value={product.price ?? ''}
+              value={formatPrice(product.price) ?? ''}
               placeholder="가격"
               required
               onChange={handleChange}
@@ -131,22 +161,7 @@ export default function ProductEditForm() {
               onChange={handleChange}
             />
           </div>
-          <div className={style.group}>
-            <p>
-              카테고리 <span className={style.required}>*</span>
-            </p>
-            <select name="tags" onChange={handleChange} value={product.tags} required>
-              <option value="">선택</option>
-              <option value="주식">주식</option>
-              <option value="간식">간식</option>
-              <option value="건강">건강</option>
-              <option value="케어">케어</option>
-              <option value="의류">의류</option>
-              <option value="리빙">리빙</option>
-              <option value="외출">외출</option>
-              <option value="위생">위생</option>
-            </select>
-          </div>
+
           <div className={style.group}>
             <p>
               품절 여부 <span className={style.required}>*</span>
@@ -162,17 +177,24 @@ export default function ProductEditForm() {
             <p>
               썸네일 이미지 <span className={style.required}>*</span>
             </p>
-            {thumb ? (
-              <Button
-                name={'파일 변경'}
-                isPurple={true}
-                onClick={handleThumbnail}
-                width={'100px'}
-              />
-            ) : (
-              <Button name={'파일 선택'} onClick={handleThumbnail} width={'100px'} />
-            )}
-            <span className={style.fileName}>{thumb}</span>
+            <div className={style.imgContainer}>
+              <div className={style.imgContent}>
+                <img alt="썸네일 이미지" src={thumb} />
+              </div>
+              <div className={style.btnContent}>
+                {thumbName ? (
+                  <Button
+                    name={'파일 변경'}
+                    isPurple={true}
+                    onClick={handleThumbnail}
+                    width={'100px'}
+                  />
+                ) : (
+                  <Button name={'파일 선택'} onClick={handleThumbnail} width={'100px'} />
+                )}
+                <p className={style.fileName}>{thumbName}</p>
+              </div>
+            </div>
             <input
               className={style.file}
               type="file"
@@ -186,12 +208,24 @@ export default function ProductEditForm() {
             <p>
               상품 상세 이미지 <span className={style.required}>*</span>
             </p>
-            {photo ? (
-              <Button name={'파일 변경'} isPurple={true} onClick={handlePhoto} width={'100px'} />
-            ) : (
-              <Button name={'파일 선택'} onClick={handlePhoto} width={'100px'} />
-            )}
-            <span className={style.fileName}>{photo}</span>
+            <div className={style.imgContainer}>
+              <div className={style.imgContent}>
+                {photo && <img alt="상세 이미지" src={photo} />}
+              </div>
+              <div className={style.btnContent}>
+                {photoName ? (
+                  <Button
+                    name={'파일 변경'}
+                    isPurple={true}
+                    onClick={handlePhoto}
+                    width={'100px'}
+                  />
+                ) : (
+                  <Button name={'파일 선택'} onClick={handlePhoto} width={'100px'} />
+                )}
+                <p className={style.fileName}>{photoName}</p>
+              </div>
+            </div>
             <input
               className={style.file}
               type="file"

@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import { insertItem } from '@/store/cartSlice';
-import { insertLike } from '@/store/likeSlice';
-import { useDispatch } from "react-redux";
+import { insertLike, deleteLike } from '@/store/likeSlice';
+import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 
 export default function ProductDetail() {
@@ -21,6 +21,8 @@ export default function ProductDetail() {
   let dispatch = useDispatch();
   const navigate = useNavigate();
   const [like, setLike] = useState(false);
+  let list = useSelector((state) => state.like);
+  const heartOn = list.map((item => item.id)).find((id) => id === products.id) === products.id;
 
   useEffect(() => {
     async function getData() {
@@ -55,25 +57,30 @@ export default function ProductDetail() {
           <div className={style.fixed}>
             <div className={style.info}>
               <h4 className={style.title}>{products.title}</h4>
-              <p className={style.price}>{formatPrice(price)}원</p>
-              {/* <p className={style.tags}>{products.tags}</p> */}
+            <div className={style.wrap}>
+            <p className={style.price}>{formatPrice(price)}원</p>
               <span
                 className={style.like}
                 onClick={()=> {
-                  setLike(!like);
-                  dispatch(insertLike({
-                    id: products.id,
-                    isSoldOut: false,
-                    price: products.price,
-                    thumbnail: products.thumbnail,
-                    title: products.title,
-                    count: count,
-                    checked: true,
-                  }));
+                  setLike(!false)
+                  if(heartOn === true) dispatch(deleteLike(products.id))
+                  if(heartOn === false) {
+                    dispatch(insertLike({
+                      id: products.id,
+                      isSoldOut: products.isSoldOut,
+                      price: products.price,
+                      thumbnail: products.thumbnail,
+                      title: products.title,
+                      count: count,
+                      checked: true,
+                    }));
+                  }
                 }}
               >
-                <Like like={like} setLike={setLike} />
+                <Like heartOn={heartOn} like={like} setLike={setLike} />
               </span>
+            </div>
+            <p className={style.desc}>{products.description}</p>
             </div>
             <div className={style.total}>
               <div className={style.countwrap}>

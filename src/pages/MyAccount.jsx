@@ -9,11 +9,13 @@ import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
 import { RiErrorWarningLine } from 'react-icons/ri';
+import {AccountModal} from '@/components/Modal';
 
 const cx = classNames.bind(style);
 
 export default function MyAccount() {
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
   const [account, setAccounts] = useState([]);
   const [banks, setBanks] = useState([]);
   const [accoutForm, setAccoutForm] = useState(false);
@@ -22,40 +24,25 @@ export default function MyAccount() {
     // 등록된 계좌 조회
     async function getAccountData() {
       try {
-        // 로딩 보여주기
-        dispatch(showLoading());
-        const data = await getListAccount();
-        let copy = [...data];
-        setAccounts(copy);
+        dispatch(showLoading());  // 로딩
+        const dataA = await getListAccount();
+        const dataB = await getListBank();
+        setAccounts(dataA);
+        setBanks(dataB);
       } catch {
-        alert('계좌정보 불러오기 실패');
+        setModal(true);
       } finally {
-        // 로딩 숨기기
-        dispatch(hideLoading());
+        dispatch(hideLoading());  // 로딩
       }
     }
     getAccountData();
-
-    // 사용 가능한 은행 조회
-    async function getBankData() {
-      try {
-        // 로딩 보여주기
-        dispatch(showLoading());
-        const data = await getListBank();
-        let copy = [...data];
-        setBanks(copy);
-      } catch {
-        alert('은행 불러오기 실패');
-      } finally {
-        // 로딩 숨기기
-        dispatch(hideLoading());
-      }
-    }
-    getBankData();
   }, []);
 
   return (
     <div className={style.container}>
+      {
+        modal ? <AccountModal modal={modal} setModal={setModal} /> : null
+      }
       <MypageHeader name={'계좌 관리'} />
       {
         Array.isArray(account.accounts) ? <p className={style.totalBalance}>총 계좌 잔액: <span>{formatPrice(account.totalBalance)}</span></p> : null

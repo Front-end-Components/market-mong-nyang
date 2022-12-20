@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { deleteLike } from '@/store/likeSlice';
 import { insertItem } from '@/store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,8 +20,7 @@ export default function MyLike() {
   const limit = 10;
   const offset = (page - 1) * limit;
   let list = useSelector((state) => state.like);
-  console.log(list);
-
+  
   return (
     <div className={style.myLike}>
       <MypageHeader name={'찜한 상품'} /><span className={style.likeNum}>({list.length})</span>
@@ -38,7 +37,12 @@ export default function MyLike() {
           list.slice(offset, offset + limit).map((item, idx) => (
             <li item={item} key={idx}>
               <Link to={"/products/" + item.id}>
-                <div className={style.img}><img src={item.thumbnail} alt={item.title} /></div>
+                <div className={style.img}>
+                  {
+                    item.isSoldOut ? <span className={style.soldOut}>Sold Out</span> : null
+                  }
+                  <img src={item.thumbnail} alt={item.title} />
+                </div>
               </Link>
               <Link to={"/products/" + item.id}>
                 <div className={style.product}>
@@ -55,7 +59,10 @@ export default function MyLike() {
                     }
                   }}
                 />
-                <Button
+                {(item.isSoldOut) ? (
+                  <Button name={'품절'}></Button>
+                ) : (
+                  <Button
                   name={'담기'}
                   onClick={() => {
                     dispatch(insertItem({
@@ -70,6 +77,7 @@ export default function MyLike() {
                     setModal(true);
                   }}
                 ></Button>
+                )}
                 <BsCart2 className={style.cart} size='13' title='장바구니' color='rgb(95, 0, 128)'/>
               </div>
             </li>
