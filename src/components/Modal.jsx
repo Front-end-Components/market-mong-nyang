@@ -24,7 +24,7 @@ function AccountModal({ modal, setModal }) {
   return (
     <div className={style.cartmodal}>
       <RiFileList2Line className={style.icon} size='30' title='list' color='rgb(95, 0, 128)' />
-      <h3>계좌가 존재하지 않습니다.</h3>
+      <h3>등록된 계좌가 없습니다.</h3>
       <div className={style.btnwrap}>
         <Button
         name={'close'}
