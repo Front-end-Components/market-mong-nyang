@@ -37,13 +37,6 @@ export default function Login() {
     if (localStorage.getItem('token')) {
       alert('잘못된 접근입니다.');
       navigate('/');
-    } else alert('잘못된 아이디 혹은 비밀번호입니다.');
-  });
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      alert('잘못된 접근입니다.');
-      navigate('/');
     }
   }, []);
 

@@ -89,6 +89,11 @@ const MyInfoModify = () => {
   }, [userInfo]);
 
   useEffect(() => {
+    if (visiblePasswordModal) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'auto';
+  }, [visiblePasswordModal]);
+
+  useEffect(() => {
     if (!localStorage.getItem('token')) {
       alert('잘못된 접근입니다.');
       navigate('/');
