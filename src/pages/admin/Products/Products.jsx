@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
 import Pagination from '@/components/common/Pagination';
 import { BiSearch } from 'react-icons/bi';
-import { isProductsUpdate, setProductsStore } from '@/store/productsSlice';
-import { setOrdersStore } from '@/store/ordersSlice';
+import { isProductsUpdate, setProductsStore } from '@/store/adminProductsSlice';
+import { setOrdersStore } from '@/store/adminOrdersSlice';
 
 export default function Products() {
   const dispatch = useDispatch();

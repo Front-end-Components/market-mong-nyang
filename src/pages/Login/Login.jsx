@@ -26,7 +26,6 @@ export default function Login() {
       if (loginData.email === process.env.REACT_APP_ADMIN_EMAIL) {
         dispatch(setIsAdmin({ isAdmin: true }));
         navigate('/admin');
-        console.log(setIsAdmin);
         return;
       }
       dispatch(setUserInfo({ displayName: loginData.displayName }));
