@@ -33,14 +33,14 @@ export default function ProductDetail() {
     navigate(`/admin/products/modify/${id}`, { state: { product } });
   };
 
-  const handleClickDelete = () => {
+  const handleClickDelete = async () => {
     if (window.confirm('해당 상품을 삭제하시겠습니까?')) {
       try {
         dispatch(showLoading());
-        deleteProduct(id);
+        await deleteProduct(id);
         dispatch(isProductsUpdate(true));
         alert('삭제가 완료되었습니다.');
-        window.location.replace('/admin/products');
+        navigate('/admin/products');
       } catch {
         alert('삭제가 완료되지 못했습니다.');
       } finally {
