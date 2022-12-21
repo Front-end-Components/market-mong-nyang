@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import style from './MyOrder.module.scss';
 import MypageHeader from '../components/Mypage/MypageHeader';
 import { getListOrder } from '@/api/requests';
-import Order from '@/components/Order';
+import Order from '@/components/Mypage/Order/Order';
 import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-multi-date-picker';
 import { formatDate } from '@/utils/formats';

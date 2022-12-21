@@ -6,7 +6,7 @@ import Button from '@/components/common/Button';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import { BiSearch } from 'react-icons/bi';
 
 export default function Products() {
