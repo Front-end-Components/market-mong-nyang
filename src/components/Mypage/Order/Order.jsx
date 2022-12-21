@@ -5,7 +5,7 @@ import style from '@/pages/Mypage/MyOrder/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
-export default function Order({ item, detail }) {
+export default function Order({ item }) {
   const navigate = useNavigate();
 
   let orderGuideMain = '구매가 완료 되었습니다.';
@@ -13,7 +13,7 @@ export default function Order({ item, detail }) {
   if (item.isCanceled) {
     orderGuideMain = '주문이 취소 되었습니다.';
     orderGuideSub = '';
-  } else {
+  } else if (item.done) {
     orderGuideMain = '구매가 확정 되었습니다.';
   }
 

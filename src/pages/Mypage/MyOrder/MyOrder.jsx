@@ -10,13 +10,14 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import 'react-multi-date-picker/styles/colors/purple.css';
 import Pagination from '@/components/common/Pagination';
-import { MyOrderModal } from '@/components/Modal';
+import { Modal } from '@/components/Modal';
 import { RiErrorWarningLine } from 'react-icons/ri';
 
 export default function MyOrder() {
   const dispatch = useDispatch();
   const [pageDisplay, setPageDisplay] = useState(true);
   const [modal, setModal] = useState(false);
+  const [modalText, setModalText] = useState('');
   const [detail, setDetail] = useState([]);
   const [date, setDate] = useState();
   const [search, setSearch] = useState([]);
@@ -36,6 +37,7 @@ export default function MyOrder() {
         setPageDisplay(false);
       } catch {
         setModal(true);
+        setModalText('주문내역을 불러오는데 실패하였습니다.');
       } finally {
         dispatch(hideLoading());
       }
@@ -103,7 +105,7 @@ export default function MyOrder() {
   return (
     <div className={style.myOrder}>
       <MypageHeader name={'주문 내역'} />
-      {modal ? <MyOrderModal modal={modal} setModal={setModal} /> : null}
+      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
       <div className={style.datePickerWrap}>
         <DatePicker
           className="purple"
