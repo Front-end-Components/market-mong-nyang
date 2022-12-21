@@ -5,17 +5,16 @@ import App from './App';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store/store';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
-import Cart from './pages/Cart';
+import Cart from './pages/Cart/Cart';
 import Payment from './pages/Payment';
-import Products from './pages/Products';
-import ProductsFood from './pages/ProductsFood';
-import ProductsCare from './pages/ProductsCare';
-import ProductsLiving from './pages/ProductsLiving';
-import ProductsHygiene from './pages/ProductsHygiene';
-import ProductDetail from './pages/ProductDetail';
+import ProductsFood from '@/pages/Product/Products/ProductsFood';
+import ProductsCare from '@/pages/Product/Products/ProductsCare';
+import ProductsLiving from '@/pages/Product/Products/ProductsLiving';
+import ProductsHygiene from '@/pages/Product/Products/ProductsHygiene';
+import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import Mypage from './pages/Mypage';
 import MyOrder from './pages/MyOrder';
 import MyOrderDetail from './pages/MyOrderDetail';
@@ -25,17 +24,17 @@ import MyInfo from './pages/MyInfo/MyInfo';
 import MyInfoForm from './pages/MyInfo/MyInfoForm';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
-import Dashboard from './pages/admin/Dashboard';
-import AdminProducts from './pages/admin/Products';
-import AdminProductAddForm from './pages/admin/ProductAddForm';
-import AdminProductEditForm from './pages/admin/ProductEditForm';
-import AdminProductDetail from './pages/admin/ProductDetail';
-import AdminOrders from './pages/admin/Orders';
-import AdminOrderDetail from './pages/admin/OrderDetail';
+import Dashboard from './pages/admin/Dashboard/Dashboard';
+import AdminProducts from './pages/admin/Products/Products';
+import AdminProductAddForm from './pages/admin/ProductAddForm/ProductAddForm';
+import AdminProductEditForm from './pages/admin/ProductEditForm/ProductEditForm';
+import AdminProductDetail from './pages/admin/ProductDetail/ProductDetail';
+import AdminOrders from './pages/admin/Orders/Orders';
+import AdminOrderDetail from './pages/admin/OrderDetail/OrderDetail';
 import MyLike from './pages/MyLike';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import Search from './pages/Search';
+import Search from '@/pages/Search/Search';
 
 let persistor = persistStore(store);
 const router = createBrowserRouter([
@@ -53,7 +52,6 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />,
       },
-      { path: '/products', element: <Products /> },
       { path: '/products-food', element: <ProductsFood /> },
       { path: '/products-care', element: <ProductsCare /> },
       { path: '/products-living', element: <ProductsLiving /> },
@@ -70,17 +68,17 @@ const router = createBrowserRouter([
       {
         path: '/payment',
         element: (
-          // <ProtectedRoute>
-          <Payment />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
         ),
       },
       {
         path: '/mypage',
         element: (
-          // <ProtectedRoute>
-          <Mypage />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Mypage />
+          </ProtectedRoute>
         ),
         children: [
           {
