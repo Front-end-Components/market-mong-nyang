@@ -215,7 +215,7 @@ export default function ProductForm() {
         </div>
       </div>
       <div className={style.buttons}>
-        <Button name={'등록'} isPurple={true} />
+        <Button name={'등록'} isPurple={true} onClick={handleSubmit} />
         <Button name={'취소'} onClick={() => navigate(-1)} />
       </div>
     </form>
