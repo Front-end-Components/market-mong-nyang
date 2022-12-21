@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Loading from './components/Loading';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './App.module.scss';
 import AdminNavbar from './components/admin/AdminNavbar/AdminNavbar';

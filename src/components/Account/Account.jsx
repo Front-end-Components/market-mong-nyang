@@ -48,7 +48,14 @@ export default function Account({ item, idx, pageClass, getAccountData, getBankD
       <h4>{item.bankName}</h4>
       <p>{item.accountNumber}</p>
       <span>{formatPrice(item.balance)}</span>
-      <button value={item.id} onClick={(e) => {deleteHandler(e.target.value)}}>삭제</button>
+      <button
+        value={item.id}
+        onClick={(e) => {
+          if (window.confirm("삭제하시겠습니까?")) {
+            deleteHandler(e.target.value);
+          }
+        }}
+      >삭제</button>
     </div>
     </div>
   )

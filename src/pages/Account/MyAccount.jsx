@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import MypageHeader from '../components/MypageHeader';
-import Account from '@/components/Account';
+import MypageHeader from '../../components/MypageHeader';
+import Account from '@/components/Account/Account';
 import MyAccountForm from './MyAccountForm';
 import { getListBank, getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
