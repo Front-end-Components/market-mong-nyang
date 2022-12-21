@@ -89,14 +89,14 @@ export default function Dashboard() {
             type: 'bar',
             data: Object.values(sales),
             itemStyle: {
-              color: '#9370db',
+              color: '#ffd966',
             },
           },
           {
             type: 'line',
             data: Object.values(sales),
             itemStyle: {
-              color: 'blue',
+              color: '#F71A5B',
             },
           },
         ],

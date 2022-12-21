@@ -55,7 +55,7 @@ export default function ProductForm() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!thumb) {
       alert('썸네일 이미지를 등록해 주세요.');
@@ -68,10 +68,10 @@ export default function ProductForm() {
     if (window.confirm('상품을 등록하시겠습니까?')) {
       try {
         dispatch(showLoading());
-        insertProduct(product).then((res) => console.log(res));
+        await insertProduct(product);
         dispatch(isProductsUpdate(true));
         alert('상품 등록이 완료되었습니다.');
-        window.location.replace('/admin/products');
+        navigate('/admin/products');
       } catch {
         alert('상품 등록이 완료되지 못했습니다.');
       } finally {
