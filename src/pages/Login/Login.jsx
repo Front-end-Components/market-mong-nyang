@@ -29,7 +29,7 @@ export default function Login() {
         return;
       }
       dispatch(setUserInfo({ displayName: loginData.displayName }));
-      navigate('/');
+      window.location.replace('/');
     } else alert('잘못된 아이디 혹은 비밀번호입니다.');
   };
 
