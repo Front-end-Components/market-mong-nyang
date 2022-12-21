@@ -13,14 +13,10 @@ import { requestUserConfirm } from './api/userAPI';
 
 function App() {
   let location = useLocation();
-  const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
-  let loading = useSelector((state) => {
-    return state.loading.isLoading;
-  });
-  let isAdmin = useSelector((state) => {
-    return state.user.isAdmin;
-  });
+  const [isLogin, setIsLogin] = useState(false);
+  const loading = useSelector((state) => state.loading.isLoading);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
 
   const requestLoginConfirm = useCallback(async () => {
     const userInfo = await requestUserConfirm();
