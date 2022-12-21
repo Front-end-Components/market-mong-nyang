@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import MypageHeader from '@/components/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
@@ -13,6 +13,7 @@ export default function MyOrderDetail() {
   const [orderAccount, setOrderAccount] = useState([]);
   const { state } = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const detailID = {
     'detailId': state.id
@@ -60,7 +61,9 @@ export default function MyOrderDetail() {
         <div className={style.productContent}>
           <img src={thumbnailSrc} className={style.thumbnailImg}></img>
           <div className={style.productText}>
-            <p className={style.productTitle}>{orderProduct.title}</p>
+            <p className={style.productTitle} onClick={() => {
+              navigate(`/products/${orderProduct.productId}`)
+            }}>{orderProduct.title}</p>
             <p className={style.productPrice}>{orderPrice}원 <span className={style.productCount}>( {state.count}개 )</span></p>
           </div>
           <div className={style.productState}>

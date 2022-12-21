@@ -5,18 +5,20 @@ import style from '@/pages/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
-export default function Order({ item }) {
+export default function Order({ item, detail }) {
   const navigate = useNavigate();
   
-  const detailID = {
-    'detailId': item.detailId
-  };
+  // const detailID = {
+  //   'detailId': item.detailId
+  // };
     
-  let orderGuide = '구매가 완료 되었습니다.';
+  let orderGuideMain = '구매가 완료 되었습니다.';
+  let orderGuideSub = '구매 확정 이후에는 주문 취소가 불가능합니다.'
   if(item.isCanceled) {
-    orderGuide = '주문이 취소 되었습니다.';
+    orderGuideMain = '주문이 취소 되었습니다.';
+    orderGuideSub = '';
   } else {
-    orderGuide = '구매가 완료 되었습니다.';
+    orderGuideMain = '구매가 확정 되었습니다.';
   }
 
   let stateText = '구매 완료';
@@ -47,14 +49,17 @@ export default function Order({ item }) {
           <p className={style.orderPrice}>{price}원</p>
           <p className={style.orderDate}>{date}</p>
           <p className={style.orderState}>{stateText}</p>
-          <p className={style.orderGuide}>{orderGuide}</p>
-          <p className={style.orderGuide}>구매 확정 이후에는 주문 취소가 불가능합니다.</p>
+          <p className={style.orderGuide}>{orderGuideMain}</p>
+          <p className={style.orderGuide}>{orderGuideSub}</p>
         </div>
         <div className={style.btnContent}>
           <Button display={item.done || item.isCanceled} name={'주문 취소'} onClick={() => {
             if(window.confirm('주문을 취소 하시겠습니까?')) {
               try {
-                for(let i = 0; i < item.cnt; i++) {
+                for(let i = 1; i <= item.cnt; i++) {
+                  const detailID = {
+                    'detailId': item[i]
+                  };
                   updateOrderCancel(detailID);
                 }
               } finally {
@@ -66,7 +71,12 @@ export default function Order({ item }) {
           <Button display={item.done || item.isCanceled} name={'구매 확정'} isPurple={true} onClick={() => {
             if(window.confirm('구매를 확정 하시겠습니까?')) {
               try {
-                updateOrderOk(detailID);
+                for(let i = 1; i <= item.cnt; i++) {
+                  const detailID = {
+                    'detailId': item[i]
+                  };
+                  updateOrderOk(detailID);
+                }
               } finally {
                 window.location.replace('/mypage/order');
                 alert('구매가 확정 되었습니다.');
