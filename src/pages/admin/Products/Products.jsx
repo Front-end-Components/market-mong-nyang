@@ -1,5 +1,5 @@
 import { deleteProduct, getListProductAdmin } from '@/api/requests';
-import AdminProductItem from '@/components/admin/AdminProductItem';
+import AdminProductItem from '@/components/admin/AdminProductItem/AdminProductItem';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import Button from '@/components/Button';
