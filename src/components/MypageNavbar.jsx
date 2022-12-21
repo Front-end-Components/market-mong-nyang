@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './MypageNavbar.module.scss';
-import NavbarItem from './NavbarItem';
+import NavbarItem from '@/components/Nav/NavbarItem/NavbarItem';
 
 export default function MypageNavbar() {
   return (

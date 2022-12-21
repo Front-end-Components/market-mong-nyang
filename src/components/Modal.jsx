@@ -1,6 +1,6 @@
 import React from 'react'
-import Button from './Button'
-import style from './CartModal.module.scss'
+import Button from '@/components/Button';
+import style from '@/components/Product/CartModal/CartModal.module.scss';
 import { RiFileList2Line } from 'react-icons/ri';
 
 function MyOrderModal({ modal, setModal }) {

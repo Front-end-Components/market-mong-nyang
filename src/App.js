@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from '@/components/Nav/Navbar/Navbar';
 import Loading from './components/Loading';
 import Footer from './components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';

@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarItem from '../../NavbarItem';
+import NavbarItem from '@/components/Nav/NavbarItem/NavbarItem';
 import style from './AdminNavbar.module.scss';
 
 export default function AdminNavbar() {

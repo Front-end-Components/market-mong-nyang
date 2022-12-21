@@ -8,7 +8,7 @@ import Pagination from '@/components/Pagination';
 import Button from '@/components/Button';
 import MypageHeader from '@/components/MypageHeader';
 import style from './MyLike.module.scss';
-import CartModal from '@/components/CartModal';
+import CartModal from '@/components/Product/CartModal/CartModal';
 import { VscHeart } from 'react-icons/vsc';
 import { BsCart2 } from 'react-icons/bs';
 
