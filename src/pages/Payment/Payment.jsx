@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Account from '@/components/Account/Account';
+import Account from '@/components/Mypage/Account/Account';
 import Button from '@/components/common/Button';
 import { getListAccount, checkAuth } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
