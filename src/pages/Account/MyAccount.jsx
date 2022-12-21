@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import MypageHeader from '../components/MypageHeader';
-import Account from '@/components/Account';
+import MypageHeader from '@/components/Mypage/MypageHeader';
+import Account from '@/components/Account/Account';
 import MyAccountForm from './MyAccountForm';
 import { getListBank, getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
 import { RiErrorWarningLine } from 'react-icons/ri';
-import {AccountModal} from '@/components/Modal';
+import { AccountModal } from '@/components/Modal';
 
 const cx = classNames.bind(style);
 
@@ -19,7 +19,8 @@ export default function MyAccount() {
   const [account, setAccounts] = useState([]);
   const [banks, setBanks] = useState([]);
   const [accoutForm, setAccoutForm] = useState(false);
-
+  const [modalText, setModalText] = useState('');
+  
   // 등록된 계좌 조회
   async function getAccountData() {
     try {
@@ -27,7 +28,8 @@ export default function MyAccount() {
       const data = await getListAccount();
       setAccounts(data);
     } catch {
-      alert('계좌정보 불러오기 실패');
+      setModal(true);
+      setModalText('계좌내역을 불러오는데 실패하였습니다.');
     } finally {
       dispatch(hideLoading());  // 로딩
     }
@@ -41,7 +43,8 @@ export default function MyAccount() {
       const data = await getListBank();
       setBanks(data);
     } catch {
-      alert('은행 불러오기 실패');
+      setModal(true);
+      setModalText('은행 정보를 불러오는데 실패하였습니다.');
     } finally {
       // 로딩 숨기기
       dispatch(hideLoading());
@@ -58,7 +61,7 @@ export default function MyAccount() {
   return (
     <div className={style.container}>
       {
-        modal ? <AccountModal modal={modal} setModal={setModal} /> : null
+        modal ? <AccountModal modal={modal} setModal={setModal} modalText={modalText} /> : null
       }
       <MypageHeader name={'계좌 관리'} />
       {
@@ -76,9 +79,9 @@ export default function MyAccount() {
       )}
       <button 
         onClick={() => {
-          getBankData();
           if(banks.map((item => item.disabled)).find((x) => x === false) === undefined){
-            alert('등록할 계좌가 없습니다.');
+            setModal(true);
+            setModalText('등록할 계좌가 없습니다.');
             return
           }
           setAccoutForm(true);
@@ -88,7 +91,7 @@ export default function MyAccount() {
         계좌 추가
       </button>
       {
-        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} getAccountData={getAccountData} /> : null
+        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} getBankData={getBankData} getAccountData={getAccountData} /> : null
       }
     </div>
   )
