@@ -1,7 +1,7 @@
 import { updateOrderAdmin } from '@/api/requests';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { formatDate, formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

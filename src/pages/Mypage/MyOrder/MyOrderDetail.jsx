@@ -16,7 +16,7 @@ export default function MyOrderDetail() {
   const navigate = useNavigate();
 
   const detailID = {
-    'detailId': state.id
+    detailId: state.id,
   };
 
   useEffect(() => {
@@ -32,14 +32,12 @@ export default function MyOrderDetail() {
       } finally {
         dispatch(hideLoading());
       }
-      
     }
     postData();
   }, []);
 
-
-  let stateText = '구매 완료'
-  if(orderDetail.done) {
+  let stateText = '구매 완료';
+  if (orderDetail.done) {
     stateText = '구매 확정';
   } else if (orderDetail.isCanceled) {
     stateText = '주문 취소';
@@ -54,35 +52,44 @@ export default function MyOrderDetail() {
       <MypageHeader name={'주문 상세정보'} />
       <div className={style.content}>
         <div className={style.orderDateNum}>
-          <span className={style.orderDate}>주문 날짜 : <b>{date}</b></span>
+          <span className={style.orderDate}>
+            주문 날짜 : <b>{date}</b>
+          </span>
           <span className={style.orderNum}>주문 번호 : {orderDetail.detailId}</span>
         </div>
-        
+
         <div className={style.productContent}>
           <img src={thumbnailSrc} className={style.thumbnailImg}></img>
           <div className={style.productText}>
-            <p className={style.productTitle} onClick={() => {
-              navigate(`/products/${orderProduct.productId}`)
-            }}>{orderProduct.title}</p>
-            <p className={style.productPrice}>{orderPrice}원 <span className={style.productCount}>( {state.count}개 )</span></p>
+            <p
+              className={style.productTitle}
+              onClick={() => {
+                navigate(`/products/${orderProduct.productId}`);
+              }}
+            >
+              {orderProduct.title}
+            </p>
+            <p className={style.productPrice}>
+              {orderPrice}원 <span className={style.productCount}>( {state.count}개 )</span>
+            </p>
           </div>
           <div className={style.productState}>
             <p>{stateText}</p>
           </div>
-          </div>
+        </div>
 
-          <p className={style.accountTitle}>결제 정보</p>
-          <div className={style.accountContent}>
-            <div className={style.bankContent}>
-              <p className={style.accountToolTitle}>결제 수단</p>
-              <span className={style.accountBankName}>{orderAccount.bankName}</span>
-              <span className={style.accountBankNum}>({orderAccount.accountNumber})</span>
-            </div>
-            <div className={style.priceContent}>
-              <p className={style.priceTitle}>결제 금액</p>
-              <p className={style.accountPrice}>{totalPrice} 원</p>
-            </div>
+        <p className={style.accountTitle}>결제 정보</p>
+        <div className={style.accountContent}>
+          <div className={style.bankContent}>
+            <p className={style.accountToolTitle}>결제 수단</p>
+            <span className={style.accountBankName}>{orderAccount.bankName}</span>
+            <span className={style.accountBankNum}>({orderAccount.accountNumber})</span>
           </div>
+          <div className={style.priceContent}>
+            <p className={style.priceTitle}>결제 금액</p>
+            <p className={style.accountPrice}>{totalPrice} 원</p>
+          </div>
+        </div>
       </div>
     </div>
   );

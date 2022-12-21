@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import MypageHeader from '@/components/Mypage/MypageHeader';
 import React, { useEffect, useState } from 'react';
 import style from './MyInfo.module.scss';

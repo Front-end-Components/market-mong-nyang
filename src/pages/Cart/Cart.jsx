@@ -5,7 +5,6 @@ import CartList from '../../components/Cart/CartList/CartList';
 import CartPrice from '../../components/Cart/CartPrice/CartPrice';
 
 export default function Cart() {
-
   return (
     <div className={style.cart}>
       <MypageHeader name={'장바구니'} />
