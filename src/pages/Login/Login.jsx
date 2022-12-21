@@ -23,7 +23,10 @@ export default function Login() {
       password: event.target.password.value,
     });
     if (loginData) {
-      if (loginData.email === process.env.REACT_APP_ADMIN_EMAIL) {
+      if (
+        loginData.email === process.env.REACT_APP_ADMIN_EMAIL &&
+        loginData.password === process.env.REACT_APP_ADMIN_PASSWORD
+      ) {
         dispatch(setIsAdmin({ isAdmin: true }));
         navigate('/admin');
         return;
