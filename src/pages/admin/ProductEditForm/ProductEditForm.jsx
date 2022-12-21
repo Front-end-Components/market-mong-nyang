@@ -68,7 +68,7 @@ export default function ProductEditForm() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!thumb) {
       alert('썸네일 이미지를 등록해 주세요.');
@@ -81,7 +81,7 @@ export default function ProductEditForm() {
     if (window.confirm('상품을 수정하시겠습니까?')) {
       try {
         dispatch(showLoading());
-        updateProduct(product.id, product);
+        await updateProduct(product.id, product);
         dispatch(isProductsUpdate(true));
         alert('상품 수정이 완료되었습니다.');
         navigate(`/admin/product/${id}`);
