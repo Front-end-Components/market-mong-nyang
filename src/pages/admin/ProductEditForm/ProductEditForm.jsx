@@ -238,7 +238,7 @@ export default function ProductEditForm() {
         </div>
       </div>
       <div className={style.buttons}>
-        <Button name={'수정 완료'} isPurple={true} />
+        <Button name={'수정 완료'} isPurple={true} onClick={handleSubmit} />
         <Button name={'취소'} onClick={() => navigate(`/admin/product/${id}`)} />
       </div>
     </form>
