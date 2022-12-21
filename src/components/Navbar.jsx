@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsCart2 } from 'react-icons/bs';
 import { VscHeart } from 'react-icons/vsc';
 import { BiSearch } from 'react-icons/bi';
@@ -12,13 +12,14 @@ import { setUserInit } from '@/store/userSlice';
 
 export default function Header({ isLogin }) {
   const list = useSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   // 검색 값
   const [value, setValue] = useState('');
   const handleChange = (event) => {
     let { value } = event.target;
     setValue(value);
-  }
+  };
 
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Header({ isLogin }) {
     if (isLogout) {
       localStorage.removeItem('token');
       dispatch(setUserInit());
+      navigate('/');
       window.location.reload();
     }
   };
@@ -56,23 +58,23 @@ export default function Header({ isLogin }) {
         </Link>
         <div className={style.inputWrap}>
           <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
           >
             <input
-            id='search-input'
-            className={style.searchInput}
-            type='text'
-            value={value}
-            placeholder='검색어를 입력해 주세요'
-            onChange={(e) => handleChange(e)}
+              id="search-input"
+              className={style.searchInput}
+              type="text"
+              value={value}
+              placeholder="검색어를 입력해 주세요"
+              onChange={(e) => handleChange(e)}
             />
-          <Link to={value !== '' ? "/search/" + value : null}>
-            <button className={style.searchBtn} aria-label="submit">
-              <BiSearch size="24" color="rgb(95, 0, 128)" />
-            </button>
-          </Link>
+            <Link to={value !== '' ? '/search/' + value : null}>
+              <button className={style.searchBtn} aria-label="submit">
+                <BiSearch size="24" color="rgb(95, 0, 128)" />
+              </button>
+            </Link>
           </form>
         </div>
         <div className={style.links}>
