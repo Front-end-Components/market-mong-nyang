@@ -47,6 +47,7 @@
           border-radius: 30px;
           border: 1px solid $color-black;
           background-color: $color-white;
+          cursor: pointer;
         }
       }
     }
@@ -57,6 +58,7 @@
       border: none;
       color: $color-black;
       border-radius: 50px;
+      cursor: pointer;
       background-color: transparent;
     }
   }
