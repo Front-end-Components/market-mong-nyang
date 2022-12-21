@@ -1,5 +1,5 @@
 import Button from '@/components/Button';
-import MypageHeader from '@/components/MypageHeader';
+import MypageHeader from '@/components/Mypage/MypageHeader';
 import React, { useEffect, useState } from 'react';
 import style from './MyInfo.module.scss';
 import { useSelector } from 'react-redux';

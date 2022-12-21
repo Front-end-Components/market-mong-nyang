@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import MypageHeader from '@/components/MypageHeader';
+import MypageHeader from '@/components/Mypage/MypageHeader';
 import style from './MyOrderDetail.module.scss';
 import { selectOrder } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';

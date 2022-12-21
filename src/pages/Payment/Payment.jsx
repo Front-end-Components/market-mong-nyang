@@ -9,7 +9,7 @@ import "swiper/scss"; //basic
 import "swiper/scss/pagination";
 import style from './Payment.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PaymentItem from '@/components/PaymentItem'
+import PaymentItem from '@/components/Payment/PaymentItem'
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';

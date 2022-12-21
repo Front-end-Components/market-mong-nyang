@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import Pagination from '@/components/Pagination';
 import Button from '@/components/Button';
-import MypageHeader from '@/components/MypageHeader';
+import MypageHeader from '@/components/Mypage/MypageHeader';
 import style from './MyLike.module.scss';
 import CartModal from '@/components/Product/CartModal/CartModal';
 import { VscHeart } from 'react-icons/vsc';
