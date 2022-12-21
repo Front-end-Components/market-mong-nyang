@@ -1,13 +1,15 @@
 import { deleteProduct, getListProductAdmin } from '@/api/requests';
 import AdminProductItem from '@/components/admin/AdminProductItem/AdminProductItem';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '@/components/common/Button';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
 import Pagination from '@/components/common/Pagination';
 import { BiSearch } from 'react-icons/bi';
+import { initProductsStore, setProductsStore } from '@/store/productsSlice';
+import { setOrdersStore } from '@/store/ordersSlice';
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -19,21 +21,44 @@ export default function Products() {
   const limit = 10;
   const offset = (page - 1) * limit;
 
+  let storedProducts = useSelector((state) => {
+    return state.products.data;
+  });
+  let storedPage = useSelector((state) => {
+    return state.products.page;
+  });
+
   useEffect(() => {
-    async function getData() {
-      try {
-        dispatch(showLoading());
-        const data = await getListProductAdmin();
-        setProducts(data);
-        setSearch(data);
-      } catch {
-        alert('상품 목록을 조회하지 못했습니다.');
-      } finally {
-        dispatch(hideLoading());
-      }
+    dispatch(setOrdersStore({ page: 0 }));
+    if (storedPage > 0) {
+      setPage(storedPage);
     }
-    getData();
+    if (storedProducts.length === 0) {
+      async function getData() {
+        try {
+          dispatch(showLoading());
+          const data = await getListProductAdmin();
+          setProducts(data);
+          setSearch(data);
+          dispatch(setProductsStore({ data }));
+        } catch {
+          alert('상품 목록을 조회하지 못했습니다.');
+        } finally {
+          dispatch(hideLoading());
+        }
+      }
+      getData();
+    } else {
+      dispatch(showLoading());
+      setProducts(storedProducts);
+      setSearch(storedProducts);
+      dispatch(hideLoading());
+    }
   }, []);
+
+  useEffect(() => {
+    dispatch(setProductsStore({ page }));
+  }, [page]);
 
   const handleSearch = () => {
     let copy = [...products];
