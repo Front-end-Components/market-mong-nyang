@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
 import Pagination from '@/components/Pagination';
-import Button from '../components/Button';
-import MypageHeader from '../components/MypageHeader';
+import Button from '@/components/Button';
+import MypageHeader from '@/components/MypageHeader';
 import style from './MyLike.module.scss';
 import CartModal from '@/components/CartModal';
 import { VscHeart } from 'react-icons/vsc';
@@ -54,7 +54,7 @@ export default function MyLike() {
                 <Button 
                   name={'삭제'} 
                   onClick={() => {
-                    if (window.confirm("정말 삭제합니까?")) {
+                    if (window.confirm("삭제하시겠습니까?")) {
                       dispatch(deleteLike(item.id));
                     }
                   }}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { getListOrderAdmin } from '@/api/requests';
-import AdminOrderItem from '@/components/admin/AdminOrderItem';
+import AdminOrderItem from '@/components/admin/AdminOrderItem/AdminOrderItem';
 import Pagination from '@/components/Pagination';
 import style from './Orders.module.scss';
 import { BiSearch } from 'react-icons/bi';

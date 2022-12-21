@@ -19,20 +19,20 @@ import ProductDetail from './pages/ProductDetail';
 import Mypage from './pages/Mypage';
 import MyOrder from './pages/MyOrder';
 import MyOrderDetail from './pages/MyOrderDetail';
-import MyAccount from './pages/MyAccount';
-import MyAccountForm from './pages/MyAccountForm';
+import MyAccount from './pages/Account/MyAccount';
+import MyAccountForm from './pages/Account/MyAccountForm';
 import MyInfo from './pages/MyInfo/MyInfo';
 import MyInfoForm from './pages/MyInfo/MyInfoForm';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
-import Dashboard from './pages/admin/Dashboard';
-import AdminProducts from './pages/admin/Products';
-import AdminProductAddForm from './pages/admin/ProductAddForm';
-import AdminProductEditForm from './pages/admin/ProductEditForm';
-import AdminProductDetail from './pages/admin/ProductDetail';
-import AdminOrders from './pages/admin/Orders';
-import AdminOrderDetail from './pages/admin/OrderDetail';
-import MyLike from './pages/MyLike';
+import Dashboard from './pages/admin/Dashboard/Dashboard';
+import AdminProducts from './pages/admin/Products/Products';
+import AdminProductAddForm from './pages/admin/ProductAddForm/ProductAddForm';
+import AdminProductEditForm from './pages/admin/ProductEditForm/ProductEditForm';
+import AdminProductDetail from './pages/admin/ProductDetail/ProductDetail';
+import AdminOrders from './pages/admin/Orders/Orders';
+import AdminOrderDetail from './pages/admin/OrderDetail/OrderDetail';
+import MyLike from './pages/Like/MyLike';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import Search from './pages/Search';
@@ -70,17 +70,17 @@ const router = createBrowserRouter([
       {
         path: '/payment',
         element: (
-          // <ProtectedRoute>
-          <Payment />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
         ),
       },
       {
         path: '/mypage',
         element: (
-          // <ProtectedRoute>
-          <Mypage />
-          // </ProtectedRoute>
+          <ProtectedRoute>
+            <Mypage />
+          </ProtectedRoute>
         ),
         children: [
           {
