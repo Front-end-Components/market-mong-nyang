@@ -7,9 +7,12 @@ export default function ProtectedRoute({ children, requireAdmin }) {
     return state.user;
   });
 
-  if (!user || (requireAdmin && !user.isAdmin)) {
-    alert('접근 권한이 없습니다.\n로그인 페이지로 이동합니다.');
-    return <Navigate to='/login' replace />;
+  if (requireAdmin && !user.isAdmin) {
+    alert('접근 권한이 없습니다.\n메인 페이지로 이동합니다.');
+    return <Navigate to="/" replace />;
+  } else if (!user.email) {
+    alert('회원 전용 페이지입니다.\n로그인 페이지로 이동합니다.');
+    return <Navigate to="/login" replace />;
   }
   return children;
 }
