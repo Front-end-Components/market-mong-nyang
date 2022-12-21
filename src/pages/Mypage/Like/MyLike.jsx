@@ -4,7 +4,7 @@ import { insertItem } from '@/store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import Button from '@/components/common/Button';
 import MypageHeader from '@/components/Mypage/MypageHeader';
 import style from './MyLike.module.scss';
