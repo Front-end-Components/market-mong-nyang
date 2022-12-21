@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ProductList from '@/components/Product/ProductList/ProductList';
 
 export default function ProductsLiving() {
