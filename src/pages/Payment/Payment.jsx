@@ -13,6 +13,7 @@ import PaymentItem from '@/components/Payment/PaymentItem';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';
+import { Modal } from '@/components/Modal';
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ export default function Payment() {
   const [account, setAccounts] = useState([]);
   const [accounts, setAccount] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [modalText, setModalText] = useState('');
 
   let { state } = useLocation();
 
@@ -190,6 +193,7 @@ export default function Payment() {
               <span>무료</span>멍냥 주인 무료배송!
             </p>
           </div>
+          {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
           <Button
             name={'결제하기'}
             isPurple={true}
@@ -201,9 +205,12 @@ export default function Payment() {
                     dispatch(deleteItem(item.id));
                   });
                 } catch (error) {
-                  alert('잔액이 부족합니다.');
+                  setModal(true);
+                  setModalText('잔액이 부족합니다.');
+                  window.location.replace('/mypage/account');
                 } finally {
-                  alert('결제가 완료되었습니다.');
+                  setModal(true);
+                  setModalText('결제가 완료되었습니다.');
                   navigate('/mypage/order', { state: state.count });
                 }
               }

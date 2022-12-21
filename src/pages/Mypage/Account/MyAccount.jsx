@@ -9,7 +9,7 @@ import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
 import { RiErrorWarningLine } from 'react-icons/ri';
-import { AccountModal } from '@/components/Modal';
+import { Modal } from '@/components/Modal';
 
 const cx = classNames.bind(style);
 
@@ -60,7 +60,7 @@ export default function MyAccount() {
 
   return (
     <div className={style.container}>
-      {modal ? <AccountModal modal={modal} setModal={setModal} modalText={modalText} /> : null}
+      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
       <MypageHeader name={'계좌 관리'} />
       {Array.isArray(account.accounts) ? (
         <p className={style.totalBalance}>
