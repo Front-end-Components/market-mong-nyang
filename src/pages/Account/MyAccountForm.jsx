@@ -4,12 +4,15 @@ import { useDispatch } from 'react-redux';
 import { insertAccount } from '@/api/requests';
 import style from './MyAccountForm.module.scss';
 import { GrClose } from 'react-icons/gr';
+import { AccountModal } from '@/components/Modal';
 
 export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccountData, getBankData }) {
   const dispatch = useDispatch();
   const [bankCode, setBankCode] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [modal, setModal] = useState(false);
+  const [modalText, setModalText] = useState('');
 
   // 계좌 추가
   async function postData(body) {
@@ -18,7 +21,8 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
       const data = await insertAccount(body);
       setBanks(data);
       getBankData();
-      alert("계좌가 등록됐습니다.");
+      setModal(true);
+      setModalText('계좌가 등록됐습니다.');
       setAccoutForm(false);
       // 초기화
       setBankCode('');
@@ -26,7 +30,8 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
       setPhoneNumber('');
       getAccountData();
     } catch {
-      alert("계좌 등록이 실패했습니다.");
+      setModal(true);
+      setModalText('계좌 등록이 실패했습니다.');
       // 초기화
       setBankCode('');
       setAccountNumber('');
@@ -53,9 +58,21 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (bankCode === '') return alert("은행코드를 입력해주세요.");
-    if (accountNumber === '') return alert("계좌번호를 입력해주세요.");
-    if (phoneNumber === '') return alert("전화번호를 입력해주세요.");
+    if (bankCode === '') {
+      setModal(true);
+      setModalText('은행코드를 입력해주세요.');
+      return
+    } 
+    if (accountNumber === '') {
+      setModal(true);
+      setModalText('계좌번호를 입력해주세요.');
+      return
+    }
+    if (phoneNumber === '') {
+      setModal(true);
+      setModalText('전화번호를 입력해주세요.');
+      return
+    } 
 
     // state에 저장한 데이터 넘기기
     let body = {
@@ -70,6 +87,9 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
   return (
     <div className={style.accountAddForm}>
       <div  className={style.container}>
+      {
+        modal ? <AccountModal modal={modal} setModal={setModal} modalText={modalText} /> : null
+      }
       <h2>계좌 추가</h2>
       <span className={style.closeBtn} onClick={() => {setAccoutForm(false)}}>
         <GrClose size='25' title='닫기' />
