@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import style from './NotFound.module.scss';
