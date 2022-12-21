@@ -28,7 +28,6 @@ function App() {
 
   const requestLoginConfirm = useCallback(async () => {
     const userInfo = await requestUserConfirm();
-    console.log(userInfo);
     if (userInfo) {
       setIsLogin(true);
       dispatch(
