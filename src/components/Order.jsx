@@ -7,11 +7,7 @@ import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
 export default function Order({ item, detail }) {
   const navigate = useNavigate();
-  
-  // const detailID = {
-  //   'detailId': item.detailId
-  // };
-    
+
   let orderGuideMain = '구매가 완료 되었습니다.';
   let orderGuideSub = '구매 확정 이후에는 주문 취소가 불가능합니다.'
   if(item.isCanceled) {
