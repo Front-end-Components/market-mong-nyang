@@ -113,8 +113,9 @@ export default function Dashboard() {
       async function getDatas() {
         try {
           dispatch(showLoading());
-          const orders = await getListOrderAdmin();
+          let orders = await getListOrderAdmin();
           setOrders(orders);
+          orders = orders.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
           dispatch(setOrdersStore({ data: orders }));
           const products = await getListProductAdmin();
           setProducts(products);

@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
 import Pagination from '@/components/common/Pagination';
 import { BiSearch } from 'react-icons/bi';
-import { initProductsStore, setProductsStore } from '@/store/productsSlice';
+import { isProductsUpdate, setProductsStore } from '@/store/productsSlice';
 import { setOrdersStore } from '@/store/ordersSlice';
 
 export default function Products() {
@@ -27,13 +27,16 @@ export default function Products() {
   let storedPage = useSelector((state) => {
     return state.products.page;
   });
+  let isUpdate = useSelector((state) => {
+    return state.products.isUpdate;
+  });
 
   useEffect(() => {
     dispatch(setOrdersStore({ page: 0 }));
     if (storedPage > 0) {
       setPage(storedPage);
     }
-    if (storedProducts.length === 0) {
+    if (storedProducts.length === 0 || isUpdate) {
       async function getData() {
         try {
           dispatch(showLoading());
@@ -41,6 +44,7 @@ export default function Products() {
           setProducts(data);
           setSearch(data);
           dispatch(setProductsStore({ data }));
+          dispatch(isProductsUpdate(false));
         } catch {
           alert('상품 목록을 조회하지 못했습니다.');
         } finally {
@@ -108,6 +112,7 @@ export default function Products() {
           const data = await getListProductAdmin();
           setProducts(data);
           setSearch(data);
+          dispatch(isProductsUpdate(true));
         }
         getData();
         alert('삭제가 완료되었습니다.');

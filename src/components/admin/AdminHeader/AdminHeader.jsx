@@ -5,12 +5,11 @@ import { setIsAdmin, setUserInit } from '@/store/userSlice';
 import React from 'react';
 import { MdOutlineLogout } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import style from './AdminHeader.module.scss';
 
 export default function AdminHeader() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleLogout = async () => {
     if (window.confirm('로그아웃 하시겠습니까?')) {
@@ -22,8 +21,7 @@ export default function AdminHeader() {
         dispatch(initOrderStore());
         dispatch(initProductsStore());
         alert('로그아웃이 완료되었습니다.');
-        navigate('/');
-        window.location.reload();
+        window.location.replace('/');
       } catch {
         alert('로그아웃에 실패하였습니다.');
       }

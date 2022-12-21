@@ -6,6 +6,7 @@ import { formatDate, formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import style from './OrderDetail.module.scss';
+import { isOrderUpdate } from '@/store/ordersSlice';
 
 export default function OrderDetail() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function OrderDetail() {
         dispatch(showLoading());
         updateOrderAdmin(detailId, { isCanceled: !cancled });
         setCancled(!cancled);
+        dispatch(isOrderUpdate(true));
         alert('처리가 완료되었습니다.');
       } catch {
         alert('처리가 완료되지 못했습니다.');
@@ -47,6 +49,7 @@ export default function OrderDetail() {
         dispatch(showLoading());
         updateOrderAdmin(detailId, { done: !finished });
         setFinished(!finished);
+        dispatch(isOrderUpdate(true));
         alert('처리가 완료되었습니다.');
       } catch {
         alert('처리가 완료되지 못했습니다.');
