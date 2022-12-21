@@ -8,7 +8,8 @@ import style from './ProductEditForm.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { isProductsUpdate } from '@/store/adminProductsSlice';
 
-const MAX_FILE_SIZE = 1024 ** 2 * 5;
+const MAX_THUMB_SIZE = 1024 ** 2;
+const MAX_PHOTO_SIZE = 1024 ** 2 * 5;
 
 export default function ProductEditForm() {
   const navigate = useNavigate();
@@ -37,8 +38,11 @@ export default function ProductEditForm() {
     let { name, value, files } = event.target;
     if (files) {
       const file = files[0];
-      if (file.size > MAX_FILE_SIZE) {
-        alert('파일 크기는 최대 5MB 입니다.');
+      if (name === 'thumbnailBase64' && file.size > MAX_THUMB_SIZE) {
+        alert('썸네일 이미지 크기는 최대 1MB 입니다.');
+        return;
+      } else if (name === 'photoBase64' && file.size > MAX_PHOTO_SIZE) {
+        alert('상세 이미지 크기는 최대 5MB 입니다.');
         return;
       }
       const reader = new FileReader();
