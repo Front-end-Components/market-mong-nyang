@@ -4,6 +4,7 @@ React.js 와 REST API 를 활용한 반려동물 용품 쇼핑몰 프로젝트
 
 배포 링크 : [마켓멍냥](https://market-mong-nyang.netlify.app/)  
 원본 사이트 : [마켓컬리](https://www.kurly.com/main)
+상품 출처 : [비엔비엔](https://www.bienbien.kr/main/index.php)
 
 ## 사용기술
 
