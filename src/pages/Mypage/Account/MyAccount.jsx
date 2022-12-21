@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import MypageHeader from '../../../components/Mypage/MypageHeader';
-import Account from '@/components/Account/Account';
+import MypageHeader from '@/components/Mypage/MypageHeader';
+import Account from '@/components/Mypage/Account/Account';
 import MyAccountForm from './MyAccountForm';
 import { getListBank, getListAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
@@ -55,7 +55,7 @@ export default function MyAccount() {
     // 등록된 계좌 조회
     getAccountData();
     // 사용 가능한 은행 조회
-    // getBankData();
+    getBankData();
   }, []);
 
   return (
@@ -85,15 +85,7 @@ export default function MyAccount() {
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
-      {accoutForm === true ? (
-        <MyAccountForm
-          banks={banks}
-          setBanks={setBanks}
-          setAccoutForm={setAccoutForm}
-          getAccountData={getAccountData}
-        />
-      ) : null}
-      <button
+      <button 
         onClick={() => {
           getBankData();
           if (banks.map((item) => item.disabled).find((x) => x === false) === undefined) {
@@ -107,6 +99,14 @@ export default function MyAccount() {
       >
         계좌 추가
       </button>
+      {accoutForm === true ? (
+        <MyAccountForm
+          banks={banks}
+          setBanks={setBanks}
+          setAccoutForm={setAccoutForm}
+          getAccountData={getAccountData}
+        />
+      ) : null}
     </div>
   );
 }
