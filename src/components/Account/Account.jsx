@@ -16,7 +16,7 @@ export default function Account({ item, idx, pageClass, getAccountData, getBankD
   async function deleteData(body) {
     try {
       dispatch(showLoading());  // 로딩
-      const data = await deleteAccount(body);
+      await deleteAccount(body);
       getAccountData();
       getBankData();
       alert("계좌가 삭제됐습니다.");
@@ -48,7 +48,14 @@ export default function Account({ item, idx, pageClass, getAccountData, getBankD
       <h4>{item.bankName}</h4>
       <p>{item.accountNumber}</p>
       <span>{formatPrice(item.balance)}</span>
-      <button value={item.id} onClick={(e) => {deleteHandler(e.target.value)}}>삭제</button>
+      <button
+        value={item.id}
+        onClick={(e) => {
+          if (window.confirm("삭제하시겠습니까?")) {
+            deleteHandler(e.target.value);
+          }
+        }}
+      >삭제</button>
     </div>
     </div>
   )

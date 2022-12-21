@@ -3,7 +3,7 @@ import React from 'react';
 import style from './ProductDetail.module.scss';
 import Button from '@/components/Button';
 import CartModal from '@/components/Product/CartModal/CartModal';
-import Like from '@/components/Like';
+import Like from '@/components/Like/Like';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { formatPrice } from '@/utils/formats.js';
