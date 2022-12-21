@@ -6,7 +6,7 @@ import { formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
-import { isProductsUpdate } from '@/store/productsSlice';
+import { isProductsUpdate } from '@/store/adminProductsSlice';
 
 export default function ProductDetail() {
   const navigate = useNavigate();
