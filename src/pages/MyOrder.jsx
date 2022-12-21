@@ -64,10 +64,11 @@ export default function MyOrder() {
   search.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
 
   let countArray = [];
-  search.map((item) => {
+  search.map((item, i) => {
     if(countArray.find(object => {
       if(object.product.title === item.product.title && object.timePaid.substr(0, 10) === item.timePaid.substr(0, 10)) {
         object.cnt++;
+        object[object.cnt] = item.detailId;
         return true;
       } else {
         return false;
@@ -75,6 +76,7 @@ export default function MyOrder() {
     })) {
     } else {
       item.cnt = 1;
+      item[item.cnt] = item.detailId;
       countArray.push(item);
     }
   })
@@ -109,7 +111,7 @@ export default function MyOrder() {
 
     {Object.keys(countArray).length > 0 ? (
     countArray.slice(offset, offset + limit).map((item) => {
-      return <Order item={item} key={item.detailId} />;
+      return <Order item={item} itmeAll={detail.detailId} key={item.detailId} />;
     })
   ) : (
     <div className={style.noList}>
