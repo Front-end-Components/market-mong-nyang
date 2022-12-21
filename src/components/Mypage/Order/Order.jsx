@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@/components/common/Button';
 import { useNavigate } from 'react-router-dom';
-import style from '@/pages/MyOrder.module.scss';
+import style from '@/pages/Mypage/MyOrder/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
 
