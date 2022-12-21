@@ -181,16 +181,18 @@ export default function Payment() {
           <p><span>무료</span>멍냥 주인 무료배송!</p>
         </div>
         <Button name={'결제하기'} isPurple={true} onClick={() => {
-          try {
-            PaymentItem(state, accountId);
-            state.map((item) => {
-              dispatch(deleteItem(item.id))
-            })
-          } catch (error) {
-            alert('잔액이 부족합니다.');
-          } finally {
-            alert('결제가 완료되었습니다.');
-            navigate('/mypage/order', {state: state.count});
+          if (window.confirm("결제하시겠습니까?")) {
+            try {
+              PaymentItem(state, accountId);
+              state.map((item) => {
+                dispatch(deleteItem(item.id))
+              })
+            } catch (error) {
+              alert('잔액이 부족합니다.');
+            } finally {
+              alert('결제가 완료되었습니다.');
+              navigate('/mypage/order', {state: state.count});
+            }
           }
         }} />
       </div>
