@@ -67,6 +67,7 @@ export default function Products() {
   const handleSearch = () => {
     let copy = [...products];
     copy = copy.filter((item) => item.title.includes(keyword));
+    dispatch(setProductsStore({ keyword }));
     setSearch(copy);
     setPage(1);
   };
