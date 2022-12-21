@@ -6,7 +6,6 @@ import Order from '@/components/Order';
 import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from "react-multi-date-picker"
 import { formatDate } from '@/utils/formats';
-import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import "react-multi-date-picker/styles/colors/purple.css";
@@ -65,7 +64,7 @@ export default function MyOrder() {
   search.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
 
   let countArray = [];
-  search.map(item => {
+  search.map((item) => {
     if(countArray.find(object => {
       if(object.product.title === item.product.title && object.timePaid.substr(0, 10) === item.timePaid.substr(0, 10)) {
         object.cnt++;
@@ -79,7 +78,6 @@ export default function MyOrder() {
       countArray.push(item);
     }
   })
-
 
   const handleDatePicker = (newDate) => {
     setDate(newDate);
@@ -109,9 +107,9 @@ export default function MyOrder() {
       <GrPowerReset color='#5f0080' size='15' title='초기화' />
     </button>
 
-    {countArray.length > 0 ? (
+    {Object.keys(countArray).length > 0 ? (
     countArray.slice(offset, offset + limit).map((item) => {
-      return <Order item={item} />;
+      return <Order item={item} key={item.detailId} />;
     })
   ) : (
     <div className={style.noList}>
@@ -121,7 +119,7 @@ export default function MyOrder() {
   )} 
   <div className={pageDisplay ? style.pagenationNone : style.pagenationBlock}>
         {Array.isArray(countArray) ? (
-          <Pagination total={countArray.length} limit={limit} page={page} setPage={setPage} />
+          <Pagination total={Object.keys(countArray).length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </div>
     </div>
