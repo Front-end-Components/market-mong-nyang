@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
 import { formatPrice } from '@/utils/formats';
-import { isProductsUpdate } from '@/store/productsSlice';
+import { isProductsUpdate } from '@/store/adminProductsSlice';
 
 const MAX_FILE_SIZE = 1024 ** 2 * 5;
 

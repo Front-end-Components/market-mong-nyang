@@ -1,6 +1,6 @@
 import { requestLogout } from '@/api/userAPI';
-import { initOrderStore } from '@/store/ordersSlice';
-import { initProductsStore } from '@/store/productsSlice';
+import { initOrderStore } from '@/store/adminOrdersSlice';
+import { initProductsStore } from '@/store/adminProductsSlice';
 import { setIsAdmin, setUserInit } from '@/store/userSlice';
 import React from 'react';
 import { MdOutlineLogout } from 'react-icons/md';

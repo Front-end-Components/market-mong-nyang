@@ -6,7 +6,7 @@ import Button from '@/components/common/Button';
 import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
 import { formatPrice } from '@/utils/formats';
-import { isProductsUpdate } from '@/store/productsSlice';
+import { isProductsUpdate } from '@/store/adminProductsSlice';
 
 const MAX_FILE_SIZE = 1024 ** 2 * 5;
 

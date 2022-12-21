@@ -6,7 +6,7 @@ import { formatDate, formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import style from './OrderDetail.module.scss';
-import { isOrderUpdate } from '@/store/ordersSlice';
+import { isOrderUpdate } from '@/store/adminOrdersSlice';
 
 export default function OrderDetail() {
   const navigate = useNavigate();
