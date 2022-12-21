@@ -1,5 +1,5 @@
 import { requestUpdateProfile } from '@/api/userAPI';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import { InfoList } from '@/components/Signup/infoList';
 import React from 'react';
 import { useEffect } from 'react';

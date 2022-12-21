@@ -2,7 +2,7 @@ import { deleteProduct, getListProductAdmin } from '@/api/requests';
 import AdminProductItem from '@/components/admin/AdminProductItem/AdminProductItem';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import style from './Products.module.scss';
