@@ -7,6 +7,7 @@ import ProductHeader from '@/components/Product/ProductHeader/ProductHeader';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { searchProduct } from '@/api/requests';
+import { TbMoodEmpty } from 'react-icons/tb';
 
 export default function Search() {
   const dispatch = useDispatch();
@@ -34,12 +35,23 @@ export default function Search() {
   return (
     <div className={style.search}>
       <div className={style.container}>
+        { 
+        products.length > 0 ?
+        <>
         <ProductHeader name={value + '에 대한 검색 결과입니다.'} />
         <div className={style.row}>
           { products.map((products) => {
               return <Product key={products.id} products={products} />
             })}
-        </div>
+        </div></>:
+        <>
+        <ProductHeader name={value + '에 대한 검색 결과가 없습니다.'} />
+          <div className={style.noresult}>
+          <TbMoodEmpty className={style.icon} size="40" title="장바구니" color="rgb(95, 0, 128)" />
+          <p className={style.text}>판매 중인 상품이 없습니다.<br/>검색어를 변경해 보세요.</p>
+          </div>
+        </>
+        }
       </div>
     </div>
   );

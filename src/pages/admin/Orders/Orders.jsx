@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getListOrderAdmin } from '@/api/requests';
 import AdminOrderItem from '@/components/admin/AdminOrderItem/AdminOrderItem';
 import Pagination from '@/components/common/Pagination';
@@ -10,6 +10,8 @@ import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { formatDate } from '@/utils/formats';
+import { initOrderStore, setOrdersStore } from '@/store/ordersSlice';
+import { setProductsStore } from '@/store/productsSlice';
 
 export default function Orders() {
   const dispatch = useDispatch();
@@ -21,21 +23,40 @@ export default function Orders() {
   const offset = (page - 1) * limit;
   const [date, setDate] = useState();
 
+  let storedOrders = useSelector((state) => {
+    return state.orders.data;
+  });
+  let storedPage = useSelector((state) => {
+    return state.orders.page;
+  });
+
   useEffect(() => {
-    async function getData() {
-      try {
-        dispatch(showLoading());
-        let data = await getListOrderAdmin();
-        data = data.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
-        setOrders(data);
-        setSearch(data);
-      } catch {
-        alert('거래 목록을 조회하지 못했습니다.');
-      } finally {
-        dispatch(hideLoading());
-      }
+    dispatch(setProductsStore({ page: 0 }));
+    if (storedPage > 0) {
+      setPage(storedPage);
     }
-    getData();
+    if (storedOrders.length === 0) {
+      async function getData() {
+        try {
+          dispatch(showLoading());
+          let data = await getListOrderAdmin();
+          data = data.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
+          setOrders(data);
+          setSearch(data);
+          dispatch(setOrdersStore({ data }));
+        } catch {
+          alert('거래 목록을 조회하지 못했습니다.');
+        } finally {
+          dispatch(hideLoading());
+        }
+      }
+      getData();
+    } else {
+      dispatch(showLoading());
+      setOrders(storedOrders);
+      setSearch(storedOrders);
+      dispatch(hideLoading());
+    }
   }, []);
 
   useEffect(() => {
@@ -43,6 +64,10 @@ export default function Orders() {
       handleSearch();
     }
   }, [date]);
+
+  useEffect(() => {
+    dispatch(setOrdersStore({ page }));
+  }, [page]);
 
   const CustomInput = ({ value, onClick }) => (
     <button className={style.customInput} onClick={onClick}>
