@@ -5,7 +5,7 @@ import { insertAccount } from '@/api/requests';
 import style from './MyAccountForm.module.scss';
 import { GrClose } from 'react-icons/gr';
 
-export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccountData }) {
+export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccountData, getBankData }) {
   const dispatch = useDispatch();
   const [bankCode, setBankCode] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
@@ -17,6 +17,7 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
       dispatch(showLoading());  // 로딩
       const data = await insertAccount(body);
       setBanks(data);
+      getBankData();
       alert("계좌가 등록됐습니다.");
       setAccoutForm(false);
       // 초기화

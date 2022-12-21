@@ -20,7 +20,7 @@ export default function MyAccount() {
   const [banks, setBanks] = useState([]);
   const [accoutForm, setAccoutForm] = useState(false);
   const [modalText, setModalText] = useState('')
-
+  
   // 등록된 계좌 조회
   async function getAccountData() {
     try {
@@ -55,7 +55,7 @@ export default function MyAccount() {
     // 등록된 계좌 조회
     getAccountData();
     // 사용 가능한 은행 조회
-    // getBankData();
+    getBankData();
   }, []);
 
   return (
@@ -78,11 +78,10 @@ export default function MyAccount() {
         </div>
       )}
       {
-        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} getAccountData={getAccountData} /> : null
+        accoutForm === true ? <MyAccountForm banks={banks} setBanks={setBanks} setAccoutForm={setAccoutForm} getBankData={getBankData} getAccountData={getAccountData} /> : null
       }
       <button 
         onClick={() => {
-          getBankData();
           if(banks.map((item => item.disabled)).find((x) => x === false) === undefined){
             setModal(true);
             setModalText('등록할 계좌가 없습니다.');
