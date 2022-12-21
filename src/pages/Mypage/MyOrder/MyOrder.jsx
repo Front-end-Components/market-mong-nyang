@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import style from './MyOrder.module.scss';
-import MypageHeader from '../components/Mypage/MypageHeader';
+import MypageHeader from '@/components/Mypage/MypageHeader';
 import { getListOrder } from '@/api/requests';
 import Order from '@/components/Mypage/Order/Order';
 import { GrPowerReset } from 'react-icons/gr';
@@ -9,7 +9,7 @@ import { formatDate } from '@/utils/formats';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import 'react-multi-date-picker/styles/colors/purple.css';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import { MyOrderModal } from '@/components/Modal';
 import { RiErrorWarningLine } from 'react-icons/ri';
 
