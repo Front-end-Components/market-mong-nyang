@@ -1,23 +1,23 @@
-import { requestSignup } from "@/api/userAPI";
-import { InfoList } from "@/components/Signup/infoList";
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useCallback } from "react";
-import { useNavigate } from "react-router-dom/dist";
-import Button from "../../components/Button";
-import style from "./Signup.module.scss";
+import { requestSignup } from '@/api/userAPI';
+import { InfoList } from '@/components/Signup/infoList';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom/dist';
+import Button from '../../components/common/Button';
+import style from './Signup.module.scss';
 
 const MAX_PROFILE_IMAGE_SIZE = 1024 * 1024;
 
 export default function Signup() {
   const navigate = useNavigate();
   const [inputs, setInputs] = useState({
-    email: "",
-    password: "",
-    displayName: "",
+    email: '',
+    password: '',
+    displayName: '',
   });
 
-  const [checkPassword, setCheckPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState('');
   const [profileImg, setProfileImg] = useState(null);
   const [isConfirmEmail, setIsConfirmEmail] = useState(true);
   const [isConfirmPassword, setIsConfirmPassword] = useState(false);
@@ -54,7 +54,7 @@ export default function Signup() {
 
   const isCheckProfileSize = (size) => {
     if (size > MAX_PROFILE_IMAGE_SIZE) {
-      alert("이미지 사이즈는 최대 1MB입니다.");
+      alert('이미지 사이즈는 최대 1MB입니다.');
       return false;
     }
     return true;
@@ -66,14 +66,12 @@ export default function Signup() {
   }, [email]);
 
   const handleConfirmPassword = useCallback(() => {
-    if (password.length >= 8 || password.length === 0)
-      setIsConfirmPassword(true);
+    if (password.length >= 8 || password.length === 0) setIsConfirmPassword(true);
     else setIsConfirmPassword(false);
   }, [password]);
 
   const handleConfirmCheckPassword = useCallback(() => {
-    if (password === checkPassword || checkPassword.length === 0)
-      setIsConfirmCheckPassword(true);
+    if (password === checkPassword || checkPassword.length === 0) setIsConfirmCheckPassword(true);
     else setIsConfirmCheckPassword(false);
   }, [password, checkPassword]);
 
@@ -81,7 +79,7 @@ export default function Signup() {
     event.preventDefault();
 
     if (!(isConfirmEmail && isConfirmPassword && isConfirmCheckPassword)) {
-      alert("필수 사항을 조건에 맞게 모두 입력해주세요.");
+      alert('필수 사항을 조건에 맞게 모두 입력해주세요.');
       return;
     }
 
@@ -93,7 +91,7 @@ export default function Signup() {
     };
 
     const isSignup = await requestSignup(signData);
-    if (isSignup) navigate("/login");
+    if (isSignup) navigate('/login');
   };
 
   useEffect(() => {
@@ -115,59 +113,59 @@ export default function Signup() {
       </div>
       <form id="signup" onSubmit={handleSubmitSignup}>
         <InfoList
-          label={"이메일"}
+          label={'이메일'}
           input={{
-            name: "email",
+            name: 'email',
             value: email,
             required: true,
             onChange: handleChangeInfoInputs,
-            placeholder: "이메일을 입력해 주세요",
+            placeholder: '이메일을 입력해 주세요',
           }}
           button={{
-            name: "중복 확인",
+            name: '중복 확인',
             onClick: (e) => {
               e.preventDefault();
             },
           }}
         />
         <InfoList
-          label={"비밀번호"}
+          label={'비밀번호'}
           input={{
-            name: "password",
+            name: 'password',
             value: password,
-            type: "password",
+            type: 'password',
             required: true,
             onChange: handleChangeInfoInputs,
-            placeholder: "비밀번호를 입력해 주세요",
+            placeholder: '비밀번호를 입력해 주세요',
             checkInput: {
               isConfirm: isConfirmPassword,
-              errorMessage: "비밀번호는 8자 이상이어야 합니다.",
+              errorMessage: '비밀번호는 8자 이상이어야 합니다.',
             },
           }}
         />
         <InfoList
-          label={"비밀번호 확인"}
+          label={'비밀번호 확인'}
           input={{
-            name: "checkPassword",
+            name: 'checkPassword',
             value: checkPassword,
-            type: "password",
+            type: 'password',
             required: true,
             onChange: handleChangeCheckPassword,
-            placeholder: "비밀번호를 다시 입력해 주세요",
+            placeholder: '비밀번호를 다시 입력해 주세요',
             checkInput: {
               isConfirm: isConfirmCheckPassword,
-              errorMessage: " 비밀번호가 일치하지 않습니다.",
+              errorMessage: ' 비밀번호가 일치하지 않습니다.',
             },
           }}
         />
         <InfoList
-          label={"이름"}
+          label={'이름'}
           input={{
-            name: "displayName",
+            name: 'displayName',
             value: displayName,
             required: true,
             onChange: handleChangeInfoInputs,
-            placeholder: "이름을 입력해 주세요",
+            placeholder: '이름을 입력해 주세요',
           }}
         />
 
@@ -180,20 +178,12 @@ export default function Signup() {
               onChange={handleChangeProfileImg}
             />
             <figure className={style.profile_inputContainer_img}>
-              {profileImg && (
-                <img alt="프로필" width={150} height={150} src={profileImg} />
-              )}
+              {profileImg && <img alt="프로필" width={150} height={150} src={profileImg} />}
             </figure>
           </article>
         </section>
         <section className={style.btn}>
-          <Button
-            name="가입하기"
-            form="signup"
-            type="submit"
-            isPurple={true}
-            width="100%"
-          />
+          <Button name="가입하기" form="signup" type="submit" isPurple={true} width="100%" />
         </section>
       </form>
     </div>

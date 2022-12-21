@@ -1,7 +1,7 @@
 import { updateProduct } from '@/api/requests';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
