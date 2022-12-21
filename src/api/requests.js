@@ -1,5 +1,4 @@
 import PATH from '@/constants/path.js';
-import { setItem } from '@/utils/storage.js';
 import { defaultInstance, authInstance, adminInstance } from './util.js';
 
 const requestPost = async (path, instance, data) => {
@@ -23,7 +22,6 @@ const requestPut = async (path, instance, data) => {
 const requestDelete = async (path, instance, data) => {
   if (data) {
     return await instance.delete(path, { data }).then((res) => {
-      console.log(res);
       return res.data;
     });
   } else {
@@ -33,29 +31,9 @@ const requestDelete = async (path, instance, data) => {
   }
 };
 
-// 회원가입
-// export const signup = (data) => {
-//   return requestPost(PATH.SIGNUP, defaultInstance, data);
-// };
-
-// 로그인
-// export const login = async (data) => {
-//   const res = await requestPost(PATH.LOGIN, defaultInstance, data);
-//   setItem('token', res.accessToken);
-//   return;
-// };
-
-// 로그아웃
-// export const logout = () => {};rrkar
-
 // 인증확인
 export const checkAuth = () => {
   return requestPost(PATH.AUTH_ME, authInstance);
-};
-
-// 사용자 정보 수정 (사용자)
-export const updateUserInfo = (data) => {
-  return requestGet(PATH.AUTH_USER, authInstance, data);
 };
 
 // 선택 가능한 은행 목록 조회 (사용자)

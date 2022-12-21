@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../api/requests';
-import Button from '../../components/Button';
+import Button from '../../components/common/Button';
 import style from './Login.module.scss';
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setIsAdmin, setUserInfo } from '@/store/userSlice';
 import { requestLogin } from '@/api/userAPI';
@@ -31,16 +29,16 @@ export default function Login() {
         return;
       }
       dispatch(setUserInfo({ displayName: loginData.displayName }));
-      navigate('/');
+      window.location.replace('/');
     } else alert('잘못된 아이디 혹은 비밀번호입니다.');
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token")) {
-  //     alert("잘못된 접근입니다.");
-  //     navigate("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      alert('잘못된 접근입니다.');
+      navigate('/');
+    }
+  }, []);
 
   return (
     <section className={style.login}>

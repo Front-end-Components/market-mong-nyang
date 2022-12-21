@@ -1,26 +1,22 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Loading from './components/Loading';
-import Footer from './components/Footer';
+import Navbar from '@/components/Nav/Navbar/Navbar';
+import Loading from './components/common/Loading';
+import Footer from './components/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import style from './App.module.scss';
-import AdminNavbar from './components/admin/AdminNavbar';
+import AdminNavbar from './components/admin/AdminNavbar/AdminNavbar';
 import { setUserInfo } from './store/userSlice';
-import AdminHeader from './components/admin/AdminHeader';
+import AdminHeader from './components/admin/AdminHeader/AdminHeader';
 import { useEffect, useState } from 'react';
 import { useCallback } from 'react';
 import { requestUserConfirm } from './api/userAPI';
 
 function App() {
   let location = useLocation();
-  const [isLogin, setIsLogin] = useState(false);
   const dispatch = useDispatch();
-  let loading = useSelector((state) => {
-    return state.loading.isLoading;
-  });
-  let isAdmin = useSelector((state) => {
-    return state.user.isAdmin;
-  });
+  const [isLogin, setIsLogin] = useState(false);
+  const loading = useSelector((state) => state.loading.isLoading);
+  const isAdmin = useSelector((state) => state.user.isAdmin);
 
   const requestLoginConfirm = useCallback(async () => {
     const userInfo = await requestUserConfirm();

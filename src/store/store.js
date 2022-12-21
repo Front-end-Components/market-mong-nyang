@@ -3,6 +3,8 @@ import cart from './cartSlice.js';
 import user from './userSlice.js';
 import loading from './loadingSlice.js';
 import like from './likeSlice.js';
+import orders from './adminOrdersSlice.js';
+import products from './adminProductsSlice.js';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
@@ -12,7 +14,7 @@ const persistConfig = {
   version: 1,
   storage, // 저장 공간
   whitelist: ['cart', 'user', 'like'], // 유지하고 싶은 값
-  blacklist: ['stock', 'loading'], // 유지하지 않을 내용
+  blacklist: ['loading', 'orders', 'products'], // 유지하지 않을 내용
 };
 
 const reducer = combineReducers({
@@ -20,6 +22,8 @@ const reducer = combineReducers({
   user: user.reducer,
   loading: loading.reducer,
   like: like.reducer,
+  orders: orders.reducer,
+  products: products.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

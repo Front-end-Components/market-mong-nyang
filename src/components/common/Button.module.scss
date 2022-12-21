@@ -1,0 +1,35 @@
+.button {
+  display: block;
+  padding: 0px 10px;
+  text-align: center;
+  overflow: hidden;
+  padding: 0 1rem;
+  height: 44px;
+  border-radius: 3px;
+  cursor: pointer;
+  span {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.white {
+  color: $color-purple;
+  background-color: $color-white;
+  border: 1px solid $color-purple;
+}
+
+.purple {
+  color: $color-white;
+  background-color: $color-purple;
+  border: 0px none;
+}
+
+.displayNone {
+  display: none;
+}

@@ -1,0 +1,139 @@
+.myOrder {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 100px;
+  position: relative;
+  .datePickerWrap {
+    position: absolute;
+    top: 50px;
+    right: 5%;
+    input {
+      border: 1px solid #5f0080;
+    }
+  }
+  .searchReset {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #5f0080;
+    padding: 6px 5px 4px;
+  }
+
+  .content {
+    width: 100%;
+    margin-top: 15px;
+    position: relative;
+    .orderContent {
+      display: table;
+      width: 100%;
+      padding: 5px 0;
+      min-height: 150px;
+      border: 1px solid #f5f5f5;
+      .imgContent {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        margin-top: -50px;
+        .orderImg {
+          width: 80px;
+          height: 100px;
+        }
+      }
+      .textContent {
+        padding-left: 130px;
+        position: relative;
+        width: 65%;
+        float: left;
+        margin-top: 3%;
+        p {
+          margin-bottom: 7px;
+        }
+        .productName {
+          font-size: 20px;
+          margin-bottom: 5px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 350px;
+          height: 25px;
+          cursor: pointer;
+        }
+        .orderPrice {
+          display: inline-block;
+          font-size: 15px;
+          position: relative;
+          margin-right: 20px;
+        }
+        .orderDate {
+          display: inline-block;
+          font-size: 15px;
+          color: #999;
+          position: relative;
+          &::before {
+            content: '';
+            width: 1px;
+            height: 15px;
+            background-color: #bababc;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -10px;
+            margin: auto;
+          }
+        }
+        .orderState {
+          color: #999;
+          border-bottom: 1px solid #f3f3f3;
+          width: 95%;
+          padding-bottom: 15px;
+          font-size: 13px;
+        }
+        .orderGuide {
+          color: #333;
+          font-size: 13px;
+          margin-bottom: 3px;
+        }
+      }
+      .displayNone{
+        display: none;
+      }
+      .btnContent {
+        display: table-cell;
+        vertical-align: middle;
+        width: 15%;
+        :first-child {
+          margin-bottom: 10px;
+        }
+        Button {
+          width: 80%;
+          height: 30px;
+          padding: 7px;
+          span {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+  .noList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    height: 450px;
+    h4 {
+      color: $color-lightgray;
+    }
+  }
+  .pagenationNone {
+    display: none;
+  }
+  .pagenationBlock {
+    display: block;
+  }
+}
