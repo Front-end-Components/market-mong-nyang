@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import MypageNavbar from '../components/MypageNavbar';
+import MypageNavbar from '../../components/Mypage/MypageNavbar';
 import style from './Mypage.module.scss';
 
 export default function Mypage() {

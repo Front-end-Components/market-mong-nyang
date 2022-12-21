@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import MypageHeader from '../../components/Mypage/MypageHeader';
+import MypageHeader from '../../../components/Mypage/MypageHeader';
 import Account from '@/components/Account/Account';
 import MyAccountForm from './MyAccountForm';
 import { getListBank, getListAccount } from '@/api/requests';
