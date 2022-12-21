@@ -21,72 +21,80 @@ export default function Dashboard() {
   const today = String(date.getDate()).padStart(2, 0);
 
   useEffect(() => {
-    const chartEl = document.querySelector('#pie-chart');
-    const chart = echarts.init(chartEl);
-    chart.setOption({
-      tooltip: {
-        trigger: 'item',
-      },
-      legend: {
-        orient: 'vertical',
-        left: 'left',
-      },
-      series: [
-        {
-          name: '거래 카테고리',
-          type: 'pie',
-          radius: '80%',
-          data: category,
-          emphasis: {
-            itemStyle: {
-              shadowBlur: 10,
-              shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)',
+    if (category.length > 0) {
+      const chartEl = document.querySelector('#pie-chart');
+      const chart = echarts.init(chartEl);
+      chart.setOption({
+        tooltip: {
+          trigger: 'item',
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+        },
+        series: [
+          {
+            name: '거래 카테고리',
+            type: 'pie',
+            radius: '80%',
+            data: category,
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
             },
           },
-        },
-      ],
-    });
+        ],
+      });
+    } else {
+      document.querySelector('#bar-chart').innerHTML = '통계 정보가 없습니다.';
+    }
   }, [category]);
 
   useEffect(() => {
-    const chartEl = document.querySelector('#bar-chart');
-    const chart = echarts.init(chartEl);
-    chart.setOption({
-      tooltip: {
-        extraCssText: `
+    if (Object.keys(sales).length > 0) {
+      const chartEl = document.querySelector('#bar-chart');
+      const chart = echarts.init(chartEl);
+      chart.setOption({
+        tooltip: {
+          extraCssText: `
       padding: 8px;
       border-radius: 4px;
       background-color: #FFF;
       color: #FFF;`,
-      },
-      xAxis: {
-        data: Object.keys(sales),
-        axisLabel: {
-          formatter: (value) => `${value} 일`,
         },
-      },
-      yAxis: {
-        type: 'value',
-      },
-      series: [
-        {
-          name: '이번 주 거래 금액',
-          type: 'bar',
-          data: Object.values(sales),
-          itemStyle: {
-            color: '#9370db',
+        xAxis: {
+          data: Object.keys(sales),
+          axisLabel: {
+            formatter: (value) => `${value} 일`,
           },
         },
-        {
-          type: 'line',
-          data: Object.values(sales),
-          itemStyle: {
-            color: 'blue',
-          },
+        yAxis: {
+          type: 'value',
         },
-      ],
-    });
+        series: [
+          {
+            name: '이번 주 거래 금액',
+            type: 'bar',
+            data: Object.values(sales),
+            itemStyle: {
+              color: '#9370db',
+            },
+          },
+          {
+            type: 'line',
+            data: Object.values(sales),
+            itemStyle: {
+              color: 'blue',
+            },
+          },
+        ],
+      });
+    } else {
+      document.querySelector('#bar-chart').innerHTML = '통계 정보가 없습니다.';
+    }
   }, [sales]);
 
   useEffect(() => {
