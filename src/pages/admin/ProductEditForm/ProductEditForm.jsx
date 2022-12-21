@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
 import { formatPrice } from '@/utils/formats';
+import { isProductsUpdate } from '@/store/productsSlice';
 
 const MAX_FILE_SIZE = 1024 ** 2 * 5;
 
@@ -77,9 +78,10 @@ export default function ProductEditForm() {
       try {
         dispatch(showLoading());
         updateProduct(product.id, product);
+        dispatch(isProductsUpdate(true));
         alert('상품 수정이 완료되었습니다.');
         navigate(`/admin/product/${id}`);
-      } catch {
+      } catch (e) {
         alert('상품 수정이 완료되지 못했습니다.');
       } finally {
         dispatch(hideLoading());

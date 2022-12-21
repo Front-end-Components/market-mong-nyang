@@ -10,7 +10,7 @@ import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { formatDate } from '@/utils/formats';
-import { initOrderStore, setOrdersStore } from '@/store/ordersSlice';
+import { isOrderUpdate, setOrdersStore } from '@/store/ordersSlice';
 import { setProductsStore } from '@/store/productsSlice';
 
 export default function Orders() {
@@ -29,13 +29,16 @@ export default function Orders() {
   let storedPage = useSelector((state) => {
     return state.orders.page;
   });
+  let isUpdate = useSelector((state) => {
+    return state.orders.isUpdate;
+  });
 
   useEffect(() => {
     dispatch(setProductsStore({ page: 0 }));
     if (storedPage > 0) {
       setPage(storedPage);
     }
-    if (storedOrders.length === 0) {
+    if (storedOrders.length === 0 || isUpdate) {
       async function getData() {
         try {
           dispatch(showLoading());
@@ -44,6 +47,7 @@ export default function Orders() {
           setOrders(data);
           setSearch(data);
           dispatch(setOrdersStore({ data }));
+          dispatch(isOrderUpdate(false));
         } catch {
           alert('거래 목록을 조회하지 못했습니다.');
         } finally {

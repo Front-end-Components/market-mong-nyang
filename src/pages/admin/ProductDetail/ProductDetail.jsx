@@ -6,6 +6,7 @@ import { formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import style from './ProductDetail.module.scss';
+import { isProductsUpdate } from '@/store/productsSlice';
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -37,8 +38,9 @@ export default function ProductDetail() {
       try {
         dispatch(showLoading());
         deleteProduct(id);
+        dispatch(isProductsUpdate(true));
         alert('삭제가 완료되었습니다.');
-        navigate('/admin/products');
+        window.location.replace('/admin/products');
       } catch {
         alert('삭제가 완료되지 못했습니다.');
       } finally {

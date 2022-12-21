@@ -6,6 +6,7 @@ import Button from '@/components/common/Button';
 import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
 import { formatPrice } from '@/utils/formats';
+import { isProductsUpdate } from '@/store/productsSlice';
 
 const MAX_FILE_SIZE = 1024 ** 2 * 5;
 
@@ -64,8 +65,9 @@ export default function ProductForm() {
       try {
         dispatch(showLoading());
         insertProduct(product);
+        dispatch(isProductsUpdate(true));
         alert('상품 등록이 완료되었습니다.');
-        navigate('/admin/products');
+        window.location.replace('/admin/products');
       } catch {
         alert('상품 등록이 완료되지 못했습니다.');
       } finally {
