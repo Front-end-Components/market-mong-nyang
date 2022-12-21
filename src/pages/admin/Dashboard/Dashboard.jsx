@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import style from './Dashboard.module.scss';
 import * as echarts from 'echarts';
 import { getListOrderAdmin, getListProductAdmin } from '@/api/requests';
@@ -8,6 +8,8 @@ import { formatPrice } from '@/utils/formats';
 import { AiOutlinePieChart, AiFillPieChart } from 'react-icons/ai';
 import { GrMoney } from 'react-icons/gr';
 import { BsCheckCircle } from 'react-icons/bs';
+import { setOrdersStore } from '@/store/ordersSlice';
+import { setProductsStore } from '@/store/productsSlice';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -19,6 +21,13 @@ export default function Dashboard() {
   const year = String(date.getFullYear());
   const month = String(date.getMonth() + 1).padStart(2, 0);
   const today = String(date.getDate()).padStart(2, 0);
+
+  let storedOrders = useSelector((state) => {
+    return state.orders.data;
+  });
+  let storedProducts = useSelector((state) => {
+    return state.products.data;
+  });
 
   useEffect(() => {
     if (category.length > 0) {
@@ -98,20 +107,31 @@ export default function Dashboard() {
   }, [sales]);
 
   useEffect(() => {
-    async function getDatas() {
-      try {
-        dispatch(showLoading());
-        const orders = await getListOrderAdmin();
-        setOrders(orders);
-        const products = await getListProductAdmin();
-        setProducts(products);
-      } catch {
-        alert('데이터 조회에 실패하였습니다.');
-      } finally {
-        dispatch(hideLoading());
+    dispatch(setOrdersStore({ page: 0 }));
+    dispatch(setProductsStore({ page: 0 }));
+    if (storedOrders.length === 0 && storedProducts.length === 0) {
+      async function getDatas() {
+        try {
+          dispatch(showLoading());
+          const orders = await getListOrderAdmin();
+          setOrders(orders);
+          dispatch(setOrdersStore({ data: orders }));
+          const products = await getListProductAdmin();
+          setProducts(products);
+          dispatch(setProductsStore({ data: products }));
+        } catch {
+          alert('데이터 조회에 실패하였습니다.');
+        } finally {
+          dispatch(hideLoading());
+        }
       }
+      getDatas();
+    } else {
+      dispatch(showLoading());
+      setOrders(storedOrders);
+      setProducts(storedProducts);
+      dispatch(hideLoading());
     }
-    getDatas();
   }, []);
 
   useEffect(() => {

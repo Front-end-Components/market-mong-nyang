@@ -1,4 +1,6 @@
 import { requestLogout } from '@/api/userAPI';
+import { initOrderStore } from '@/store/ordersSlice';
+import { initProductsStore } from '@/store/productsSlice';
 import { setIsAdmin, setUserInit } from '@/store/userSlice';
 import React from 'react';
 import { MdOutlineLogout } from 'react-icons/md';
@@ -17,6 +19,8 @@ export default function AdminHeader() {
         localStorage.removeItem('token');
         dispatch(setIsAdmin({ isAdmin: false }));
         dispatch(setUserInit());
+        dispatch(initOrderStore());
+        dispatch(initProductsStore());
         alert('로그아웃이 완료되었습니다.');
         navigate('/');
         window.location.reload();
