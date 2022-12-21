@@ -1,4 +1,4 @@
-import Button from '../Button';
+import Button from '../common/Button';
 import style from './infoList.module.scss';
 
 export const InfoList = ({ label, input, button }) => {

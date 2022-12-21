@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { insertProduct } from '@/api/requests';
-import Button from '@/components/Button';
+import Button from '@/components/common/Button';
 import style from './ProductAddForm.module.scss';
 import { useNavigate } from 'react-router';
 import { formatPrice } from '@/utils/formats';

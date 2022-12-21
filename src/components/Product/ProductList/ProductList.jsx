@@ -2,7 +2,7 @@ import React from 'react';
 import style from './ProductList.module.scss';
 import Product from '@/components/Product/Product/Product'
 import ProductHeader from '@/components/Product/ProductHeader/ProductHeader';
-import Pagination from '@/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from 'react';
 import { getListProductAdmin } from '@/api/requests';
