@@ -16,7 +16,7 @@ export default function Account({ item, idx, pageClass, getAccountData, getBankD
   async function deleteData(body) {
     try {
       dispatch(showLoading());  // 로딩
-      const data = await deleteAccount(body);
+      await deleteAccount(body);
       getAccountData();
       getBankData();
       alert("계좌가 삭제됐습니다.");
