@@ -13,7 +13,7 @@ import PaymentItem from '@/components/Payment/PaymentItem';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 
 export default function Payment() {
   const navigate = useNavigate();

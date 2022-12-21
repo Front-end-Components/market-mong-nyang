@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import 'react-multi-date-picker/styles/colors/purple.css';
 import Pagination from '@/components/common/Pagination';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 import { RiErrorWarningLine } from 'react-icons/ri';
 
 export default function MyOrder() {
