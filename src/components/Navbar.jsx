@@ -20,6 +20,9 @@ export default function Header({ isLogin }) {
     setValue(value);
   }
 
+  // 공백 체크
+  const spaceCheck = value.trim().length;
+
   const displayName = useSelector((state) => state.user.displayName);
   const dispatch = useDispatch();
 
@@ -57,6 +60,7 @@ export default function Header({ isLogin }) {
         <div className={style.inputWrap}>
           <form
           onSubmit={(e) => {
+            spaceCheck === 0 ? alert('검색어를 입력해 주세요') :
             e.preventDefault();
           }}
           >
@@ -68,8 +72,11 @@ export default function Header({ isLogin }) {
             placeholder='검색어를 입력해 주세요'
             onChange={(e) => handleChange(e)}
             />
-          <Link to={value !== '' ? "/search/" + value : null}>
-            <button className={style.searchBtn} aria-label="submit" onClick={() => setValue('')}>
+          <Link to={spaceCheck !== 0 ? "/search/" + value : null}>
+            <button
+            className={style.searchBtn}
+            aria-label="submit"
+            onClick={() => setValue('')}>
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>
           </Link>
