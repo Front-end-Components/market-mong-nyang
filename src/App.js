@@ -22,10 +22,6 @@ function App() {
     return state.user.isAdmin;
   });
 
-  useEffect(() => {
-    document.title = '마켓멍냥';
-  }, []);
-
   const requestLoginConfirm = useCallback(async () => {
     const userInfo = await requestUserConfirm();
     if (userInfo) {
