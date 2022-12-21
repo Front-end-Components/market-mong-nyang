@@ -41,7 +41,7 @@ export default function MainDisplay({data, name}) {
       }}
     >
             {data.map((product) => {
-                return <SwiperSlide><Product key={product.id} products={product} className={style.product} /></SwiperSlide>
+                return <SwiperSlide key={product.id}><Product products={product} className={style.product} /></SwiperSlide>
               })}
           </Swiper>
         </div>
