@@ -65,7 +65,7 @@ export default function OrderDetail() {
         <h1>거래 내역 상세</h1>
         <div
           className={style.product}
-          onClick={() => navigate(`/admin/product/${product.productId}`)}
+          onClick={() => navigate(`/admin/products/${product.productId}`)}
         >
           <img src={product.thumbnail} alt="thumbnail" />
           <div className={style.productInfo}>
