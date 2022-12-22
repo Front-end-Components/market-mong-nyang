@@ -164,7 +164,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/admin/product/:id',
+        path: '/admin/products/:id',
         element: (
           <ProtectedRoute requireAdmin>
             <AdminProductDetail />
