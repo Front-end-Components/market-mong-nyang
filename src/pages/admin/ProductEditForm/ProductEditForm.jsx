@@ -84,7 +84,7 @@ export default function ProductEditForm() {
         await updateProduct(product.id, product);
         dispatch(isProductsUpdate(true));
         alert('상품 수정이 완료되었습니다.');
-        navigate(`/admin/product/${id}`);
+        navigate(`/admin/products/${id}`);
       } catch (e) {
         alert('상품 수정이 완료되지 못했습니다.');
       } finally {
@@ -245,7 +245,7 @@ export default function ProductEditForm() {
       </div>
       <div className={style.buttons}>
         <Button name={'수정 완료'} isPurple={true} onClick={handleSubmit} />
-        <Button name={'취소'} onClick={() => navigate(`/admin/product/${id}`)} />
+        <Button name={'취소'} onClick={() => navigate(`/admin/products/${id}`)} />
       </div>
     </form>
   );
