@@ -17,7 +17,7 @@ export default function AdminProductItem({ item, idx, handleCheck, checkId }) {
       <div
         onClick={(event) => {
           if (event.target.type !== 'checkbox') {
-            navigate(`/admin/product/${item.id}`);
+            navigate(`/admin/products/${item.id}`);
           }
         }}
       >
