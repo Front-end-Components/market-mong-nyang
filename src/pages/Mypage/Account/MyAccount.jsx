@@ -9,7 +9,7 @@ import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
 import { RiErrorWarningLine } from 'react-icons/ri';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 
 const cx = classNames.bind(style);
 
@@ -85,7 +85,7 @@ export default function MyAccount() {
           <h4>등록된 계좌가 없습니다.</h4>
         </div>
       )}
-      <button 
+      <button
         onClick={() => {
           getBankData();
           if (banks.map((item) => item.disabled).find((x) => x === false) === undefined) {
