@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@/components/common/Button';
 import { useNavigate } from 'react-router-dom';
 import style from '@/pages/Mypage/MyOrder/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
+import { Modal } from '@/components/Modal';
 
 export default function Order({ item }) {
+  const [modal, setModal] = useState(false);
+  const [modalText, setModalText] = useState('');
   const navigate = useNavigate();
 
   let orderGuideMain = '구매가 완료 되었습니다.';
@@ -30,6 +33,7 @@ export default function Order({ item }) {
 
   return (
     <div className={style.content}>
+      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
       <div className={style.orderContent}>
         <div className={style.imgContent}>
           <img src={thumbnail} className={style.orderImg}></img>
@@ -61,15 +65,17 @@ export default function Order({ item }) {
             onClick={() => {
               if (window.confirm('주문을 취소 하시겠습니까?')) {
                 try {
-                  for (let i = 1; i <= item.cnt; i++) {
+                  while (item.cnt > 0) {
                     const detailID = {
-                      detailId: item[i],
+                      detailId: item[item.cnt],
                     };
                     updateOrderCancel(detailID);
+                    item.cnt--;
                   }
                 } finally {
                   window.location.replace('/mypage/order');
-                  alert('주문이 취소 되었습니다.');
+                  setModal(true);
+                  setModalText('주문이 취소 되었습니다.');
                 }
               }
             }}
@@ -89,7 +95,8 @@ export default function Order({ item }) {
                   }
                 } finally {
                   window.location.replace('/mypage/order');
-                  alert('구매가 확정 되었습니다.');
+                  setModal(true);
+                  setModalText('구매가 확정 되었습니다.');
                 }
               }
             }}
