@@ -6,7 +6,7 @@ import { formatDate, formatPrice } from '@/utils/formats';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import style from './OrderDetail.module.scss';
-import { isOrderUpdate } from '@/store/ordersSlice';
+import { isOrderUpdate } from '@/store/adminOrdersSlice';
 
 export default function OrderDetail() {
   const navigate = useNavigate();
@@ -25,12 +25,12 @@ export default function OrderDetail() {
     setFinished(done);
   }, []);
 
-  const handleChangeCancle = () => {
+  const handleChangeCancle = async () => {
     const msg = cancled ? '거래 취소를 해제 처리하시겠습니까?' : '거래를 취소 처리하시겠습니까?';
     if (window.confirm(msg)) {
       try {
         dispatch(showLoading());
-        updateOrderAdmin(detailId, { isCanceled: !cancled });
+        await updateOrderAdmin(detailId, { isCanceled: !cancled });
         setCancled(!cancled);
         dispatch(isOrderUpdate(true));
         alert('처리가 완료되었습니다.');
@@ -42,12 +42,12 @@ export default function OrderDetail() {
     }
   };
 
-  const handelChangeDone = () => {
+  const handelChangeDone = async () => {
     const msg = finished ? '거래 완료를 해제 처리하시겠습니까?' : '거래를 완료 처리하시겠습니까?';
     if (window.confirm(msg)) {
       try {
         dispatch(showLoading());
-        updateOrderAdmin(detailId, { done: !finished });
+        await updateOrderAdmin(detailId, { done: !finished });
         setFinished(!finished);
         dispatch(isOrderUpdate(true));
         alert('처리가 완료되었습니다.');
@@ -65,7 +65,7 @@ export default function OrderDetail() {
         <h1>거래 내역 상세</h1>
         <div
           className={style.product}
-          onClick={() => navigate(`/admin/product/${product.productId}`)}
+          onClick={() => navigate(`/admin/products/${product.productId}`)}
         >
           <img src={product.thumbnail} alt="thumbnail" />
           <div className={style.productInfo}>

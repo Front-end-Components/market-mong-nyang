@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Account from '@/components/Account/Account';
+import Account from '@/components/Mypage/Account/Account';
 import Button from '@/components/common/Button';
 import { getListAccount, checkAuth, insertOrder } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
@@ -12,7 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 
 export default function Payment() {
   const dispatch = useDispatch();

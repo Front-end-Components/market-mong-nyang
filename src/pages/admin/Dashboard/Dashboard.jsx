@@ -8,8 +8,8 @@ import { formatPrice } from '@/utils/formats';
 import { AiOutlinePieChart, AiFillPieChart } from 'react-icons/ai';
 import { GrMoney } from 'react-icons/gr';
 import { BsCheckCircle } from 'react-icons/bs';
-import { setOrdersStore } from '@/store/ordersSlice';
-import { setProductsStore } from '@/store/productsSlice';
+import { setOrdersStore } from '@/store/adminOrdersSlice';
+import { setProductsStore } from '@/store/adminProductsSlice';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -89,14 +89,14 @@ export default function Dashboard() {
             type: 'bar',
             data: Object.values(sales),
             itemStyle: {
-              color: '#9370db',
+              color: '#ffd966',
             },
           },
           {
             type: 'line',
             data: Object.values(sales),
             itemStyle: {
-              color: 'blue',
+              color: '#F71A5B',
             },
           },
         ],

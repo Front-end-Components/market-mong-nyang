@@ -6,9 +6,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import style from './ProductEditForm.module.scss';
 import { formatPrice } from '@/utils/formats';
-import { isProductsUpdate } from '@/store/productsSlice';
+import { isProductsUpdate } from '@/store/adminProductsSlice';
 
-const MAX_FILE_SIZE = 1024 ** 2 * 5;
+const MAX_THUMB_SIZE = 1024 ** 2;
+const MAX_PHOTO_SIZE = 1024 ** 2 * 5;
 
 export default function ProductEditForm() {
   const navigate = useNavigate();
@@ -37,8 +38,11 @@ export default function ProductEditForm() {
     let { name, value, files } = event.target;
     if (files) {
       const file = files[0];
-      if (file.size > MAX_FILE_SIZE) {
-        alert('파일 크기는 최대 5MB 입니다.');
+      if (name === 'thumbnailBase64' && file.size > MAX_THUMB_SIZE) {
+        alert('썸네일 이미지 크기는 최대 1MB 입니다.');
+        return;
+      } else if (name === 'photoBase64' && file.size > MAX_PHOTO_SIZE) {
+        alert('상세 이미지 크기는 최대 5MB 입니다.');
         return;
       }
       const reader = new FileReader();
@@ -64,7 +68,7 @@ export default function ProductEditForm() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!thumb) {
       alert('썸네일 이미지를 등록해 주세요.');
@@ -77,10 +81,10 @@ export default function ProductEditForm() {
     if (window.confirm('상품을 수정하시겠습니까?')) {
       try {
         dispatch(showLoading());
-        updateProduct(product.id, product);
+        await updateProduct(product.id, product);
         dispatch(isProductsUpdate(true));
         alert('상품 수정이 완료되었습니다.');
-        navigate(`/admin/product/${id}`);
+        navigate(`/admin/products/${id}`);
       } catch (e) {
         alert('상품 수정이 완료되지 못했습니다.');
       } finally {
@@ -241,7 +245,7 @@ export default function ProductEditForm() {
       </div>
       <div className={style.buttons}>
         <Button name={'수정 완료'} isPurple={true} onClick={handleSubmit} />
-        <Button name={'취소'} onClick={() => navigate(`/admin/product/${id}`)} />
+        <Button name={'취소'} onClick={() => navigate(`/admin/products/${id}`)} />
       </div>
     </form>
   );

@@ -10,8 +10,8 @@ import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { formatDate } from '@/utils/formats';
-import { isOrderUpdate, setOrdersStore } from '@/store/ordersSlice';
-import { setProductsStore } from '@/store/productsSlice';
+import { isOrderUpdate, setOrdersStore } from '@/store/adminOrdersSlice';
+import { setProductsStore } from '@/store/adminProductsSlice';
 
 export default function Orders() {
   const dispatch = useDispatch();
