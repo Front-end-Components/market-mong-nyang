@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import style from '@/pages/Mypage/MyOrder/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/common/Modal';
 
 export default function Order({ item }) {
   const [modal, setModal] = useState(false);
