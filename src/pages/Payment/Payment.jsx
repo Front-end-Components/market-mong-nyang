@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Account from '@/components/Mypage/Account/Account';
 import Button from '@/components/common/Button';
-import { getListAccount, checkAuth } from '@/api/requests';
+import { getListAccount, checkAuth, insertOrder } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import { Swiper, SwiperSlide } from 'swiper/react'; // basic
 import { Pagination } from 'swiper';
@@ -9,25 +9,24 @@ import 'swiper/scss'; //basic
 import 'swiper/scss/pagination';
 import style from './Payment.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PaymentItem from '@/components/Payment/PaymentItem';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';
 import { Modal } from '@/components/common/Modal';
 
 export default function Payment() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [account, setAccounts] = useState([]);
   const [accounts, setAccount] = useState([]);
   const [payAuth, setPayAuth] = useState([]);
   const [modal, setModal] = useState(false);
   const [modalText, setModalText] = useState('');
+  const [slideIndex, setSlideIndex] = useState(0);
 
   let { state } = useLocation();
 
   let totalPrice = 0;
-  if (state.length) {
+  if (state?.length) {
     state.map((item) => {
       totalPrice += item.price * item.count;
     });
@@ -42,7 +41,7 @@ export default function Payment() {
         dispatch(showLoading());
         const data = await getListAccount();
         setAccounts(data);
-        setAccount(data.accounts[0]);
+        setAccount(data.accounts);
       } catch {
         alert('등록된 계좌가 없습니다.');
       } finally {
@@ -51,8 +50,6 @@ export default function Payment() {
     }
     getData();
   }, []);
-
-  const accountId = accounts.id;
 
   useEffect(() => {
     async function postData() {
@@ -69,11 +66,38 @@ export default function Payment() {
     postData();
   }, []);
 
+  const accountId = accounts[slideIndex]?.id;
+  function PaymentItem (state, accountId) {
+    try {
+      state.map(async (item) => {
+        const data = {
+          productId: item.id,
+          accountId: accountId
+        }
+        let count = item.count;
+        if(count) {
+          while(count > 0) {
+            await insertOrder(data);
+            count--;
+          }
+        }
+        });
+    } catch (error) {
+      setModal(true);
+      setModalText('잔액이 부족합니다.');
+    } finally {
+      setModal(true);
+      setModalText('결제가 완료되었습니다.');
+
+    }
+  }
+
   return (
     <div className={style.container}>
+      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} path={'/mypage/order'} /> : null}
       <h2>주문서</h2>
       <div className={style.orderForm}>
-        <h3>주문 상품</h3>
+        <h3 className={style.textH3}>주문 상품</h3>
         <div className={style.inner}>
           <Swiper
             modules={[Pagination]}
@@ -110,7 +134,7 @@ export default function Payment() {
       </div>
 
       <div className={style.orderForm}>
-        <h3>주문자 정보</h3>
+        <h3 className={style.textH3}>주문자 정보</h3>
         <div className={style.inner}>
           <div className={style.left}>
             <span className={style.txt}>보내는 분</span>
@@ -125,7 +149,7 @@ export default function Payment() {
 
       <div className={style.paymentContent}>
         <div className={style.orderForm}>
-          <h3>결제 수단</h3>
+          <h3 className={style.textH3}>결제 수단</h3>
           <div className={style.inner}>
             <div className={style.left}>
               <span className={style.txt}>결제수단 선택</span>
@@ -140,6 +164,7 @@ export default function Payment() {
               <Swiper
                 modules={[Pagination]}
                 pagination={{ clickable: true }}
+                onSlideChange={(e) => setSlideIndex(e.activeIndex)}
                 loop={false} // 루프 슬라이드
                 spaceBetween={10} // 슬라이드간의 간격
                 slidesPerView={1} // 한 번에 보여지는 슬라이드 개수
@@ -173,7 +198,7 @@ export default function Payment() {
         </div>
 
         <div className={style.payForm}>
-          <h3>결제 금액</h3>
+          <h3 className={style.textH3}>결제 금액</h3>
           <div className={style.inner}>
             <div className={style.left}>
               <span className={style.txt}>주문금액</span>
@@ -193,29 +218,17 @@ export default function Payment() {
               <span>무료</span>멍냥 주인 무료배송!
             </p>
           </div>
-          {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
           <Button
             name={'결제하기'}
             isPurple={true}
             onClick={() => {
               if (window.confirm('결제하시겠습니까?')) {
-                try {
                   PaymentItem(state, accountId);
                   state.map((item) => {
                     dispatch(deleteItem(item.id));
                   });
-                } catch (error) {
-                  setModal(true);
-                  setModalText('잔액이 부족합니다.');
-                  window.location.replace('/mypage/account');
-                } finally {
-                  setModal(true);
-                  setModalText('결제가 완료되었습니다.');
-                  navigate('/mypage/order', { state: state.count });
-                }
-              }
             }}
-          />
+            } />
         </div>
       </div>
     </div>
