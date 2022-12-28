@@ -8,7 +8,7 @@ import classNames from 'classnames/bind';
 
 const cx = classNames.bind(style);
 
-export default function Account({ item, idx, pageClass, getAccountData, getBankData }) {
+export default function Account({ item, idx, pageClass, getAccountData, getBankData, setModal, setModalText }) {
   const dispatch = useDispatch();
   const [componentClass, setComponentClass] = useState(null);
 
@@ -19,9 +19,11 @@ export default function Account({ item, idx, pageClass, getAccountData, getBankD
       await deleteAccount(body);
       getAccountData();
       getBankData();
-      alert("계좌가 삭제됐습니다.");
+      setModal(true);
+      setModalText('계좌가 삭제됐습니다.');
     } catch {
-      alert("계좌 삭제가 실패했습니다.");
+      setModal(true);
+      setModalText('계좌 삭제가 실패했습니다.');
     } finally {
       dispatch(hideLoading());  // 로딩
     }

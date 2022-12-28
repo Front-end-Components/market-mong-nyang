@@ -1,9 +1,11 @@
 .container {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: $color-white;
-  z-index: 100;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba($color: $color-white, $alpha: .6);
+  z-index: 900;
   .loading {
     position: absolute;
     left: 50vw;
