@@ -104,16 +104,16 @@ export default function Header({ isLogin }) {
       <nav>
         <ul>
           <li>
-            <Link to="/products-food">주식 / 간식</Link>
+            <Link to="/category/food">주식 / 간식</Link>
           </li>
           <li>
-            <Link to="/products-care">건강 / 케어</Link>
+            <Link to="/category/care">건강 / 케어</Link>
           </li>
           <li>
-            <Link to="/products-living">의류 / 리빙</Link>
+            <Link to="/category/living">의류 / 리빙</Link>
           </li>
           <li>
-            <Link to="/products-hygiene">외출 / 위생</Link>
+            <Link to="/category/hygiene">외출 / 위생</Link>
           </li>
         </ul>
       </nav>

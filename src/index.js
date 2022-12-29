@@ -10,10 +10,7 @@ import Login from './pages/Login/Login';
 import Signup from './pages/Signup/Signup';
 import Cart from './pages/Cart/Cart';
 import Payment from './pages/Payment/Payment';
-import ProductsFood from '@/pages/Product/Products/ProductsFood';
-import ProductsCare from '@/pages/Product/Products/ProductsCare';
-import ProductsLiving from '@/pages/Product/Products/ProductsLiving';
-import ProductsHygiene from '@/pages/Product/Products/ProductsHygiene';
+import Products from '@/pages/Product/Products/Products';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import Mypage from './pages/Mypage/Mypage';
 import MyOrder from './pages/Mypage/MyOrder/MyOrder';
@@ -52,10 +49,7 @@ const router = createBrowserRouter([
         path: '/signup',
         element: <Signup />,
       },
-      { path: '/products-food', element: <ProductsFood /> },
-      { path: '/products-care', element: <ProductsCare /> },
-      { path: '/products-living', element: <ProductsLiving /> },
-      { path: '/products-hygiene', element: <ProductsHygiene /> },
+      { path: '/category/:category', element: <Products /> },
       { path: '/search/:value', element: <Search /> },
       {
         path: '/products/:id',
