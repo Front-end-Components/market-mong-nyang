@@ -17,6 +17,7 @@ function Modal({ modal, setModal, modalText, path }) {
   );
 }
 
+// 수정중.....
 function ModalOkCancel({ modal, setModal, modalText }) {
   return (
     <div className={style.cartmodal}>
