@@ -11,7 +11,7 @@ import { isOrderUpdate } from '@/store/adminOrdersSlice';
 export default function OrderDetail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cancled, setCancled] = useState(false);
+  const [canceld, setCanceled] = useState(false);
   const [finished, setFinished] = useState(false);
 
   let {
@@ -21,34 +21,33 @@ export default function OrderDetail() {
   } = useLocation();
 
   useEffect(() => {
-    setCancled(isCanceled);
+    setCanceled(isCanceled);
     setFinished(done);
   }, []);
 
-  const handleChangeCancle = async () => {
-    const msg = cancled ? '거래 취소를 해제 처리하시겠습니까?' : '거래를 취소 처리하시겠습니까?';
-    if (window.confirm(msg)) {
-      try {
-        dispatch(showLoading());
-        await updateOrderAdmin(detailId, { isCanceled: !cancled });
-        setCancled(!cancled);
-        dispatch(isOrderUpdate(true));
-        alert('처리가 완료되었습니다.');
-      } catch {
-        alert('처리가 완료되지 못했습니다.');
-      } finally {
-        dispatch(hideLoading());
-      }
+  const handelChange = async (event) => {
+    let data = {};
+    let process = '';
+    if (event.target.id === 'cancel') {
+      process = '취소';
+      data = { isCanceled: !canceld };
+    } else {
+      process = '완료';
+      data = { done: !finished };
     }
-  };
 
-  const handelChangeDone = async () => {
-    const msg = finished ? '거래 완료를 해제 처리하시겠습니까?' : '거래를 완료 처리하시겠습니까?';
+    const msg = canceld
+      ? `거래 ${process}를 해제 처리하시겠습니까?`
+      : `거래를 ${process} 처리하시겠습니까?`;
     if (window.confirm(msg)) {
       try {
         dispatch(showLoading());
-        await updateOrderAdmin(detailId, { done: !finished });
-        setFinished(!finished);
+        await updateOrderAdmin(detailId, data);
+        if (event.target.id === 'cancel') {
+          setCanceled(!canceld);
+        } else {
+          setFinished(!finished);
+        }
         dispatch(isOrderUpdate(true));
         alert('처리가 완료되었습니다.');
       } catch {
@@ -89,21 +88,23 @@ export default function OrderDetail() {
         <div className={style.group}>
           <h2>거래 정보</h2>
           <p>거래 일시 : {formatDate(timePaid)}</p>
-          <p>취소여부 : {cancled ? 'Y' : 'N'}</p>
+          <p>취소여부 : {canceld ? 'Y' : 'N'}</p>
           <p>완료여부 : {finished ? 'Y' : 'N'}</p>
         </div>
       </div>
       <div className={style.buttons}>
-        {cancled ? (
-          <Button name={'거래 취소 해제'} onClick={handleChangeCancle} />
-        ) : (
-          <Button name={'거래 취소'} isPurple={true} onClick={handleChangeCancle} />
-        )}
-        {finished ? (
-          <Button name={'거래 완료 해제'} onClick={handelChangeDone} />
-        ) : (
-          <Button name={'거래 완료'} isPurple={true} onClick={handelChangeDone} />
-        )}
+        <Button
+          name={canceld ? '거래 취소 해제' : '거래 취소'}
+          id="cancel"
+          isPurple={!canceld && true}
+          onClick={handelChange}
+        />
+        <Button
+          name={finished ? '거래 완료 해제' : '거래 완료'}
+          id="done"
+          isPurple={!finished && true}
+          onClick={handelChange}
+        />
       </div>
     </div>
   );
