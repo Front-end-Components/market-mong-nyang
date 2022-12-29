@@ -133,7 +133,6 @@ export default function ProductDetail() {
                         checked: true,
                       })
                     );
-                    // alert('장바구니에 추가되었습니다.');
                     setModal(true);
                   }}
                 />

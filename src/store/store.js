@@ -11,8 +11,7 @@ import { persistReducer } from 'redux-persist';
 
 const persistConfig = {
   key: 'root',
-  version: 1,
-  storage, // 저장 공간
+  storage : storage, // 저장 공간
   whitelist: ['cart', 'user', 'like'], // 유지하고 싶은 값
   blacklist: ['loading', 'orders', 'products'], // 유지하지 않을 내용
 };
