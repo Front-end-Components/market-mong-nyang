@@ -23,8 +23,7 @@ import NotFound from './pages/common/NotFound';
 import ProtectedRoute from './pages/common/ProtectedRoute';
 import Dashboard from './pages/admin/Dashboard/Dashboard';
 import AdminProducts from './pages/admin/Products/Products';
-import AdminProductAddForm from './pages/admin/ProductAddForm/ProductAddForm';
-import AdminProductEditForm from './pages/admin/ProductEditForm/ProductEditForm';
+import AdminProductForm from './pages/admin/ProductForm/ProductForm';
 import AdminProductDetail from './pages/admin/ProductDetail/ProductDetail';
 import AdminOrders from './pages/admin/Orders/Orders';
 import AdminOrderDetail from './pages/admin/OrderDetail/OrderDetail';
@@ -145,7 +144,7 @@ const router = createBrowserRouter([
         path: '/admin/products/add',
         element: (
           <ProtectedRoute requireAdmin>
-            <AdminProductAddForm />
+            <AdminProductForm />
           </ProtectedRoute>
         ),
       },
@@ -153,7 +152,7 @@ const router = createBrowserRouter([
         path: '/admin/products/modify/:id',
         element: (
           <ProtectedRoute requireAdmin>
-            <AdminProductEditForm />
+            <AdminProductForm />
           </ProtectedRoute>
         ),
       },
