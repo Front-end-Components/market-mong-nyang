@@ -21,6 +21,10 @@ export default function Header({ isLogin }) {
     setValue(value);
   };
 
+  const handleSubmit = () => {
+    return spaceCheck !== 0 ? window.location.href = `/search/${value}` : null
+  }
+
   // 공백 체크
   const spaceCheck = value.trim().length;
 
@@ -73,14 +77,15 @@ export default function Header({ isLogin }) {
               placeholder="검색어를 입력해 주세요"
               onChange={(e) => handleChange(e)}
             />
-          <Link to={spaceCheck !== 0 ? "/search/" + value : null}>
             <button
             className={style.searchBtn}
             aria-label="submit"
-            onClick={() => setValue('')}>
+            onClick={() => {
+              handleSubmit(value, spaceCheck);
+              setValue('');
+              }}>
               <BiSearch size="24" color="rgb(95, 0, 128)" />
             </button>
-          </Link>
           </form>
         </div>
         <div className={style.links}>
