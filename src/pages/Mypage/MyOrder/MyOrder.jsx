@@ -43,7 +43,7 @@ export default function MyOrder() {
       }
     }
     getData();
-  }, []);
+  }, [page]);
 
   const CustomInput = ({ value, onClick }) => (
     <button className={style.customInput} onClick={onClick}>
@@ -65,7 +65,7 @@ export default function MyOrder() {
   search.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
 
   let countArray = [];
-  search.map((item, i) => {
+  search.map((item) => {
     if (
       countArray.find((object) => {
         if (
