@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import style from '@/pages/Mypage/MyOrder/MyOrder.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { updateOrderOk, updateOrderCancel } from '@/api/requests';
-import { Modal } from '@/components/common/Modal';
+import { Modal, ModalOkCancel } from '@/components/common/Modal';
 
 export default function Order({ item }) {
   const [modal, setModal] = useState(false);
@@ -27,22 +27,45 @@ export default function Order({ item }) {
   }, []);
 
   async function OrderOk () {
-    while(item.cnt > 0) {
-      const detailID = {
-        detailId: item[item.cnt],
-      };
-      await updateOrderOk(detailID);
-      item.cnt--;
+    try {
+      while(item.cnt > 0) {
+        const detailID = {
+          detailId: item[item.cnt],
+        };
+        await updateOrderOk(detailID);
+        item.cnt--;
+      }
+    } catch {
+      setModal(true);
+      setModalText('오류가 발생하였습니다.');
+    } finally {
+      setModal(true);
+      setModalText('구매가 확정 되었습니다.');
+      setDisplayBtn(true);
+      setGuideMain('구매가 확정 되었습니다.');
+      setStateText('구매 확정');
     }
   }
 
   async function OrderCancel () {
-    while(item.cnt > 0) {
-      const detailID = {
-        detailId: item[item.cnt],
-      };
-      await updateOrderCancel(detailID);
-      item.cnt--;
+    try {
+      while(item.cnt > 0) {
+        const detailID = {
+          detailId: item[item.cnt],
+        };
+        await updateOrderCancel(detailID);
+        item.cnt--;
+      }
+    } catch {
+      setModal(true);
+      setModalText('오류가 발생하였습니다.');
+    } finally {
+      setModal(true);
+      setModalText('주문이 취소 되었습니다.');
+      setDisplayBtn(true);
+      setGuideMain('주문이 취소 되었습니다.');
+      setGuideSub('');
+      setStateText('주문 취소');
     }
   }
 
@@ -50,9 +73,10 @@ export default function Order({ item }) {
   let price = formatPrice(item.product.price);
   let thumbnail = `${item.product.thumbnail}`;
 
+
   return (
     <div className={style.content}>
-      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
+      {modal ? <Modal modalText={modalText} /> : null}
       <div className={style.orderContent}>
         <div className={style.imgContent}>
           <img src={thumbnail} className={style.orderImg}></img>
@@ -82,18 +106,7 @@ export default function Order({ item }) {
             display={displayBtn || item.isCanceled || item.done}
             name={'주문 취소'}
             onClick={() => {
-              if (window.confirm('주문을 취소 하시겠습니까?')) {
-                try {
-                  OrderCancel();
-                } finally {
-                  setModal(true);
-                  setModalText('주문이 취소 되었습니다.');
-                  setDisplayBtn(true);
-                  setGuideMain('주문이 취소 되었습니다.');
-                  setGuideSub('');
-                  setStateText('주문 취소');
-                }
-              }
+              ModalOkCancel('주문을 취소 하시겠습니까?', '취소', OrderCancel);
             }}
           />
           <Button
@@ -101,17 +114,7 @@ export default function Order({ item }) {
             name={'구매 확정'}
             isPurple={true}
             onClick={() => {
-              if (window.confirm('구매를 확정 하시겠습니까?')) {
-                try {
-                  OrderOk();
-                } finally {
-                  setModal(true);
-                  setModalText('구매가 확정 되었습니다.');
-                  setDisplayBtn(true);
-                  setGuideMain('구매가 확정 되었습니다.');
-                  setStateText('구매 확정');
-                }
-              }
+                ModalOkCancel('구매를 확정 하시겠습니까?', '확정', OrderOk);
             }}
           />
         </div>

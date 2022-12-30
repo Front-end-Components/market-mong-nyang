@@ -12,7 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { showLoading, hideLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
 import { deleteItem } from '@/store/cartSlice';
-import { Modal } from '@/components/common/Modal';
+import { Modal, ModalOkCancel } from '@/components/common/Modal';
 
 export default function Payment() {
   const dispatch = useDispatch();
@@ -88,13 +88,15 @@ export default function Payment() {
     } finally {
       setModal(true);
       setModalText('결제가 완료되었습니다.');
-
+      state.map((item) => {
+        dispatch(deleteItem(item.id));
+      });
     }
   }
 
   return (
     <div className={style.container}>
-      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} path={'/mypage/order'} /> : null}
+      {modal ? <Modal modalText={modalText} path={'/mypage/order'} /> : null}
       <h2>주문서</h2>
       <div className={style.orderForm}>
         <h3 className={style.textH3}>주문 상품</h3>
@@ -222,13 +224,8 @@ export default function Payment() {
             name={'결제하기'}
             isPurple={true}
             onClick={() => {
-              if (window.confirm('결제하시겠습니까?')) {
-                  PaymentItem(state, accountId);
-                  state.map((item) => {
-                    dispatch(deleteItem(item.id));
-                  });
-            }}
-            } />
+              ModalOkCancel('결제하시겠습니까?', '확인', PaymentItem(state, accountId))
+             }} />
         </div>
       </div>
     </div>

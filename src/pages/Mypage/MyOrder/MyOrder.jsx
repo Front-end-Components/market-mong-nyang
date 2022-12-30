@@ -105,7 +105,7 @@ export default function MyOrder() {
   return (
     <div className={style.myOrder}>
       <MypageHeader name={'주문 내역'} />
-      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
+      {modal ? <Modal modalText={modalText} /> : null}
       <div className={style.datePickerWrap}>
         <DatePicker
           className="purple"
