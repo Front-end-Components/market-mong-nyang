@@ -26,26 +26,22 @@ export default function OrderDetail() {
   }, []);
 
   const handelChange = async (event) => {
-    let data = {};
-    let process = '';
-    if (event.target.id === 'cancel') {
-      process = '취소';
-      data = { isCanceled: !canceld };
+    const id = event.currentTarget.id;
+    let msg = '';
+    if (id === 'cancel') {
+      msg = canceld ? `거래 취소를 해제 처리하시겠습니까?` : `거래를 취소 처리하시겠습니까?`;
     } else {
-      process = '완료';
-      data = { done: !finished };
+      msg = finished ? `거래 완료를 해제 처리하시겠습니까?` : `거래를 완료 처리하시겠습니까?`;
     }
 
-    const msg = canceld
-      ? `거래 ${process}를 해제 처리하시겠습니까?`
-      : `거래를 ${process} 처리하시겠습니까?`;
     if (window.confirm(msg)) {
       try {
         dispatch(showLoading());
-        await updateOrderAdmin(detailId, data);
-        if (event.target.id === 'cancel') {
+        if (id === 'cancel') {
+          await updateOrderAdmin(detailId, { isCanceled: !canceld });
           setCanceled(!canceld);
         } else {
+          await updateOrderAdmin(detailId, { done: !finished });
           setFinished(!finished);
         }
         dispatch(isOrderUpdate(true));
@@ -95,13 +91,13 @@ export default function OrderDetail() {
       <div className={style.buttons}>
         <Button
           name={canceld ? '거래 취소 해제' : '거래 취소'}
-          id="cancel"
+          id={'cancel'}
           isPurple={!canceld && true}
           onClick={handelChange}
         />
         <Button
           name={finished ? '거래 완료 해제' : '거래 완료'}
-          id="done"
+          id={'done'}
           isPurple={!finished && true}
           onClick={handelChange}
         />
