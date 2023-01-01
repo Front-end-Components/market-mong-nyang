@@ -1,26 +1,41 @@
-import React, { useRef, useState } from 'react';
+import { insertProduct, updateProduct } from '@/api/requests';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
 import { useDispatch } from 'react-redux';
-import { insertProduct } from '@/api/requests';
 import Button from '@/components/common/Button';
-import style from './ProductAddForm.module.scss';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import style from './ProductForm.module.scss';
 import { formatPrice } from '@/utils/formats';
 import { isProductsUpdate } from '@/store/adminProductsSlice';
 
 const MAX_THUMB_SIZE = 1024 ** 2;
 const MAX_PHOTO_SIZE = 1024 ** 2 * 5;
 
-export default function ProductForm() {
-  const [product, setProduct] = useState({});
-  const dispatch = useDispatch();
+export default function ProductEditForm() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+  const { state, pathname } = useLocation();
+  const curPage = pathname.split('/')[3];
   const thumbInput = useRef();
   const photoInput = useRef();
   const [thumbName, setThumbName] = useState('');
   const [photoName, setPhotoName] = useState('');
   const [thumb, setThumb] = useState('');
   const [photo, setPhoto] = useState('');
+
+  useEffect(() => {
+    if (curPage === 'modify') {
+      setProduct(state.product);
+      const thumbName = state.product.thumbnail.split('/');
+      const photoName = state.product.photo.split('/');
+      setThumbName(thumbName[thumbName.length - 1]);
+      setPhotoName(photoName[photoName.length - 1]);
+      setThumb(state.product.thumbnail);
+      setPhoto(state.product.photo);
+    }
+  }, []);
 
   const handleChange = (event) => {
     let { name, value, files } = event.target;
@@ -51,6 +66,8 @@ export default function ProductForm() {
       });
     } else if (name === 'price') {
       value = formatPrice(Number(value.replace(/,/g, '')));
+    } else if (name === 'isSoldOut') {
+      value = JSON.parse(value);
     }
     setProduct((product) => ({ ...product, [name]: value }));
   };
@@ -65,17 +82,33 @@ export default function ProductForm() {
       alert('상세 이미지를 등록해 주세요.');
       return;
     }
-    if (window.confirm('상품을 등록하시겠습니까?')) {
-      try {
-        dispatch(showLoading());
-        await insertProduct(product);
-        dispatch(isProductsUpdate(true));
-        alert('상품 등록이 완료되었습니다.');
-        navigate('/admin/products');
-      } catch {
-        alert('상품 등록이 완료되지 못했습니다.');
-      } finally {
-        dispatch(hideLoading());
+    if (curPage === 'modify') {
+      if (window.confirm('상품을 수정하시겠습니까?')) {
+        try {
+          dispatch(showLoading());
+          await updateProduct(product.id, product);
+          dispatch(isProductsUpdate(true));
+          alert('상품 수정이 완료되었습니다.');
+          navigate(`/admin/products/${id}`);
+        } catch (e) {
+          alert('상품 수정이 완료되지 못했습니다.');
+        } finally {
+          dispatch(hideLoading());
+        }
+      }
+    } else {
+      if (window.confirm('상품을 등록하시겠습니까?')) {
+        try {
+          dispatch(showLoading());
+          await insertProduct(product);
+          dispatch(isProductsUpdate(true));
+          alert('상품 등록이 완료되었습니다.');
+          navigate('/admin/products');
+        } catch {
+          alert('상품 등록이 완료되지 못했습니다.');
+        } finally {
+          dispatch(hideLoading());
+        }
       }
     }
   };
@@ -93,7 +126,7 @@ export default function ProductForm() {
   return (
     <form className={style.formWrap} onSubmit={handleSubmit}>
       <div className={style.header}>
-        <h1>상품 등록</h1>
+        <h1>{curPage === 'modify' ? '상품 수정' : '상품 등록'}</h1>
       </div>
       <div className={style.content}>
         <div className={style.inputWrap}>
@@ -101,7 +134,7 @@ export default function ProductForm() {
             <p>
               카테고리 <span className={style.required}>*</span>
             </p>
-            <select name="tags" onChange={handleChange} required>
+            <select name="tags" onChange={handleChange} value={product.tags} required>
               <option value="">선택</option>
               <option value="주식">주식</option>
               <option value="간식">간식</option>
@@ -133,7 +166,7 @@ export default function ProductForm() {
             <input
               type="text"
               name="price"
-              value={product.price ?? ''}
+              value={formatPrice(product.price) ?? ''}
               placeholder="가격"
               required
               onChange={handleChange}
@@ -154,6 +187,17 @@ export default function ProductForm() {
               onChange={handleChange}
             />
           </div>
+          {curPage === 'modify' && (
+            <div className={style.group}>
+              <p>
+                품절 여부 <span className={style.required}>*</span>
+              </p>
+              <select name="isSoldOut" onChange={handleChange} value={product.isSoldOut} required>
+                <option value={true}>Y</option>
+                <option value={false}>N</option>
+              </select>
+            </div>
+          )}
         </div>
         <div className={style.inputWrap}>
           <div className={style.fileGroup}>
@@ -221,8 +265,15 @@ export default function ProductForm() {
         </div>
       </div>
       <div className={style.buttons}>
-        <Button name={'등록'} isPurple={true} onClick={handleSubmit} />
-        <Button name={'취소'} onClick={() => navigate(-1)} />
+        <Button
+          name={curPage === 'modify' ? '수정 완료' : '등록'}
+          isPurple={true}
+          onClick={handleSubmit}
+        />
+        <Button
+          name={'취소'}
+          onClick={() => (curPage === 'modify' ? navigate(`/admin/products/${id}`) : navigate(-1))}
+        />
       </div>
     </form>
   );

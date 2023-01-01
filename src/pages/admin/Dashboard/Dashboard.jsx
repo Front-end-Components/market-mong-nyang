@@ -10,6 +10,7 @@ import { GrMoney } from 'react-icons/gr';
 import { BsCheckCircle } from 'react-icons/bs';
 import { setOrdersStore } from '@/store/adminOrdersSlice';
 import { setProductsStore } from '@/store/adminProductsSlice';
+import { useRef } from 'react';
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -17,6 +18,16 @@ export default function Dashboard() {
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
   const [sales, setSales] = useState({});
+  const [productCnt, setProductCnt] = useState(0);
+  const [soldOutCnt, setSoldOutCnt] = useState(0);
+  const [monthOrder, setMonthOrder] = useState(0);
+  const [monthCancel, setMonthCancel] = useState(0);
+  const [monthDone, setMonthDone] = useState(0);
+  const [monthAmount, setMonthAmount] = useState(0);
+
+  const pieChartRef = useRef();
+  const barChartRef = useRef();
+
   const date = new Date();
   const year = String(date.getFullYear());
   const month = String(date.getMonth() + 1).padStart(2, 0);
@@ -31,7 +42,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (category.length > 0) {
-      const chartEl = document.querySelector('#pie-chart');
+      const chartEl = pieChartRef.current;
       const chart = echarts.init(chartEl);
       chart.setOption({
         tooltip: {
@@ -57,14 +68,12 @@ export default function Dashboard() {
           },
         ],
       });
-    } else {
-      document.querySelector('#bar-chart').innerHTML = '통계 정보가 없습니다.';
     }
   }, [category]);
 
   useEffect(() => {
     if (Object.keys(sales).length > 0) {
-      const chartEl = document.querySelector('#bar-chart');
+      const chartEl = barChartRef.current;
       const chart = echarts.init(chartEl);
       chart.setOption({
         tooltip: {
@@ -101,8 +110,6 @@ export default function Dashboard() {
           },
         ],
       });
-    } else {
-      document.querySelector('#bar-chart').innerHTML = '통계 정보가 없습니다.';
     }
   }, [sales]);
 
@@ -136,19 +143,20 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    document.querySelector('.monthOrder').innerHTML = orders.filter(
-      (item) => item.timePaid.substr(5, 2) === month
-    ).length;
-    document.querySelector('.monthCancle').innerHTML = orders.filter(
-      (item) => item.timePaid.substr(5, 2) === month && item.isCanceled === true
-    ).length;
-    document.querySelector('.monthDone').innerHTML = orders.filter(
-      (item) => item.timePaid.substr(5, 2) === month && item.done === true
-    ).length;
-    document.querySelector('.monthAmount').innerHTML = formatPrice(
-      orders
-        .filter((item) => item.timePaid.substr(5, 2) === month && item.isCanceled === false)
-        .reduce((acc, cur) => acc + Number(cur.product.price), 0)
+    setMonthOrder(orders.filter((item) => item.timePaid.substr(5, 2) === month).length);
+    setMonthCancel(
+      orders.filter((item) => item.timePaid.substr(5, 2) === month && item.isCanceled === true)
+        .length
+    );
+    setMonthDone(
+      orders.filter((item) => item.timePaid.substr(5, 2) === month && item.done === true).length
+    );
+    setMonthAmount(
+      formatPrice(
+        orders
+          .filter((item) => item.timePaid.substr(5, 2) === month && item.isCanceled === false)
+          .reduce((acc, cur) => acc + Number(cur.product.price), 0)
+      )
     );
 
     const map = new Map();
@@ -184,10 +192,8 @@ export default function Dashboard() {
   }, [orders]);
 
   useEffect(() => {
-    document.querySelector('.product').innerHTML = products.length;
-    document.querySelector('.soldout').innerHTML = products.filter(
-      (item) => item.isSoldOut === true
-    ).length;
+    setProductCnt(products.length);
+    setSoldOutCnt(products.filter((item) => item.isSoldOut === true).length);
   }, [products]);
 
   return (
@@ -201,7 +207,7 @@ export default function Dashboard() {
               거래 수
             </h2>
             <p>
-              <span className="monthOrder"></span> 개
+              <span>{monthOrder}</span> 개
             </p>
           </div>
           <div className={style.card}>
@@ -210,7 +216,7 @@ export default function Dashboard() {
               거래 취소 수
             </h2>
             <p>
-              <span className="monthCancle"></span> 개
+              <span>{monthCancel}</span> 개
             </p>
           </div>
           <div className={style.card}>
@@ -219,7 +225,7 @@ export default function Dashboard() {
               거래 확정 수
             </h2>
             <p>
-              <span className="monthDone"></span> 개
+              <span>{monthDone}</span> 개
             </p>
           </div>
           <div className={style.card}>
@@ -227,7 +233,7 @@ export default function Dashboard() {
               <GrMoney size="20" />총 매출 금액
             </h2>
             <p>
-              <span className="monthAmount"></span> 원
+              <span>{monthAmount}</span> 원
             </p>
           </div>
         </div>
@@ -238,7 +244,7 @@ export default function Dashboard() {
               <AiFillPieChart size="20" />총 상품 수
             </h2>
             <p>
-              <span className="product"></span> 개
+              <span className="product">{productCnt}</span> 개
             </p>
           </div>
           <div className={style.card}>
@@ -247,7 +253,7 @@ export default function Dashboard() {
               품절 상품 수
             </h2>
             <p>
-              <span className="soldout"></span> 개
+              <span className="soldout">{soldOutCnt}</span> 개
             </p>
           </div>
         </div>
@@ -255,11 +261,11 @@ export default function Dashboard() {
       <div className={style.row}>
         <div className={style.content}>
           <h1>거래 카테고리 통계</h1>
-          <div id="pie-chart" className={style.chart}></div>
+          <div className={style.chart} ref={pieChartRef}></div>
         </div>
         <div className={style.content}>
           <h1>이번 주 거래 금액 통계</h1>
-          <div id="bar-chart" className={style.chart}></div>
+          <div className={style.chart} ref={barChartRef}></div>
         </div>
       </div>
     </div>

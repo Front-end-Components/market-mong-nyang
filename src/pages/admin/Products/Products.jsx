@@ -65,10 +65,8 @@ export default function Products() {
   }, [page]);
 
   const handleSearch = () => {
-    let copy = [...products];
-    copy = copy.filter((item) => item.title.includes(keyword));
     dispatch(setProductsStore({ keyword }));
-    setSearch(copy);
+    setSearch(products.filter((item) => item.title.includes(keyword)));
     setPage(1);
   };
 
@@ -130,13 +128,11 @@ export default function Products() {
       setSearch(products);
       return;
     }
-    let copy = [...products];
     if (event.target.name === 'tags') {
-      copy = copy.filter((item) => item.tags === event.target.value);
+      setSearch(products.filter((item) => item.tags === event.target.value));
     } else if (event.target.name === 'soldout') {
-      copy = copy.filter((item) => String(item.isSoldOut) === event.target.value);
+      setSearch(products.filter((item) => String(item.isSoldOut) === event.target.value));
     }
-    setSearch(copy);
     setPage(1);
   };
 
