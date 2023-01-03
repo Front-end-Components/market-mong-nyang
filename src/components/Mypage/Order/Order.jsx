@@ -106,7 +106,7 @@ export default function Order({ item }) {
             display={displayBtn || item.isCanceled || item.done}
             name={'주문 취소'}
             onClick={() => {
-              ModalOkCancel('주문을 취소 하시겠습니까?', '취소', OrderCancel);
+              ModalOkCancel('주문을 취소 하시겠습니까?', '확인', OrderCancel);
             }}
           />
           <Button
