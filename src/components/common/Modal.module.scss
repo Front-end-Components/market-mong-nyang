@@ -1,0 +1,46 @@
+.modal {
+  width: 300px;
+  height: 200px;
+  background-color: $color-white;
+  border: 1px solid $color-purple;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 5px;
+  z-index: 400;
+  .icon {
+    width: 100%;
+    margin-top: 40px;
+    box-sizing: border-box;
+  }
+  .modalText {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+  };
+  .btnwrap {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btnwrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px 10px 20px;
+    gap: 10px;
+  }
+}
+
+.confirm {
+  justify-content: left;
+}

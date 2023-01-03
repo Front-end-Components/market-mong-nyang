@@ -15,15 +15,12 @@ export default function Products({tag1, tag2, category}) {
   const offset = (page - 1) * limit;
   let dispatch = useDispatch();
   
-  // 필터 적용
-  const filterItems = products.filter(item => item.tags === tag1 || item.tags === tag2)
-
   useEffect(() => {
     async function getData() {
       try {
         dispatch(showLoading());
         const data = await getListProductAdmin();
-        setProducts(data);
+        setProducts(data.filter(item => item.tags === tag1 || item.tags === tag2));
         dispatch(hideLoading());
       } catch {
         alert('상품 목록을 조회하지 못했습니다.');
@@ -39,12 +36,12 @@ export default function Products({tag1, tag2, category}) {
       <div className={style.container}>
         <ProductHeader name={category} isMedium={false} />
         <div className={style.row}>
-          {filterItems.slice(offset, offset + limit).map((products) => {
+          {products.slice(offset, offset + limit).map((products) => {
               return <Product key={products.id} products={products} />
             })}
         </div>
-        {Array.isArray(filterItems) ? (
-          <Pagination total={filterItems.length} limit={limit} page={page} setPage={setPage} />
+        {Array.isArray(products) ? (
+          <Pagination total={products.length} limit={limit} page={page} setPage={setPage} />
         ) : null}
       </div>
     </div>

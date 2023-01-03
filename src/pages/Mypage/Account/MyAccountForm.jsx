@@ -1,38 +1,20 @@
 import React, { useState } from 'react';
-import { hideLoading, showLoading } from '@/store/loadingSlice';
-import { useDispatch } from 'react-redux';
-import { insertAccount } from '@/api/requests';
 import style from './MyAccountForm.module.scss';
 import { GrClose } from 'react-icons/gr';
 
-export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccountData }) {
-  const dispatch = useDispatch();
+export default function MyAccountForm({ banks, setAccoutForm, getAccountData, enrollAccount }) {
   const [bankCode, setBankCode] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
   // 계좌 추가
   async function postData(body) {
-    try {
-      dispatch(showLoading());  // 로딩
-      const data = await insertAccount(body);
-      setBanks(data);
-      alert("계좌가 등록됐습니다.");
-      setAccoutForm(false);
-      // 초기화
-      setBankCode('');
-      setAccountNumber('');
-      setPhoneNumber('');
-      getAccountData();
-    } catch {
-      alert("계좌 등록이 실패했습니다.");
-      // 초기화
-      setBankCode('');
-      setAccountNumber('');
-      setPhoneNumber('');
-    } finally {
-      dispatch(hideLoading());  // 로딩
-    }
+    await enrollAccount(body);
+    // 초기화
+    setBankCode('');
+    setAccountNumber('');
+    setPhoneNumber('');
+    getAccountData();
   }
 
   const bankCodeHandle = (e) => {
@@ -77,16 +59,16 @@ export default function MyAccountForm({ banks, setBanks, setAccoutForm, getAccou
         <ul>
           {banks.map((item, idx) => (
             (item.disabled === false) ?
-              <li item={item.code} key={idx}>
+              <li key={idx}>
                 <input type="radio" name='bankChoice' onChange={() => {setBankCode(item.code)}} id={item.code} />
-                <label for={item.code}><span></span>{item.name}</label>
+                <label htmlFor={item.code}><span></span>{item.name}</label>
                 <p>[{item.digits}]</p>
               </li> : null
           ))}
         </ul>
         <div className={style.textForm}>
           <span>은행 코드</span>
-          <input type="text" placeholder="연결할 은행 코드를 입력해주세요." bankCode={bankCode} value={bankCode}
+          <input type="text" placeholder="연결할 은행 코드를 입력해주세요." value={bankCode}
             onChange={(e) => bankCodeHandle(e)}
           />
         </div>

@@ -5,6 +5,7 @@ import { getListOrder } from '@/api/requests';
 import Order from '@/components/Mypage/Order/Order';
 import { GrPowerReset } from 'react-icons/gr';
 import DatePicker from 'react-multi-date-picker';
+import InputIcon from "react-multi-date-picker/components/input_icon"
 import { formatDate } from '@/utils/formats';
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '@/store/loadingSlice';
@@ -43,13 +44,13 @@ export default function MyOrder() {
       }
     }
     getData();
-  }, []);
+  }, [page]);
 
-  const CustomInput = ({ value, onClick }) => (
-    <button className={style.customInput} onClick={onClick}>
-      {value ? value : `거래일자 선택`}
-    </button>
-  );
+  useEffect(() => {
+    if (date === '') {
+      handleSearch();
+    }
+  }, [date]);
 
   const handleSearch = (newDate) => {
     const selectDate = newDate ? formatDate(newDate) : date ? formatDate(date) : '';
@@ -65,7 +66,7 @@ export default function MyOrder() {
   search.sort((a, b) => new Date(b.timePaid) - new Date(a.timePaid));
 
   let countArray = [];
-  search.map((item, i) => {
+  search.map((item) => {
     if (
       countArray.find((object) => {
         if (
@@ -96,23 +97,18 @@ export default function MyOrder() {
     setDate('');
   };
 
-  useEffect(() => {
-    if (date === '') {
-      handleSearch();
-    }
-  }, [date]);
+
 
   return (
     <div className={style.myOrder}>
       <MypageHeader name={'주문 내역'} />
-      {modal ? <Modal modal={modal} setModal={setModal} modalText={modalText} /> : null}
+      {modal ? <Modal modalText={modalText} /> : null}
       <div className={style.datePickerWrap}>
         <DatePicker
-          className="purple"
-          selected={date}
+          className='purple'
+          value={date}
           onChange={handleDatePicker}
-          dateFormat="yyyy.MM.dd"
-          customInput={<CustomInput />}
+          render={<InputIcon />}
         />
       </div>
       <button className={style.searchReset} onClick={handleReset}>

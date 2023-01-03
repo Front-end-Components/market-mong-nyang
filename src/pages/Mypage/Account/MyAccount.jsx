@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import MypageHeader from '@/components/Mypage/MypageHeader';
 import Account from '@/components/Mypage/Account/Account';
 import MyAccountForm from './MyAccountForm';
-import { getListBank, getListAccount } from '@/api/requests';
+import { getListBank, getListAccount, insertAccount } from '@/api/requests';
 import { formatPrice } from '@/utils/formats';
 import style from './MyAccount.module.scss';
 import classNames from 'classnames/bind';
@@ -51,6 +51,24 @@ export default function MyAccount() {
     }
   }
 
+  // 등록 가능한 은행 조회
+  async function enrollAccount(body) {
+    try {
+      dispatch(showLoading());  // 로딩
+      await insertAccount(body);
+      const data = await getListBank();
+      setBanks(data);
+      setModal(true);
+      setModalText('계좌가 등록됐습니다.');
+      setAccoutForm(false);
+    } catch {
+      setModal(true);
+      setModalText('계좌 등록이 실패했습니다.');
+    } finally {
+      dispatch(hideLoading());  // 로딩
+    }
+  }
+
   useEffect(() => {
     // 등록된 계좌 조회
     getAccountData();
@@ -76,6 +94,8 @@ export default function MyAccount() {
               key={idx}
               getAccountData={getAccountData}
               getBankData={getBankData}
+              setModal={setModal}
+              setModalText={setModalText}
             />
           );
         })
@@ -87,7 +107,6 @@ export default function MyAccount() {
       )}
       <button
         onClick={() => {
-          getBankData();
           if (banks.map((item) => item.disabled).find((x) => x === false) === undefined) {
             setModal(true);
             setModalText('등록할 계좌가 없습니다.');
@@ -102,9 +121,9 @@ export default function MyAccount() {
       {accoutForm === true ? (
         <MyAccountForm
           banks={banks}
-          setBanks={setBanks}
           setAccoutForm={setAccoutForm}
           getAccountData={getAccountData}
+          enrollAccount={enrollAccount}
         />
       ) : null}
     </div>
