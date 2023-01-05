@@ -94,7 +94,7 @@ export default function Dashboard() {
         },
         series: [
           {
-            name: '이번 주 거래 금액',
+            name: '거래 금액',
             type: 'bar',
             data: Object.values(sales),
             itemStyle: {
@@ -176,9 +176,8 @@ export default function Dashboard() {
       dateAmount.push(
         orders.filter(
           (item) =>
-            item.timePaid.substr(0, 4) === String(year) &&
-            item.timePaid.substr(5, 2) === String(month) &&
-            item.timePaid.substr(8, 2) === String(today - i)
+            String(new Date(item.timePaid)).substring(0, 15) ===
+            String(new Date(date.setDate(today - i))).substring(0, 15)
         )
       );
     }
