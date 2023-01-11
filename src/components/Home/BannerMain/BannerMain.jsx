@@ -21,7 +21,7 @@ export default function BannerMain() {
         }}
       >
         <SwiperSlide className={style.slide}>
-          <a href="/products-living">
+          <a href="/category/living">
             <img src="/images/main-banner-christmas.jpg" alt="" className={style.image} />
           </a>
         </SwiperSlide>
